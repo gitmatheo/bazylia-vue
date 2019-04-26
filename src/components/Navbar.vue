@@ -20,14 +20,6 @@
           </v-tabs>
         </template>
       </v-toolbar>
-
-      <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in items" :key="item">
-          <!-- <v-card flat>
-          <v-card-text>{{ text }}</v-card-text>
-          </v-card>-->
-        </v-tab-item>
-      </v-tabs-items>
     </div>
 
     <v-navigation-drawer v-model="sideNav" app class="indigo">

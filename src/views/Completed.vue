@@ -17,7 +17,7 @@
               <v-card-text>Data dostawy lub wykonania usługi:</v-card-text>
               <v-divider></v-divider>
               <v-container>
-                <v-radio-group v-model="radioGroup">
+                <v-radio-group>
                   <v-flex row>
                     <v-radio
                       v-for="item in dateOfDelivery"
@@ -30,7 +30,7 @@
 
                 <v-divider></v-divider>
                 <v-card-text>Termin zapłaty:</v-card-text>
-                <v-radio-group v-model="radioGroup">
+                <v-radio-group>
                   <v-radio
                     v-for="item in dateOfPayment"
                     :key="item"
@@ -39,7 +39,7 @@
                   ></v-radio>
                 </v-radio-group>
                 <v-card-text>Sposób zapłaty:</v-card-text>
-                <v-radio-group v-model="radioGroup">
+                <v-radio-group>
                   <v-radio
                     v-for="item in methodOfPayment"
                     :key="item"
