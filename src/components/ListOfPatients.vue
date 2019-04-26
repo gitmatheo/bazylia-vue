@@ -25,8 +25,12 @@
                   :patients="patients[i]"
                   @click="deletePatient"
                 >Rejestruj wizytę</DialogBox>-->
-                <v-btn color="error" class="customBtn" @click="deletePatient(i)">Usuń Pacjenta</v-btn>
-                <!-- <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox> -->
+                <v-btn
+                  color="red"
+                  class="customBtn white--text"
+                  @click="deletePatient(i)"
+                >Usuń Pacjenta</v-btn>
+                <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox>
               </li>
             </ul>
           </v-card>

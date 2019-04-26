@@ -42,7 +42,16 @@ export default new Vuex.Store({
         serviceName: "badanie12",
         invoice: "308/2018"
       }
-    ]
+    ],
+    patientInProgress: {
+      id: 1,
+      company: "Mc Donalds's",
+      name: "Zdzislaw",
+      secondName: "Brzeczyszczykiewicz",
+      pesel: "1223124",
+      serviceName: "badanie1",
+      invoice: "308/2018"
+    }
   },
   getters: {
     getPatients: state => {

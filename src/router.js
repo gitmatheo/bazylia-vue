@@ -39,6 +39,24 @@ export default new Router({
       name: "AddPatient",
       component: () =>
         import(/* webpackChunkName: "add-patient" */ "./views/AddPatient.vue")
+    },
+    {
+      path: "/registration",
+      name: "Registration",
+      component: () =>
+        import(/* webpackChunkName: "registration" */ "./views/Registration.vue")
+    },
+    {
+      path: "/specjalistyka",
+      name: "Specjalistyka",
+      component: () =>
+        import(/* webpackChunkName: "specjalistyka" */ "./views/Specjalistyka.vue")
+    },
+    {
+      path: "/medycyna-pracy",
+      name: "MedycynaPracy",
+      component: () =>
+        import(/* webpackChunkName: "medycyna-pracy" */ "./views/MedycynaPracy.vue")
     }
   ]
 });

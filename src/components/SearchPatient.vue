@@ -21,7 +21,7 @@
           <span>Szukaj</span>
           <v-icon right>search</v-icon>
         </v-btn>
-        <v-btn color="indigo" class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
+        <v-btn color="error" class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
       </v-form>
     </v-flex>
   </v-layout>

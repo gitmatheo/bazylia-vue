@@ -24,22 +24,27 @@ export default {
     deletePatient(index) {
       console.log(index);
       const { name, secondName } = this.patients[index];
-      const confirmation = confirm(
+      const confirmed = confirm(
         `Jesteś pewny/a, że chcesz usunać pacjenta:
          ${name} ${secondName} ?`
       );
-      if (confirmation) {
+      if (confirmed) {
         return this.$delete(this.patients, index);
       }
     },
 
     register(index) {
       const { name, secondName, company, pesel } = this.patients[index];
-      confirm(`Chcesz zarejestrować tego użytkownika ? 
+      const confirmed = confirm(`Chcesz zarejestrować tego użytkownika ? 
       Imię: ${name}
       Nazwisko: ${secondName}
       Firma: ${company}
       PESEL: ${pesel}`);
+
+      if (confirmed) {
+        console.log(this.$router);
+        this.$router.push({ path: "/registration" });
+      }
     }
   }
 };

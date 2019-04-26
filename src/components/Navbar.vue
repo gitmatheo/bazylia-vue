@@ -1,12 +1,15 @@
 <template>
   <nav>
     <div>
-      <v-toolbar color="indigo" dark tabs>
+      <v-toolbar color="error" dark tabs>
         <v-toolbar-title>Bazylia Logo</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-toolbar-side-icon @click="sideNav = !sideNav" class="flex-right"></v-toolbar-side-icon>
+        <v-toolbar-items>
+          <v-btn flat>Zaloguj</v-btn>
+          <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
+        </v-toolbar-items>
         <template v-slot:extension>
-          <v-tabs v-model="tab" color="indigo" grow>
+          <v-tabs v-model="tab" color="error" grow>
             <v-tabs-slider color="white"></v-tabs-slider>
             <v-tab class="menu-link">
               <router-link to="/">Wyszukaj Pacjenta</router-link>
@@ -22,7 +25,7 @@
       </v-toolbar>
     </div>
 
-    <v-navigation-drawer v-model="sideNav" app class="indigo">
+    <v-navigation-drawer v-model="sideNav" app class="danger">
       <v-list>
         <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.route">
           <v-list-tile-action>
