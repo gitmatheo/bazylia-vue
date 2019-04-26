@@ -2,7 +2,9 @@
   <div class="text-xs-center">
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on }">
-        <v-btn :color="color" dark v-on="on">Usuń pacjenta</v-btn>
+        <v-btn :color="color" dark v-on="on">
+          <slot></slot>
+        </v-btn>
       </template>
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>Uwaga!</v-card-title>

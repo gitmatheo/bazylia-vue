@@ -19,10 +19,14 @@
               <li>Firma: {{patient.company}}</li>
               <li>PESEL: {{patient.pesel}}</li>
               <li>
-                <v-btn color="success" @click="register(i)">Rejestruj wizytę</v-btn>
-                <DialogBox color="green" :patients="patients[i]" @click="deletePatient"></DialogBox>
-                <v-btn color="error" @click="deletePatient(i)">Usuń Pacjenta</v-btn>
-                <DialogBox color="red" :patients="patients[i]" @click="deletePatient"></DialogBox>
+                <v-btn color="success" class="customBtn" @click="register(i)">Rejestruj wizytę</v-btn>
+                <!-- <DialogBox
+                  color="green"
+                  :patients="patients[i]"
+                  @click="deletePatient"
+                >Rejestruj wizytę</DialogBox>-->
+                <v-btn color="error" class="customBtn" @click="deletePatient(i)">Usuń Pacjenta</v-btn>
+                <!-- <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox> -->
               </li>
             </ul>
           </v-card>
@@ -44,5 +48,25 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.patient__header {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  li {
+    padding-right: 20px;
+  }
+}
+
+.patient__desc {
+  list-style: none;
+  background: darken(white, 5);
+  padding-top: 2rem;
+  li {
+    padding: 3px 0;
+  }
+}
+.customBtn {
+  margin: 20px 10px 20px 0px;
+}
 </style>

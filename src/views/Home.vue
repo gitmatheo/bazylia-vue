@@ -56,17 +56,4 @@ export default {
     margin: 10px 0 20px 0;
   }
 }
-
-.patient__header {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  li {
-    padding-right: 20px;
-  }
-}
-
-.patient__desc {
-  list-style: none;
-}
 </style>
