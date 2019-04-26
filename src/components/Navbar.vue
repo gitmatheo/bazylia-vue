@@ -1,14 +1,35 @@
 <template>
   <nav>
-    <v-toolbar flat app>
-      <v-toolbar-side-icon @click="sideNav = !sideNav"></v-toolbar-side-icon>
-      <v-toolbar-title class="text-uppercase">
-        <router-link to="/">Wyszukaj Pacjenta</router-link>
-      </v-toolbar-title>
-      <v-toolbar-title class="text-uppercase">
-        <router-link to="/completed">Zrealizowane</router-link>
-      </v-toolbar-title>
-    </v-toolbar>
+    <div>
+      <v-toolbar color="indigo" dark tabs>
+        <v-toolbar-title>Bazylia Logo</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-side-icon @click="sideNav = !sideNav" class="flex-right"></v-toolbar-side-icon>
+        <template v-slot:extension>
+          <v-tabs v-model="tab" color="indigo" grow>
+            <v-tabs-slider color="white"></v-tabs-slider>
+            <v-tab class="menu-link">
+              <router-link to="/">Wyszukaj Pacjenta</router-link>
+            </v-tab>
+            <v-tab class="menu-link">
+              <router-link to="/add-patient">Dodaj Pacjenta</router-link>
+            </v-tab>
+            <v-tab class="menu-link">
+              <router-link to="/completed">Zrealizowane</router-link>
+            </v-tab>
+          </v-tabs>
+        </template>
+      </v-toolbar>
+
+      <v-tabs-items v-model="tab">
+        <v-tab-item v-for="item in items" :key="item">
+          <!-- <v-card flat>
+          <v-card-text>{{ text }}</v-card-text>
+          </v-card>-->
+        </v-tab-item>
+      </v-tabs-items>
+    </div>
+
     <v-navigation-drawer v-model="sideNav" app class="indigo">
       <v-list>
         <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.route">
@@ -33,7 +54,10 @@ export default {
         { icon: "home", title: "Wyszukaj Pacjenta", route: "/" },
         { icon: "done", title: "Zrealizowane", route: "/completed" },
         { icon: "library_books", title: "Raporty", route: "/raports" }
-      ]
+      ],
+      tab: null,
+      text:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     };
   }
 };
@@ -42,6 +66,13 @@ export default {
 <style>
 a {
   text-decoration: none;
-  color: #333;
+  color: white;
+}
+.menu-link a {
+  color: white;
+  font-size: 1.3rem;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
 }
 </style>
