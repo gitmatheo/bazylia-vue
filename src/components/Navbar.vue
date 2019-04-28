@@ -2,7 +2,9 @@
   <nav>
     <div>
       <v-toolbar color="error" dark tabs>
-        <v-toolbar-title>Bazylia Logo</v-toolbar-title>
+        <v-toolbar-title class="menu-link">
+          <router-link to="/">Bazylia Logo</router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn flat>Zaloguj</v-btn>
@@ -25,7 +27,7 @@
       </v-toolbar>
     </div>
 
-    <v-navigation-drawer v-model="sideNav" app class="danger">
+    <v-navigation-drawer v-model="sideNav" app class="error">
       <v-list>
         <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.route">
           <v-list-tile-action>

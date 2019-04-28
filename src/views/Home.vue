@@ -8,6 +8,7 @@
 <script>
 import SearchPatient from "../components/SearchPatient";
 import ListOfPatients from "../components/ListOfPatients";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -18,6 +19,10 @@ export default {
     patients: []
   }),
   methods: {
+    ...mapMutations(["SET_PATIENT_FOR_REGISTRATION"]),
+    setPatientForReg(patientForReg) {
+      this.SET_PATIENT_FOR_REGISTRATION(patientForReg);
+    },
     getPatients() {
       this.patients = this.$store.getters.getPatients;
     },
@@ -34,15 +39,32 @@ export default {
     },
 
     register(index) {
-      const { name, secondName, company, pesel } = this.patients[index];
-      const confirmed = confirm(`Chcesz zarejestrować tego użytkownika ? 
+      const {
+        id,
+        company,
+        name,
+        secondName,
+        pesel,
+        serviceName,
+        invoice
+      } = this.patients[index];
+      const patientForReg = {
+        id,
+        company,
+        name,
+        secondName,
+        pesel,
+        serviceName,
+        invoice
+      };
+      this.setPatientForReg(patientForReg);
+      const confirmed = confirm(`Chcesz zarejestrować tego użytkownika ?
       Imię: ${name}
       Nazwisko: ${secondName}
       Firma: ${company}
       PESEL: ${pesel}`);
 
       if (confirmed) {
-        console.log(this.$router);
         this.$router.push({ path: "/registration" });
       }
     }

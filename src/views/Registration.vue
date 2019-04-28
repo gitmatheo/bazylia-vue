@@ -5,10 +5,10 @@
         <v-card>
           <v-card-text class="display-1 px-0">Rejestracja Pacjenta</v-card-text>
           <ul class="patient-list">
-            <li>Imię: Jan</li>
-            <li>Nazwisko: Kowalski</li>
-            <li>Firma: SuperCoolSoftware</li>
-            <li>PESEL: 88283812384</li>
+            <li>Imię: {{patientForReg.name}}</li>
+            <li>Nazwisko: {{patientForReg.secondName}}</li>
+            <li>Firma: {{patientForReg.company}}</li>
+            <li>PESEL: {{patientForReg.pesel}}</li>
           </ul>
         </v-card>
         <v-card>
@@ -32,13 +32,22 @@
 </template>
 
 <script>
+// import { mapState } from "vuex";
 export default {
-  data() {
-    return {};
-  },
+  data: () => ({
+    patientForReg: {}
+  }),
   methods: {
-    redirectTo(path) {}
+    showPatientForReg2() {}
+  },
+  mounted: function() {
+    this.patientForReg = this.$store.getters.getPatientForReg;
   }
+  // showPatientForReg() {
+  //   console.log("hii mounted");
+  //   console.log(this.$store.getters.getPatientForReg);
+  //   this.patientForReg = this.$store.getters.getPatientForReg;
+  // }
 };
 </script>
 
