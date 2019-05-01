@@ -3,7 +3,7 @@
     <v-flex xs12 class="search-form white" mt-5 elevation-5>
       <h2>Lista pacjentów</h2>
       <v-expansion-panel my-2>
-        <v-expansion-panel-content v-for="(patient,i) in patients" :key="i">
+        <v-expansion-panel-content v-for="(patient,i) in filteredPatients" :key="i">
           <template v-slot:header>
             <ul class="patient__header">
               <li>{{patient.name}}</li>
@@ -30,7 +30,7 @@
                   class="customBtn white--text"
                   @click="deletePatient(i)"
                 >Usuń Pacjenta</v-btn>
-                <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox>
+                <!-- <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox> -->
               </li>
             </ul>
           </v-card>
@@ -41,12 +41,12 @@
 </template>
 
 <script>
-import DialogBox from "../components/DialogBox";
+// import DialogBox from "../components/DialogBox";
 export default {
   components: {
-    DialogBox
+    // DialogBox
   },
-  props: ["patients", "deletePatient", "register"],
+  props: ["patients", "deletePatient", "register", "filteredPatients"],
   data: () => ({}),
   methods: {}
 };

@@ -7,17 +7,28 @@
         <v-container>
           <v-layout>
             <v-flex xs12 md4>
-              <v-text-field v-model="name" label="Imię" required></v-text-field>
+              <v-text-field v-model="name" @change.stop="getPatients" label="Imię" required></v-text-field>
             </v-flex>
             <v-flex xs12 md4>
-              <v-text-field v-model="secondName" label="Nazwisko" required></v-text-field>
+              <v-text-field
+                v-model="secondName"
+                @change="getFilteredPatients"
+                label="Nazwisko"
+                required
+              ></v-text-field>
             </v-flex>
             <v-flex xs12 md4>
-              <v-text-field v-model="pesel" :rules="peselRules" label="PESEL" required></v-text-field>
+              <v-text-field
+                v-model="pesel"
+                :rules="peselRules"
+                @change="getFilteredPatients"
+                label="PESEL"
+                required
+              ></v-text-field>
             </v-flex>
           </v-layout>
         </v-container>
-        <v-btn :disabled="!valid" color="success" @click="submit">
+        <v-btn :disabled="!valid" color="success">
           <span>Szukaj</span>
           <v-icon right>search</v-icon>
         </v-btn>
@@ -29,12 +40,9 @@
 
 <script>
 export default {
-  props: ["getPatients"],
+  props: ["getPatients", "name", "secondName", "pesel", "getFilteredPatients"],
   data: () => ({
     valid: true,
-    name: "",
-    secondName: "",
-    pesel: null,
     peselRules: [
       v => (v && v.length == 11) || "PESEL powinien składać się z 11 cyfr"
     ]

@@ -19,18 +19,14 @@
               <li>Firma: {{company.company}}</li>
               <li>PESEL: {{company.pesel}}</li>
               <li>
-                <v-btn color="success" class="customBtn" @click="register(i)">Rejestruj wizytę</v-btn>
+                <v-btn color="success" class="customBtn">Rejestruj wizytę</v-btn>
                 <!-- <DialogBox
                   color="green"
                   :patients="patients[i]"
                   @click="deletePatient"
                 >Rejestruj wizytę</DialogBox>-->
-                <v-btn
-                  color="red"
-                  class="customBtn white--text"
-                  @click="deletePatient(i)"
-                >Usuń Pacjenta</v-btn>
-                <DialogBox color="red" :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DialogBox>
+                <v-btn color="red" class="customBtn white--text">Usuń Pacjenta</v-btn>
+                <DialogBox color="red">Usuń Pacjenta</DialogBox>
               </li>
             </ul>
           </v-card>
@@ -46,7 +42,7 @@ export default {
   components: {
     DialogBox
   },
-  props: ["patients", "deletePatient", "register"],
+  props: ["companies"],
   data: () => ({
     companies: []
   }),
