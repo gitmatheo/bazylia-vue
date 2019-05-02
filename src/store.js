@@ -121,9 +121,22 @@ export default new Vuex.Store({
       return state.companies;
     }
   },
+
   mutations: {
-    SET_PATIENT_FOR_REGISTRATION: (state, patient) => {
+    UPDATE_PATIENT_FOR_REGISTRATION: (state, patient) => {
       state.patientForReg = patient;
+    },
+    ADD_COMPANY: (state, company) => {
+      let newCompany = {
+        name: company.name,
+        street: company.street,
+        city: company.city,
+        zipCode: company.zipCode,
+        NIP: company.NIP,
+        REGON: company.REGON,
+        ryczalt: company.ryczalt
+      };
+      state.companies.push(newCompany);
     }
   },
   actions: {}

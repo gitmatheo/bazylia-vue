@@ -1,10 +1,9 @@
 <template>
-
  <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs12>
-<FormTypeOfService v-if="currentStepNumber === 1">
-    <FormChooseService v-if="currentStepNumber === 2">
+        <FormTypeOfService v-if="currentStepNumber === 1">
+        <FormChooseService v-if="currentStepNumber === 2">
         <FormDatePicker v-if="currentStepNumber === 3">
       </v-flex>
     </v-layout>
@@ -27,13 +26,13 @@ export default {
       currentStepNumber: 1,
       length: 4,
       patientForReg: {
-        id: null,
-        company: "",
-        name: "",
-        secondName: "",
-        pesel: "",
-        serviceName: "",
-        invoice: ""
+        // id: null,
+        // company: "",
+        // name: "",
+        // secondName: "",
+        // pesel: "",
+        // serviceName: "",
+        // invoice: ""
       }
     };
   },

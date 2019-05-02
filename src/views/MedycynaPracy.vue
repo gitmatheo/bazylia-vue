@@ -25,6 +25,7 @@ import FormTypeOfService from "../components/FormTypeOfService";
 import FormCompany from "../components/FormCompany";
 import FormDatePicker from "../components/FormDatePicker";
 import FormSummary from "../components/FormSummary";
+const uuidv1 = require("uuid/v1");
 
 export default {
   components: {
@@ -38,12 +39,12 @@ export default {
       currentStepNumber: 1,
       length: 4,
       patientForReg: {
-        id: null,
-        name: "",
-        secondName: "",
-        pesel: "",
-        serviceName: "",
-        invoice: ""
+        id: uuidv1()
+        // name: "",
+        // secondName: "",
+        // pesel: "",
+        // serviceName: "",
+        // invoice: ""
       }
     };
   },

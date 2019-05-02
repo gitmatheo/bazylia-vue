@@ -37,9 +37,6 @@ export default {
   data: () => ({
     patientForReg: {}
   }),
-  methods: {
-    showPatientForReg2() {}
-  },
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg;
   }

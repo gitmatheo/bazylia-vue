@@ -72,9 +72,9 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["SET_PATIENT_FOR_REGISTRATION"]),
+    ...mapMutations(["UPDATE_PATIENT_FOR_REGISTRATION"]),
     setPatientForReg(patientForReg) {
-      this.SET_PATIENT_FOR_REGISTRATION(patientForReg);
+      this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg);
     },
     getFilteresPatients() {
       this.patients = this.$store.getters.getPatients;
@@ -86,7 +86,6 @@ export default {
       this.patients = this.$store.getters.getPatients;
     },
     getFilteredPatients() {
-      console.log("Eelo");
       this.patients = this.$store.getters.getPatients.filter(patient => {
         return patient.name.match(this.name);
       });
@@ -123,7 +122,7 @@ export default {
         invoice
       };
       this.setPatientForReg(patientForReg);
-      const confirmed = confirm(`Chcesz zarejestrować tego użytkownika ?
+      const confirmed = confirm(`Chcesz zarejestrować tego pacjenta ?
       Imię: ${name}
       Nazwisko: ${secondName}
       Firma: ${company}
