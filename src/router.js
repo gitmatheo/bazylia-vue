@@ -6,6 +6,7 @@ import Home from "./views/Home.vue";
 // import Invoice from "./views/Invoice.vue";
 
 Vue.use(Router);
+Vue.use(require('vue-moment'));
 
 export default new Router({
   mode: "history",

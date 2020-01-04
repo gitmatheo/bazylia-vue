@@ -6,28 +6,34 @@
       <v-flex xs6>
         <h2>Pacjent</h2>
         <ul class="patient-list">
-          <li>Imię: {{patientForReg.name}}</li>
-          <li>Nazwisko: {{patientForReg.secondName}}</li>
-          <li>PESEL: {{patientForReg.pesel}}</li>
+          <li>Imię: {{wizyta.pacjent.imie}}</li>
+          <li>Nazwisko: {{wizyta.pacjent.nazwisko}}</li>
+          <li>PESEL: {{wizyta.pacjent.pesel}}</li>
         </ul>
       </v-flex>
       <v-flex xs6 sm6>
         <h2>Firma</h2>
         <ul>
-          <li>Nazwa: {{patientForReg.company.name}}</li>
-          <li>Ulica: {{patientForReg.company.street}}</li>
-          <li>Miasto: {{patientForReg.company.city}}</li>
-          <li>Kod-pocztowy: {{patientForReg.company.postCode}}</li>
-          <li>REGON: {{patientForReg.company.REGON}}</li>
-          <li>NIP: {{patientForReg.company.NIP}}</li>
-          <li>Ryczałt: {{patientForReg.company.ryczalt}}</li>
+          <li>Nazwa: {{wizyta.pacjent.firma.nazwa}}</li>
+          <li>Ulica: {{wizyta.pacjent.firma.ulica}}</li>
+          <li>Miasto: {{wizyta.pacjent.firma.miasto}}</li>
+          <li>Kod-pocztowy: {{wizyta.pacjent.firma.kodPocztowy}}</li>
+          <li>REGON: {{wizyta.pacjent.firma.regon}}</li>
+          <li>Ryczałt: {{wizyta.pacjent.firma.ryczalt}}</li>
+        </ul>
+      </v-flex>
+      <v-flex xs12>
+        <h2>Usługa</h2>
+        <ul>
+          <li>Nazwa usługi: {{wizyta.usluga.nazwa}}</li>
+          <li>Cena: {{wizyta.usluga.cenaZwykla}}</li>
         </ul>
       </v-flex>
       <v-flex xs12>
         <h2>Godzina i data wizyty</h2>
         <ul>
-          <li>Data: {{patientForReg.date}}</li>
-          <li>Godzina: {{patientForReg.time}}</li>
+          <li>Data: {{date | moment("MM-DD-YYYY")}}</li>
+          <li>Godzina: {{date | moment("HH:mm")}}</li>
         </ul>
       </v-flex>
     </v-layout>
@@ -37,11 +43,20 @@
 <script>
 export default {
   data: () => ({
-    patientForReg: {}
+    wizyta: {},
+    date: '',
   }),
   mounted: function() {
-    this.patientForReg = this.$store.getters.getPatientForReg;
-    console.log(this.patientForReg);
+    this.wizyta = this.$store.getters.getWizyta;
+    this.date = new Date(this.wizyta.dataWizyty);
+  },
+  computed: {
+    // data() {
+    //   return this.date.getDate();
+    // },
+    // godzina() {
+    //   return  this.moment.format('YYYY MM DD');
+    // }
   }
 };
 </script>

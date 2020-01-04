@@ -4,7 +4,7 @@
     <h3>Wybierz typ badań</h3>
     <v-layout row wrap justify-center>
       <v-flex xs12>
-        <v-radio-group row justify-center v-model="typeOfService" @click="select(typeOfService)">
+        <v-radio-group row justify-center v-model="rodzajBadan" @click="select(rodzajBadan)">
           <v-radio label="Wstępne" color="error" value="wstępne" checked></v-radio>
           <v-radio label="Okresowe" color="error" value="okresowe"></v-radio>
           <v-radio
@@ -12,28 +12,37 @@
             color="error"
             value="sanitarno-epidemiologiczne"
           ></v-radio>
+          <v-radio label="Kontrolne" color="error" value="kontrolne"></v-radio>
         </v-radio-group>
-        <span>Wybrano: {{typeOfService}}</span>
+        <span>Wybrano: {{rodzajBadan}}</span>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      typeOfService: null,
-      selectedTypeOfService: null
+      rodzajBadan: null,
+      wybranaWizyta: null
     };
   },
   methods: {
-    select(typeOfService) {
-      this.selectedTypeOfService = typeOfService;
+    ...mapMutations(["UPDATE_RODZAJ_BADAN"]),
+    updateRodzajBadan(rodzajBadan) {
+      console.log("Rodzaj badan")
+      console.log(rodzajBadan);
+      this.UPDATE_RODZAJ_BADAN(rodzajBadan);
+    },
+    select(rodzajBadan) {
+      this.updateRodzajBadan(rodzajBadan);
 
-      this.$emit("update", {
-        typeOfService: this.selectedTypeOfService
-      });
+      // this.wybranaWizyta = rodzajBadan;
+      // this.$emit("update", {
+      //   rodzajBadan: this.wybranaWizyta
+      // });
     }
   }
 };

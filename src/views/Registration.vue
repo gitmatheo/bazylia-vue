@@ -5,10 +5,9 @@
         <v-card>
           <v-card-text class="display-1 px-0">Rejestracja Pacjenta</v-card-text>
           <ul class="patient-list">
-            <li>Imię: {{patientForReg.name}}</li>
-            <li>Nazwisko: {{patientForReg.secondName}}</li>
-            <li>Firma: {{patientForReg.company}}</li>
-            <li>PESEL: {{patientForReg.pesel}}</li>
+            <li>Imię: {{pacjent.imie}}</li>
+            <li>Nazwisko: {{pacjent.nazwisko}}</li>
+            <li>PESEL: {{pacjent.pesel}}</li>
           </ul>
         </v-card>
         <v-card>
@@ -35,10 +34,10 @@
 // import { mapState } from "vuex";
 export default {
   data: () => ({
-    patientForReg: {}
+    pacjent: {}
   }),
   mounted: function() {
-    this.patientForReg = this.$store.getters.getPatientForReg;
+    this.pacjent = this.$store.getters.getWizyta.pacjent;
   }
   // showPatientForReg() {
   //   console.log("hii mounted");

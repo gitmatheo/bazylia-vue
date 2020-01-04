@@ -6,18 +6,18 @@
         <v-expansion-panel-content v-for="(patient,i) in filteredPatients" :key="i">
           <template v-slot:header>
             <ul class="patient__header">
-              <li>{{patient.name}}</li>
-              <li>{{patient.secondName}}</li>
+              <li>{{patient.imie}}</li>
+              <li>{{patient.nazwisko}}</li>
               <li>PESEL: {{patient.pesel}}</li>
-              <li>{{patient.company}}</li>
+              <!-- <li>{{patient.company}}</li> -->
             </ul>
           </template>
           <v-card>
             <ul ref="patient" class="patient__desc">
-              <li>Imię: {{patient.name}}</li>
-              <li>Nazwisko: {{patient.secondName}}</li>
+              <li>Imię: {{patient.imie}}</li>
+              <li>Nazwisko: {{patient.nazwisko}}</li>
               <li>Firma: {{patient.company}}</li>
-              <li>PESEL: {{patient.pesel}}</li>
+              <!-- <li>PESEL: {{patient.pesel}}</li> -->
               <li>
                 <v-btn color="success" class="customBtn" @click="register(i)">Rejestruj wizytę</v-btn>
                 <!-- <DialogBox

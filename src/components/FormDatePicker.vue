@@ -23,7 +23,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="date" @input="menu2 = false" :min="nowDate"></v-date-picker>
         </v-menu>
       </v-flex>
 
@@ -77,6 +77,7 @@
 import { mapMutations } from "vuex";
 export default {
   data: () => ({
+    nowDate: new Date().toISOString().substr(0, 10),
     date: new Date().toISOString().substr(0, 10),
     menu: false,
     modal: false,
@@ -86,24 +87,26 @@ export default {
     modal2: false,
     landscape: true,
     reactive: false,
-    patientForReg: {}
+    wizyta: {}
   }),
   mounted: function() {
-    this.patientForReg = this.$store.getters.getPatientForReg;
-    console.log("FormDatePicker - MOUNTED");
-    console.log(this.patientForReg);
+    this.wizyta = this.$store.getters.getWizyta;
   },
   updated: function() {
-    this.patientForReg.date = this.date;
-    this.patientForReg.time = this.time;
-    this.addDateAndTime(this.patientForReg);
-    console.log("FormDatePicker - UPDATED");
-    console.log(this.patientForReg);
+
+    let timeString = this.time + ':00';
+    let dataWizyty = new Date(this.date + ' ' + timeString).toISOString();
+    this.wizyta.dataWizyty = dataWizyty
+  
+    console.log("Data Wizyty")
+    console.log(dataWizyty);
+
+    this.addDateAndTime(dataWizyty);
   },
   methods: {
-    ...mapMutations(["UPDATE_PATIENT_FOR_REGISTRATION"]),
-    addDateAndTime(patientForReg) {
-      this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg);
+    ...mapMutations(["UPDATE_DATE_AND_TIME"]),
+    addDateAndTime(dataWizyty) {
+      this.UPDATE_DATE_AND_TIME(dataWizyty);
     }
   }
 };

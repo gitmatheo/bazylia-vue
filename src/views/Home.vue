@@ -18,7 +18,6 @@
               <v-flex xs12 md4>
                 <v-text-field
                   v-model="pesel"
-                  :rules="peselRules"
                   @change="getFilteresPatients"
                   label="PESEL"
                 ></v-text-field>
@@ -46,6 +45,7 @@
 // import SearchPatient from "../components/SearchPatient";
 import ListOfPatients from "../components/ListOfPatients";
 import { mapMutations } from "vuex";
+import axios from 'axios';
 
 export default {
   components: {
@@ -53,7 +53,32 @@ export default {
     ListOfPatients
   },
   data: () => ({
-    patients: [],
+    patients: [
+      {
+        pacjentId: "ca798f3c-fd0c-4e59-a675-170de7a03290",
+        imie: "Bogdan",
+        nazwisko: "Brzęczyszczykiewicz",
+        pesel: "56121202345",
+        numerKarty: "12345",
+        ulica: "Bogdanowa 234/4",
+        miasto: "Warszawa",
+        kodPocztowy: "00.020",
+        numerTelefonu: "756345746",
+        nip: "723-34-567-65",
+        firma: {
+          firmaId: "9aba4d00-d551-4dfe-9df0-551e8312a7d3",
+          nazwa: "Mc Donald's",
+          ulica: "Armii Krajowej 123",
+          miasto: "Zgierz",
+          kodPocztowy: "95-100",
+          regon: "15002900",
+          umowa: true,
+          rabat: 0,
+      },
+      stanowisko: "pracownik biurowy",
+      dataOrzeczenia: null
+      }
+    ],
     valid: false,
     name: "",
     secondName: "",
@@ -63,8 +88,8 @@ export default {
     filteredPatients: function() {
       return this.patients.filter(patient => {
         return (
-          patient.name.match(this.name) &&
-          patient.secondName.match(this.secondName) &&
+          patient.imie.match(this.name) &&
+          patient.nazwisko.match(this.nazwisko) &&
           patient.pesel.match(this.pesel)
         );
       });
@@ -72,7 +97,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(["UPDATE_PATIENT_FOR_REGISTRATION"]),
+    ...mapMutations(["UPDATE_PATIENT_FOR_REGISTRATION", "GET_ALL_PATIENTS_FROM_DB"]),
     setPatientForReg(patientForReg) {
       this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg);
     },
@@ -83,7 +108,22 @@ export default {
       this.name = "";
       this.secondName = "";
       this.pesel = "";
-      this.patients = this.$store.getters.getPatients;
+
+      axios.get("http://85.89.178.154:8080/pacjenci", {
+        params: {
+          pageNumber: 1,
+          pageSize: 50,
+          order: "ASC"
+        }
+      })
+      .then( (response) => {
+          this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data);
+          this.patients = this.$store.getters.getPatients;
+        })
+      .catch(function (error) {
+          console.log(error);
+        });
+
     },
     getFilteredPatients() {
       this.patients = this.$store.getters.getPatients.filter(patient => {
@@ -92,40 +132,58 @@ export default {
     },
     deletePatient(index) {
       console.log(index);
-      const { name, secondName } = this.patients[index];
+      const { imie, nazwisko } = this.patients[index];
       const confirmed = confirm(
         `Jesteś pewny/a, że chcesz usunać pacjenta:
-         ${name} ${secondName} ?`
+         ${imie} ${nazwisko} ?`
       );
       if (confirmed) {
+        //  async () => {
+        //   const response = await axios.delete(`http://85.89.178.154:8080/pacjenci/${pacjentId}`)
+        //   const data = await response.json();
+
+        // }
+        const pacjentId = this.patients[index].pacjentId;
+        axios.delete(`http://85.89.178.154:8080/pacjenci/${pacjentId}`)
         return this.$delete(this.patients, index);
       }
     },
 
     register(index) {
       const {
-        id,
-        company,
-        name,
-        secondName,
+        pacjentId,
+        imie,
+        nazwisko,
         pesel,
-        serviceName,
-        invoice
+        numerKarty,
+        ulica,
+        miasto,
+        kodPocztowy,
+        numerTelefonu,
+        nip,
+        firma,
+        stanowisko,
+        dataOrzeczenia,
       } = this.patients[index];
       const patientForReg = {
-        id,
-        company,
-        name,
-        secondName,
+        pacjentId,
+        imie,
+        nazwisko,
         pesel,
-        serviceName,
-        invoice
+        numerKarty,
+        ulica,
+        miasto,
+        kodPocztowy,
+        numerTelefonu,
+        nip,
+        firma,
+        stanowisko,
+        dataOrzeczenia,
       };
       this.setPatientForReg(patientForReg);
       const confirmed = confirm(`Chcesz zarejestrować tego pacjenta ?
-      Imię: ${name}
-      Nazwisko: ${secondName}
-      Firma: ${company}
+      Imię: ${imie}
+      Nazwisko: ${nazwisko}
       PESEL: ${pesel}`);
 
       if (confirmed) {

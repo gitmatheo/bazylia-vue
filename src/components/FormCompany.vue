@@ -15,31 +15,31 @@
         <ul class="company-desc">
           <li>
             Nazwa:
-            <span class="font-weight-medium font-italic">{{company.name}}</span>
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.nazwa}}</span>
           </li>
           <li>
             Ulica:
-            <span class="font-weight-medium font-italic">{{company.street}}</span>
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.ulica}}</span>
           </li>
           <li>
             Miasto:
-            <span class="font-weight-medium font-italic">{{company.city}}</span>
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.miasto}}</span>
           </li>
           <li>
             Kod-Pocztowy:
-            <span class="font-weight-medium font-italic">{{company.postCode}}</span>
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.kodPocztowy}}</span>
           </li>
           <li>
-            NIP:
-            <span class="font-weight-medium font-italic">{{company.NIP}}</span>
-          </li>
-          <li>
-            REGON:
-            <span class="font-weight-medium font-italic">{{company.REGON}}</span>
+            Regon:
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.regon}}</span>
           </li>
           <li>
             Ryczałt:
-            <span class="font-weight-medium font-italic">{{company.ryczalt}}</span>
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.ryczalt}}</span>
+          </li>
+           <li>
+            Rabat:
+            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.rabat}}</span>
           </li>
         </ul>
       </v-flex>
@@ -57,10 +57,7 @@
                     <v-text-field v-model="nameSearch" label="Nazwa Firmy"></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-text-field v-model="NIPSearch" label="NIP"></v-text-field>
-                  </v-flex>
-                  <v-flex xs3>
-                    <v-text-field v-model="REGONSearch" label="REGON"></v-text-field>
+                    <v-text-field v-model="REGONSearch" label="regon"></v-text-field>
                   </v-flex>
                   <v-flex xs3>
                     <v-btn :disabled="!valid" color="info">
@@ -73,24 +70,23 @@
             </v-form>
 
             <v-expansion-panel my-2>
-              <v-expansion-panel-content v-for="(company,i) in filteredCompanies" :key="i">
+              <v-expansion-panel-content v-for="(firma,i) in companies" :key="i">
                 <template v-slot:header>
                   <ul class="patient__header">
-                    <li>{{company.name}}</li>
-                    <li>{{company.street}}</li>
-                    <li>NIP: {{company.NIP}}</li>
-                    <li>REGON: {{company.REGON}}</li>
+                    <li>{{firma.nazwa}}</li>
+                    <li>{{firma.ulica}}</li>
+                    <li>regon: {{firma.regon}}</li>
                   </ul>
                 </template>
                 <v-card>
                   <ul ref="patient" class="patient__desc">
-                    <li>Nazwa: {{company.name}}</li>
-                    <li>Ulica: {{company.street}}</li>
-                    <li>Miasto: {{company.city}}</li>
-                    <li>Kod-pocztowy: {{company.postCode}}</li>
-                    <li>REGON: {{company.REGON}}</li>
-                    <li>NIP: {{company.NIP}}</li>
-                    <li>Ryczałt: {{company.ryczalt}}</li>
+                    <li>Nazwa: {{firma.nazwa}}</li>
+                    <li>Ulica: {{firma.ulica}}</li>
+                    <li>Miasto: {{firma.miasto}}</li>
+                    <li>Kod-pocztowy: {{firma.kodPocztowy}}</li>
+                    <li>Regon: {{firma.regon}}</li>
+                    <li>Rabat: {{firma.rabat}}</li>
+                    <li>Ryczałt: {{firma.ryczalt}}</li>
                     <li>
                       <v-btn
                         color="success"
@@ -110,32 +106,36 @@
             <h2 class="headline">Dodaj Firmę</h2>
             <v-layout wrap flex>
               <v-flex xs12 md6>
-                <v-text-field label="Nazwa Firmy" v-model="searchCompany.name"></v-text-field>
+                <v-text-field label="Nazwa Firmy" v-model="companyToAdd.nazwa"></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Ulica" v-model="searchCompany.street"></v-text-field>
+                <v-text-field label="Ulica" v-model="companyToAdd.ulica"></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Miasto" v-model="searchCompany.city"></v-text-field>
+                <v-text-field label="Miasto" v-model="companyToAdd.miasto"></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Kod-Pocztowy" v-model="searchCompany.zipCode"></v-text-field>
+                <v-text-field label="Kod-Pocztowy" v-model="companyToAdd.kodPocztowy"></v-text-field>
               </v-flex>
 
               <v-flex xs12 md6>
-                <v-text-field label="Regon" type="number" v-model="searchCompany.REGON"></v-text-field>
-              </v-flex>
-              <v-flex xs12 md6>
-                <v-text-field label="NIP" type="number" v-model="searchCompany.NIP"></v-text-field>
+                <v-text-field label="regon" type="number" v-model="companyToAdd.regon"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-select :items="['TAK', 'NIE']" label="Ryczałt" v-model="searchCompany.ryczalt"></v-select>
+                <v-text-field label="rabat" type="number" v-model="companyToAdd.rabat"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-btn color="success" @click.native="addNewCompany(searchCompany)">Dodaj Firmę</v-btn>
+                <v-select :items="[true, false]" label="Ryczałt" v-model="companyToAdd.ryczalt"></v-select>
+              </v-flex>
+              <v-flex xs12>
+                <v-btn color="success" @click="addNewCompany(companyToAdd)">Dodaj Firmę</v-btn>
               </v-flex>
             </v-layout>
           </v-container>
+          <h2>companyToAdd</h2>
+          <pre><code>{{companyToAdd}}</code></pre>
+          <h2>firma</h2>
+          <pre><code>{{wizyta.pacjent.firma}}</code></pre>
         </v-form>
       </v-flex>
     </v-layout>
@@ -147,6 +147,7 @@
 // import ListOfCompanies from "./ListOfCompanies";
 // import AddCompany from "./AddCompany";
 import { mapMutations } from "vuex";
+import axios from 'axios';
 export default {
   components: {
     // DialogBox,
@@ -155,99 +156,131 @@ export default {
   },
   data: () => ({
     companies: [],
-    searchCompany: {
-      name: "",
-      street: "",
-      city: "",
-      zipCode: "",
-      NIP: "",
-      REGON: "",
-      ryczalt: "",
-      id: null
+    companyToAdd: {
+      firmaId: "",
+      nazwa: "",
+      ulica: "",
+      miasto: "",
+      kodPocztowy: "",
+      regon: "",
+      umowa: false,
+      ryczalt: false,
     },
-    company: {},
+    firma: {},
     selection: null,
     selectedCompany: null,
     nameSearch: "",
-    NIPSearch: "",
     REGONSearch: "",
-    valid: true
+    valid: true,
+    wizyta:{},
   }),
   methods: {
+
+    ...mapMutations(["ADD_COMPANY", "UPDATE_PATIENT_COMPANY"]),
+
+    getCompany(id) {
+      axios.get(`http://10.3.68.238:8080/firmy/${id}`)
+        .then((res) => {
+          this.wizyta.pacjent.firma = res.data
+          })
+        .catch(err => console.log(err));
+    },
+
     select(selection) {
+      if(selection == 2) {
+        // axios.get("http://localhost:3000/firmy")
+        axios.get("http://10.3.68.238:8080/firmy")
+          .then((response) => {
+            console.log("success")
+          this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data);
+          this.companies = this.$store.getters.getCompanies;
+          console.log("siemaa this.companies")
+          console.log(this.companies);
+          console.log(this.$store.getters.getCompanies)
+          })
+          .catch(err => console.log("halohalo error"));
+      }
       this.selectedCompany = selection;
     },
-    updateCompany() {
+
+    updatePatientCompany() {
+      this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma);
       this.$emit("update", {
-        company: this.company
+        firma: this.wizyta.pacjent.firma
       });
     },
-    ...mapMutations(["ADD_COMPANY"]),
+
     addNewCompany(payload) {
-      this.searchCompany.id = this.companies.length + 1;
-      this.ADD_COMPANY(payload);
-      this.company = { ...this.searchCompany };
-      this.updateCompany();
-      this.clearForm();
+      // this.companyToAdd.id = this.companies.length + 1;
+      // debugger;
+      // console.log("Elo from addNewCompany");
+      console.log(payload);
+      // console.log(this.companyToAdd);
+      axios.post('http://10.3.68.238:8080/firmy', this.companyToAdd)
+        .then(response => {
+          const firmaId = response.headers.location.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/)[0]
+          this.getCompany(firmaId);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // this.ADD_COMPANY(payload);
+      // this.firma = { ...this.companyToAdd };
+      // this.updatePatientCompany();
+      // this.clearForm();
     },
     clearForm() {
-      this.searchCompany.name = "";
-      this.searchCompany.street = "";
-      this.searchCompany.city = "";
-      this.searchCompany.zipCode = "";
-      this.searchCompany.NIP = "";
-      this.searchCompany.REGON = "";
-      this.searchCompany.ryczalt = "";
+      this.companyToAdd.nazwa = "";
+      this.companyToAdd.ulica = "";
+      this.companyToAdd.miasto = "";
+      this.companyToAdd.kodPocztowy = "";
+      this.companyToAdd.regon = "";
+      this.companyToAdd.ryczalt = "";
     },
     addToSelected() {},
     selectCompany(index) {
       const {
-        id,
-        name,
-        street,
-        city,
-        zipCode,
-        NIP,
-        REGON,
+        firmaId,
+        nazwa,
+        ulica,
+        miasto,
+        kodPocztowy,
+        regon,
         ryczalt
       } = this.companies[index];
-      const company = {
-        id,
-        name,
-        street,
-        city,
-        zipCode,
-        NIP,
-        REGON,
+      const firma = {
+        firmaId,
+        nazwa,
+        ulica,
+        miasto,
+        kodPocztowy,
+        regon,
         ryczalt
       };
 
-      this.company = { ...company };
-      this.updateCompany();
+      this.wizyta.pacjent.firma = { ...firma };
+      this.updatePatientCompany();
     }
-  },
-  updated: function() {
-    this.patientForReg.company = this.company;
   },
 
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg;
     this.companies = this.$store.getters.getCompanies;
-
-    console.log("FormDatePicker - MOUNTED");
-    console.log(this.patientForReg);
+    this.wizyta = this.$store.getters.getWizyta;
   },
   computed: {
     filteredCompanies: function() {
-      return this.companies.filter(company => {
+      return this.companies.filter(firma => {
         return (
-          company.name.match(this.nameSearch) &&
-          company.NIP.match(this.NIPSearch) &&
-          company.REGON.match(this.REGONSearch)
+          firma.nazwa.match(this.nameSearch) &&
+          firma.regon.toString().match(this.REGONSearch)
         );
       });
     }
-  }
+  },
+  ryczaltMapped: function() {
+      return this.ryczalt == "TAK" ? true : false;
+    }
 };
 </script>
 
