@@ -2,11 +2,11 @@
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap class="white rounded" my-5 elevation-10>
       <v-flex xs12>
-        <FormTypeOfService v-if="currentStepNumber === 1" @update="updateTypeOfService"/>
-        <FormCompany v-if="currentStepNumber === 2" @update="updateCompany"/>
-        <FormDatePicker v-if="currentStepNumber === 3" @update="updateDate"/>
+        <FormTypeOfService v-if="currentStepNumber === 1"/>
+        <FormCompany v-if="currentStepNumber === 2"/>
+        <FormDatePicker v-if="currentStepNumber === 3" title="Medycyna Pracy"/>
         <FormUsluga v-if="currentStepNumber === 4" />
-        <FormSummary v-if="currentStepNumber === 5" />
+        <FormSummary v-if="currentStepNumber === 5" :typeOfSummary="typWizytyConst" />
         <span>Krok: {{currentStepNumber}}/5</span>
         <div class="progress-bar">
           <div :style="`width: ${progress}%`"></div>
@@ -29,6 +29,7 @@ import FormDatePicker from "../components/FormDatePicker";
 import FormSummary from "../components/FormSummary";
 import FormUsluga from "../components/FormUsluga";
 import API from "../constants/api";
+import { typWizytyConst } from "../constants/constants";
 import axios from 'axios';
 
 export default {
@@ -43,6 +44,7 @@ export default {
     return {
       currentStepNumber: 1,
       length: 5,
+      typWizytyConst: typWizytyConst,
       wizyta:{
         wizytaId: '',
         pacjent: {
@@ -79,15 +81,15 @@ export default {
     }
   },
   methods: {
-    updateTypeOfService(typWizyty) {
-      Object.assign(this.wizyta, typWizyty);
-    },
-    updateCompany(firmaPacjenta) {
-      Object.assign(this.wizyta.pacjent, firmaPacjenta)
-    },
-    updateDate(dataWizyty) {
-      Object.assign(this.dataWizyty, dataWizyty)
-    },
+    // updateTypeOfService(typWizyty) {
+    //   Object.assign(this.wizyta, typWizyty);
+    // },
+    // updateCompany(firmaPacjenta) {
+    //   Object.assign(this.wizyta.pacjent, firmaPacjenta)
+    // },
+    // updateDate(dataWizyty) {
+    //   Object.assign(this.dataWizyty, dataWizyty)
+    // },
     goBack() {
       this.currentStepNumber--;
     },

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
-    <h2>Rejestracja - Medycyna Pracy</h2>
+    <h2>Rejestracja - {{title}}</h2>
     <h3>Wybierz usługę </h3>
     <v-form v-model="valid" lazy-validation>
         <v-container>
@@ -31,10 +31,12 @@ import { mapMutations } from "vuex";
 import API from '../constants/api';
 
 export default {
+  props: ["title"],
   data: () => ({
     patientForReg: {},
     uslugi: [],
-    nazwaUslugi: ""
+    nazwaUslugi: "",
+    valid: false,
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg;

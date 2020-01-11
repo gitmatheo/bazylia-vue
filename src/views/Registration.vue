@@ -14,12 +14,12 @@
           <v-card-text class="display-1">Rodzaj Wizyty</v-card-text>
           <v-layout row wrap>
             <v-flex xs6>
-              <v-btn color="error" class="custom-btn" large>
+              <v-btn color="error" class="custom-btn" large @click.native="updateTypWizyty(typWizytyConst.MEDYCYNA_PRACY)">
                 <router-link to="/medycyna-pracy">Medycyna Pracy</router-link>
               </v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn color="error" class="custom-btn" large>
+              <v-btn color="error" class="custom-btn" large @click.native="updateTypWizyty(typWizytyConst.SPECJALISTYKA)">
                 <router-link to="/specjalistyka">Specjalistyka</router-link>
               </v-btn>
             </v-flex>
@@ -32,13 +32,31 @@
 
 <script>
 // import { mapState } from "vuex";
+import { typWizytyConst } from '../constants/constants';
+import { mapMutations } from 'vuex';
+
+
+
 export default {
   data: () => ({
-    pacjent: {}
+    pacjent: {},
+    typWizytyConst: typWizytyConst
   }),
   mounted: function() {
+    console.log("typ wizyty const")
+    console.log(this.typWizytyConst);
     this.pacjent = this.$store.getters.getWizyta.pacjent;
+  },
+  methods: {
+    ...mapMutations(["UPDATE_TYP_WIZYTY"]),
+    updateTypWizyty(typWizyty) {
+console.log("HELO from updateTypWizyty");
+console.log(typWizyty);
+console.log(this.typWizytyConst);
+      this.UPDATE_TYP_WIZYTY(typWizyty)
+    }
   }
+
   // showPatientForReg() {
   //   console.log("hii mounted");
   //   console.log(this.$store.getters.getPatientForReg);

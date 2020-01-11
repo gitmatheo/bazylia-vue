@@ -47,8 +47,8 @@ export default new Vuex.Store({
         stanowisko: "",
         dataOrzeczenia: null
       },
-      typWizyty: 'MEDYCYNA_PRACY',
-      rodzajBadan: '',
+      typWizyty: '',
+      rodzajBadan: null,
       dataWizyty: '',
       usluga: {
         uslugaId: "",
@@ -93,6 +93,9 @@ export default new Vuex.Store({
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
       state.wizyta.pacjent = pacjent
     },
+    UPDATE_TYP_WIZYTY: (state, typWizyty) => {
+      state.wizyta.typWizyty = typWizyty
+    },
     UPDATE_RODZAJ_BADAN: (state, rodzajBadan) => {
       state.wizyta.rodzajBadan = rodzajBadan
     },
@@ -109,10 +112,7 @@ export default new Vuex.Store({
       state.patients = patients
     },
     GET_ALL_COMPANIES_FROM_DB: (state, companies) =>{
-      console.log("Siema  GET_ALL_COMPANIES_FROM_DB")
       state.companies = companies
-      console.log("STORE state.companies")
-      console.log(state.companies)
     },
     ADD_COMPANY: (state, company) => {
       let newCompany = {

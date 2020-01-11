@@ -1,8 +1,12 @@
-const rodzajBadan = {
+
+export const rodzajBadanConst = {
     SANITARNO_EPIDEMIOLOGICZNE: "SANITARNO_EPIDEMIOLOGICZNE",
     OKRESOWE: "OKRESOWE",
     WSTEPNE: "WSTEPNE",
     KONTROLNE: "KONTROLNE"
 }
 
-export default rodzajBadan;
+export const typWizytyConst = {
+    MEDYCYNA_PRACY: "MEDYCYNA_PRACY",
+    SPECJALISTYKA: "SPECJALISTYKA",
+}

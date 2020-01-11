@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
-    <h2>Rejestracja - Medycyna Pracy</h2>
+    <h2>Rejestracja - {{title}}</h2>
     <h3>Wybierz datę i godzinę</h3>
     <v-layout row wrap justify-center>
       <v-flex xs6>
@@ -66,7 +66,7 @@
         <span>{{date}}</span>
       </p>
       <p>
-        i godzinę:
+         &nbsp; i godzinę:
         <span>{{time}}</span>
       </p>
     </v-layout>
@@ -76,6 +76,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
+  props: ["title"],
   data: () => ({
     nowDate: new Date().toISOString().substr(0, 10),
     date: new Date().toISOString().substr(0, 10),
@@ -87,21 +88,21 @@ export default {
     modal2: false,
     landscape: true,
     reactive: false,
-    wizyta: {}
+    wizyta: {},
   }),
-  mounted: function() {
-    this.wizyta = this.$store.getters.getWizyta;
-  },
+  // mounted: function() {
+  //   this.wizyta = this.$store.getters.getWizyta;
+  // },
   updated: function() {
+    console.log("updateeed FormDatePicker")
+    console.log(this.wizyta.dataWizyty)
 
     let timeString = this.time + ':00';
     let dataWizyty = new Date(this.date + ' ' + timeString).toISOString();
-    this.wizyta.dataWizyty = dataWizyty
-  
-    console.log("Data Wizyty")
-    console.log(dataWizyty);
-
+    this.wizyta.dataWizyty = dataWizyty;
+    console.log(this.wizyta.dataWizyty)
     this.addDateAndTime(dataWizyty);
+
   },
   methods: {
     ...mapMutations(["UPDATE_DATE_AND_TIME"]),
