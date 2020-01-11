@@ -45,6 +45,7 @@
 // import SearchPatient from "../components/SearchPatient";
 import ListOfPatients from "../components/ListOfPatients";
 import { mapMutations } from "vuex";
+import API from "../constants/api";
 import axios from 'axios';
 
 export default {
@@ -109,7 +110,7 @@ export default {
       this.secondName = "";
       this.pesel = "";
 
-      axios.get("http://85.89.178.154:8080/pacjenci", {
+      axios.get(`${API.url}/pacjenci`, {
         params: {
           pageNumber: 1,
           pageSize: 50,
@@ -138,13 +139,8 @@ export default {
          ${imie} ${nazwisko} ?`
       );
       if (confirmed) {
-        //  async () => {
-        //   const response = await axios.delete(`http://85.89.178.154:8080/pacjenci/${pacjentId}`)
-        //   const data = await response.json();
-
-        // }
         const pacjentId = this.patients[index].pacjentId;
-        axios.delete(`http://85.89.178.154:8080/pacjenci/${pacjentId}`)
+        axios.delete(`${API.url}/pacjenci/${pacjentId}`)
         return this.$delete(this.patients, index);
       }
     },

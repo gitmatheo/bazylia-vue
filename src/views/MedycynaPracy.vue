@@ -28,6 +28,7 @@ import FormCompany from "../components/FormCompany";
 import FormDatePicker from "../components/FormDatePicker";
 import FormSummary from "../components/FormSummary";
 import FormUsluga from "../components/FormUsluga";
+import API from "../constants/api";
 import axios from 'axios';
 
 export default {
@@ -58,7 +59,7 @@ export default {
           stanowisko: "",
           dataOrzeczenia: null
         },
-        typWizyty: 'medycyna-pracy',
+        typWizyty: 'MEDYCYNA_PRACY',
         rodzajBadan: '',
         dataWizyty: '',
         usluga: {
@@ -94,7 +95,7 @@ export default {
       this.currentStepNumber++;
     },
     zarejestrujWizyte() {
-      axios.post("http://10.3.68.238:8080/wizyty", this.wizyta)
+      axios.post(`${API.url}/wizyty`, this.wizyta)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     },
@@ -102,12 +103,6 @@ export default {
   mounted() {
     this.wizyta = this.$store.getters.getWizyta;
   },
-  updated() {
-    console.log("Hllo from updated")
-    console.log(this.currentStepNumber)
-    console.log(this.length)
-    console.log(this.progress)
-  }
 };
 </script>
 

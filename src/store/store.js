@@ -47,7 +47,7 @@ export default new Vuex.Store({
         stanowisko: "",
         dataOrzeczenia: null
       },
-      typWizyty: 'medycyna-pracy',
+      typWizyty: 'MEDYCYNA_PRACY',
       rodzajBadan: '',
       dataWizyty: '',
       usluga: {

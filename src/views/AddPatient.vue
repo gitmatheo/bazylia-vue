@@ -90,6 +90,7 @@
 // import uuidv1 from 'uuid/v1';
 // const uuidv1 = require('uuid/v1');
 import { mapMutations, mapActions } from 'vuex';
+import API from "../constants/api";
 import axios from 'axios';
 
 export default {
@@ -136,7 +137,7 @@ export default {
       console.log(payload);
       console.log(this.pacjent);
       console.log("helo")
-      axios.post('http://85.89.178.154:8080/pacjenci', this.pacjent)
+      axios.post(`${API.url}/pacjenci`, this.pacjent)
       .then(function (response) {
         this.ADD_PATIENT(response);
       })

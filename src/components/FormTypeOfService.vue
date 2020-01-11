@@ -5,14 +5,14 @@
     <v-layout row wrap justify-center>
       <v-flex xs12>
         <v-radio-group row justify-center v-model="rodzajBadan" @click="select(rodzajBadan)">
-          <v-radio label="Wstępne" color="error" value="wstępne" checked></v-radio>
-          <v-radio label="Okresowe" color="error" value="okresowe"></v-radio>
+          <v-radio label="Wstępne" color="error" :value="rodzajBadanConst.WSTEPNE" checked></v-radio>
+          <v-radio label="Okresowe" color="error" :value="rodzajBadanConst.OKRESOWE"></v-radio>
           <v-radio
             label="Sanitarno-epidemiologiczne"
             color="error"
-            value="sanitarno-epidemiologiczne"
+            :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
           ></v-radio>
-          <v-radio label="Kontrolne" color="error" value="kontrolne"></v-radio>
+          <v-radio label="Kontrolne" color="error" :value="rodzajBadanConst.KONTROLNE"></v-radio>
         </v-radio-group>
         <span>Wybrano: {{rodzajBadan}}</span>
       </v-flex>
@@ -22,10 +22,13 @@
 
 <script>
 import { mapMutations } from "vuex";
+import rodzajBadanConst from '../constants/constants';
+
 export default {
   data() {
     return {
       rodzajBadan: null,
+      rodzajBadanConst: rodzajBadanConst,
       wybranaWizyta: null
     };
   },
@@ -43,7 +46,11 @@ export default {
       // this.$emit("update", {
       //   rodzajBadan: this.wybranaWizyta
       // });
-    }
+    },
+  },
+  mounted: function() {
+    console.log("siema rodzaj badan const")
+    console.log(this.rodzajBadanConst);
   }
 };
 </script>

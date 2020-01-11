@@ -1,0 +1,8 @@
+const rodzajBadan = {
+    SANITARNO_EPIDEMIOLOGICZNE: "SANITARNO_EPIDEMIOLOGICZNE",
+    OKRESOWE: "OKRESOWE",
+    WSTEPNE: "WSTEPNE",
+    KONTROLNE: "KONTROLNE"
+}
+
+export default rodzajBadan;

@@ -147,7 +147,9 @@
 // import ListOfCompanies from "./ListOfCompanies";
 // import AddCompany from "./AddCompany";
 import { mapMutations } from "vuex";
+import API from "../constants/api";
 import axios from 'axios';
+
 export default {
   components: {
     // DialogBox,
@@ -179,7 +181,7 @@ export default {
     ...mapMutations(["ADD_COMPANY", "UPDATE_PATIENT_COMPANY"]),
 
     getCompany(id) {
-      axios.get(`http://10.3.68.238:8080/firmy/${id}`)
+      axios.get(`${API.url}/firmy/${id}`)
         .then((res) => {
           this.wizyta.pacjent.firma = res.data
           })
@@ -188,17 +190,12 @@ export default {
 
     select(selection) {
       if(selection == 2) {
-        // axios.get("http://localhost:3000/firmy")
-        axios.get("http://10.3.68.238:8080/firmy")
+        axios.get(`${API.url}/firmy`)
           .then((response) => {
-            console.log("success")
-          this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data);
-          this.companies = this.$store.getters.getCompanies;
-          console.log("siemaa this.companies")
-          console.log(this.companies);
-          console.log(this.$store.getters.getCompanies)
+            this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data);
+            this.companies = this.$store.getters.getCompanies;
           })
-          .catch(err => console.log("halohalo error"));
+          .catch(err => console.log(err));
       }
       this.selectedCompany = selection;
     },
@@ -216,7 +213,7 @@ export default {
       // console.log("Elo from addNewCompany");
       console.log(payload);
       // console.log(this.companyToAdd);
-      axios.post('http://10.3.68.238:8080/firmy', this.companyToAdd)
+      axios.post(`${API.url}/firmy`, this.companyToAdd)
         .then(response => {
           const firmaId = response.headers.location.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/)[0]
           this.getCompany(firmaId);

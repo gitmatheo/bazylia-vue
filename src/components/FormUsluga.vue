@@ -22,13 +22,13 @@
             <span>Nazwa usługi:{{usluga.nazwa}}</span> --- <span>Cena:{{usluga.cenaZwykla}}</span>
         </li>
     </ul>
-    </v-layout>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios';
 import { mapMutations } from "vuex";
+import API from '../constants/api';
 
 export default {
   data: () => ({
@@ -38,7 +38,7 @@ export default {
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg;
-    axios.get("http://10.3.68.238:8080/uslugi")
+    axios.get(`${API.url}/uslugi`)
         .then(res => this.uslugi = res.data)
         .catch(err => console.log(err))
   },
