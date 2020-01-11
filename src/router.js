@@ -42,6 +42,12 @@ export default new Router({
         import(/* webpackChunkName: "add-patient" */ "./views/AddPatient.vue")
     },
     {
+      path: "/rozliczenia",
+      name: "Rozliczenia",
+      component: () =>
+        import(/* webpackChunkName: "add-patient" */ "./views/Rozliczenia.vue")
+    },
+    {
       path: "/registration",
       name: "Registration",
       component: () =>

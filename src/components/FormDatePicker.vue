@@ -83,26 +83,25 @@ export default {
     menu: false,
     modal: false,
     menu2: false,
-    time: null,
+    time: '21:15',
     menu3: false,
     modal2: false,
     landscape: true,
     reactive: false,
     wizyta: {},
   }),
-  // mounted: function() {
-  //   this.wizyta = this.$store.getters.getWizyta;
-  // },
+  mounted: function() {
+
+    this.wizyta = this.$store.getters.getWizyta;
+  },
   updated: function() {
-    console.log("updateeed FormDatePicker")
-    console.log(this.wizyta.dataWizyty)
 
     let timeString = this.time + ':00';
     let dataWizyty = new Date(this.date + ' ' + timeString).toISOString();
-    this.wizyta.dataWizyty = dataWizyty;
-    console.log(this.wizyta.dataWizyty)
-    this.addDateAndTime(dataWizyty);
+    this.wizyta.dataWizyty = dataWizyty
+    console.log(dataWizyty);
 
+    this.addDateAndTime(dataWizyty);
   },
   methods: {
     ...mapMutations(["UPDATE_DATE_AND_TIME"]),

@@ -43,25 +43,14 @@ export default {
     typWizytyConst: typWizytyConst
   }),
   mounted: function() {
-    console.log("typ wizyty const")
-    console.log(this.typWizytyConst);
     this.pacjent = this.$store.getters.getWizyta.pacjent;
   },
   methods: {
     ...mapMutations(["UPDATE_TYP_WIZYTY"]),
     updateTypWizyty(typWizyty) {
-console.log("HELO from updateTypWizyty");
-console.log(typWizyty);
-console.log(this.typWizytyConst);
       this.UPDATE_TYP_WIZYTY(typWizyty)
     }
   }
-
-  // showPatientForReg() {
-  //   console.log("hii mounted");
-  //   console.log(this.$store.getters.getPatientForReg);
-  //   this.patientForReg = this.$store.getters.getPatientForReg;
-  // }
 };
 </script>
 

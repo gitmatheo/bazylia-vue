@@ -20,6 +20,9 @@
               <router-link to="/add-patient">Dodaj Pacjenta</router-link>
             </v-tab>
             <v-tab class="menu-link">
+              <router-link to="/rozliczenia">Rozliczenia</router-link>
+            </v-tab>
+            <v-tab class="menu-link">
               <router-link to="/completed">Zrealizowane</router-link>
             </v-tab>
           </v-tabs>

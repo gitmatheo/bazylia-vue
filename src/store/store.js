@@ -59,6 +59,7 @@ export default new Vuex.Store({
       },
       faktura: '',
     },
+    rozliczenia: {},
     companies: [
       {
         firmaId: "fa9b3ce2-b81c-4b15-b254-2b5c6a2fce49",
@@ -81,12 +82,14 @@ export default new Vuex.Store({
       return state.patientForReg;
     },
     getCompanies: state => {
-      console.log("siema getCompanies")
       return state.companies;
     },
     getWizyta: state => {
       return state.wizyta;
-    }
+    },
+    getAllRozliczenia: state => {
+      return state.rozliczenia;
+    },
   },
 
   mutations: {
@@ -113,6 +116,9 @@ export default new Vuex.Store({
     },
     GET_ALL_COMPANIES_FROM_DB: (state, companies) =>{
       state.companies = companies
+    },
+    GET_ALL_ROZLICZENIA_FROM_DB: (state, rozliczenia) =>{
+      state.rozliczenia = rozliczenia
     },
     ADD_COMPANY: (state, company) => {
       let newCompany = {

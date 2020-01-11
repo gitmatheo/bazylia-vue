@@ -1,23 +1,58 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-layout row wrap class="white rounded" my-5 elevation-10>
-      <v-flex xs12>
-        <FormTypeOfService v-if="currentStepNumber === 1"/>
-        <FormCompany v-if="currentStepNumber === 2"/>
-        <FormDatePicker v-if="currentStepNumber === 3" title="Medycyna Pracy"/>
-        <FormUsluga v-if="currentStepNumber === 4" />
-        <FormSummary v-if="currentStepNumber === 5" :typeOfSummary="typWizytyConst" />
-        <span>Krok: {{currentStepNumber}}/5</span>
-        <div class="progress-bar">
-          <div :style="`width: ${progress}%`"></div>
-        </div>
-        <div class="buttons">
-          <v-btn @click="goBack" v-if="currentStepNumber > 1" color="disabled">Wstecz</v-btn>
-          <v-btn @click="goNext" v-if="currentStepNumber < 5" color="success">Dalej</v-btn>
-          <v-btn @click="zarejestrujWizyte" v-if="currentStepNumber == 5" color="success">Zarejestruj</v-btn>
-        </div>
-      </v-flex>
-    </v-layout>
+        <v-stepper v-model="currentStepNumber">
+      <v-stepper-header>
+        <v-stepper-step :complete="currentStepNumber > 1" step="1" :editable="editable">Wybierz typ badań</v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="currentStepNumber > 2" step="2" :editable="editable">Wybierz firmę</v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="currentStepNumber > 3" step="3" :editable="editable">Wybierz datę i godzinę</v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step :complete="currentStepNumber > 4" step="4" :editable="editable">Wybierz usługę</v-stepper-step>
+
+        <v-divider></v-divider>
+
+        <v-stepper-step step="5">Podsumowanie</v-stepper-step>
+      </v-stepper-header>
+
+      <v-stepper-items>
+        <v-stepper-content step="1">
+          <FormTypeOfService/>
+          <v-btn color="primary" @click="currentStepNumber = 2"> Dalej </v-btn>
+        </v-stepper-content>
+
+        <v-stepper-content step="2">
+          <FormCompany/>
+          <v-btn text @click="currentStepNumber = 1">Wróć</v-btn>
+          <v-btn color="primary" @click="currentStepNumber = 3">Dalej</v-btn>
+        </v-stepper-content>
+
+        <v-stepper-content step="3">
+          <FormDatePicker title="Medycyna pracy"/>
+          <v-btn text @click="currentStepNumber = 2">Wróć</v-btn>
+          <v-btn color="primary" @click="currentStepNumber = 4">Dalej</v-btn>
+        </v-stepper-content>
+
+        <v-stepper-content step="4">
+          <FormUsluga title="Medycyna pracy"/>
+          <v-btn text @click="currentStepNumber = 3">Wróć</v-btn>
+          <v-btn color="primary" @click="currentStepNumber = 5">Dalej</v-btn>
+        </v-stepper-content>
+
+        <v-stepper-content step="5">
+          <FormSummary :typeOfSummary="typWizytyConst.MEDYCYNA_PRACY" title="Medycyna pracy"/>
+          <v-btn text @click="currentStepNumber = 4">Wróć</v-btn>
+          <v-btn color="primary" @click="zarejestrujWizyte"> Zarejestruj wizytę </v-btn>
+        </v-stepper-content>
+
+      </v-stepper-items>
+    </v-stepper>
     <pre><code>{{wizyta}}</code></pre>
   </v-container>
 </template>
@@ -43,6 +78,7 @@ export default {
   data() {
     return {
       currentStepNumber: 1,
+      editable: true,
       length: 5,
       typWizytyConst: typWizytyConst,
       wizyta:{
@@ -75,27 +111,7 @@ export default {
       },
     };
   },
-  computed: {
-    progress() {
-      return (this.currentStepNumber / this.length) * 100;
-    }
-  },
   methods: {
-    // updateTypeOfService(typWizyty) {
-    //   Object.assign(this.wizyta, typWizyty);
-    // },
-    // updateCompany(firmaPacjenta) {
-    //   Object.assign(this.wizyta.pacjent, firmaPacjenta)
-    // },
-    // updateDate(dataWizyty) {
-    //   Object.assign(this.dataWizyty, dataWizyty)
-    // },
-    goBack() {
-      this.currentStepNumber--;
-    },
-    goNext() {
-      this.currentStepNumber++;
-    },
     zarejestrujWizyte() {
       axios.post(`${API.url}/wizyty`, this.wizyta)
         .then(res => console.log(res))
@@ -109,23 +125,5 @@ export default {
 </script>
 
 <style lang="scss">
-.rounded {
-  border-radius: 5px;
-}
 
-.progress-bar {
-  width: 100%;
-  height: 20px;
-  border-radius: 5px 10px 10px 5px;
-  background: lighten(grey, 45);
-  /* border: 1px solid lighten(grey, 35); */
-
-  div {
-    background: #1976d2;
-    border-radius: 5px 10px 10px 5px;
-    height: 90%;
-    transform: translateY(5%);
-    transition: 0.6s all;
-  }
-}
 </style>

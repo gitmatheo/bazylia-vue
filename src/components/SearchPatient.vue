@@ -53,11 +53,6 @@ export default {
       this.name = "";
       this.secondName = "";
       this.pesel = null;
-      console.log({
-        name: this.name,
-        secondName: this.secondName,
-        pesel: this.pesel
-      });
     }
   }
 };

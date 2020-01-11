@@ -52,8 +52,6 @@ export default {
   methods: {
       ...mapMutations(["UPDATE_USLUGA"]),
       wybierzUsluge(usluga) {
-          console.log("Usluga id")
-          console.log(usluga)
 
           this.UPDATE_USLUGA(usluga);
 

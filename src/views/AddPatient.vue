@@ -80,7 +80,7 @@
         <h2>nip</h2>
         <pre><code>{{pacjent.nip}}</code></pre>
         <!-- <v-btn color="success" @click.native="dialog = false">Dodaj Pacjenta</v-btn> -->
-        <v-btn color="success" @click="submitPatient(pacjent)">Dodaj Pacjenta</v-btn>
+        <v-btn color="success" @click.native="submitPatient()">Dodaj Pacjenta</v-btn>
       </v-card-actions>
     </v-card>
   </v-layout>
@@ -133,10 +133,7 @@ export default {
   methods: {
     ...mapMutations(['ADD_PATIENT']),
     ...mapActions(["addPatient"]),
-    submitPatient(payload) {
-      console.log(payload);
-      console.log(this.pacjent);
-      console.log("helo")
+    submitPatient() {
       axios.post(`${API.url}/pacjenci`, this.pacjent)
       .then(function (response) {
         this.ADD_PATIENT(response);

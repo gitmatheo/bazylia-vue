@@ -42,7 +42,7 @@
 </template>
 
 <script>
-// import SearchPatient from "../components/SearchPatient";
+
 import ListOfPatients from "../components/ListOfPatients";
 import { mapMutations } from "vuex";
 import API from "../constants/api";
@@ -50,7 +50,6 @@ import axios from 'axios';
 
 export default {
   components: {
-    // SearchPatient,
     ListOfPatients
   },
   data: () => ({
@@ -132,7 +131,6 @@ export default {
       });
     },
     deletePatient(index) {
-      console.log(index);
       const { imie, nazwisko } = this.patients[index];
       const confirmed = confirm(
         `Jesteś pewny/a, że chcesz usunać pacjenta:

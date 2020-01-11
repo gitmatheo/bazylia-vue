@@ -35,23 +35,13 @@ export default {
   methods: {
     ...mapMutations(["UPDATE_RODZAJ_BADAN"]),
     updateRodzajBadan(rodzajBadan) {
-      console.log("Rodzaj badan")
-      console.log(rodzajBadan);
       this.UPDATE_RODZAJ_BADAN(rodzajBadan);
     },
     select(rodzajBadan) {
       this.updateRodzajBadan(rodzajBadan);
-
-      // this.wybranaWizyta = rodzajBadan;
-      // this.$emit("update", {
-      //   rodzajBadan: this.wybranaWizyta
-      // });
     },
   },
-  mounted: function() {
-    console.log("siema rodzaj badan const")
-    console.log(this.rodzajBadanConst);
-  }
+
 };
 </script>
 

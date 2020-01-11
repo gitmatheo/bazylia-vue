@@ -5,14 +5,14 @@
     <v-layout row wrap justify-center>
       <v-flex xs6>
         <v-radio-group justify-center v-model="selection" @click="select(selection)">
-          <v-radio label="Użyj Firmy / ostatnio wybrana" color="error" value="1"></v-radio>
-          <v-radio label="Użyj firmy z bazy danych" color="error" value="2"></v-radio>
-          <v-radio label="Dodaj firmę" color="error" value="3"></v-radio>
+          <v-radio label="Użyj Firmy / ostatnio wybrana" color="error" :value="1"></v-radio>
+          <v-radio label="Użyj firmy z bazy danych" color="error" :value="2"></v-radio>
+          <v-radio label="Dodaj firmę" color="error" :value="3"></v-radio>
         </v-radio-group>
       </v-flex>
       <v-flex xs6>
         <h3>Wybrana firma</h3>
-        <ul class="company-desc">
+        <ul v-if="wizyta" class="company-desc">
           <li>
             Nazwa:
             <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.nazwa}}</span>
@@ -44,7 +44,6 @@
         </ul>
       </v-flex>
       <v-flex xs12>
-        <!-- <AddCompany v-if="selection == 3"/> -->
 
         <h2 v-if="selection == 1" class="headline">option 1: uzyj firmy domyslnej</h2>
         <v-layout v-if="selection == 2" row justify-center>
@@ -54,13 +53,13 @@
               <v-container>
                 <v-layout>
                   <v-flex xs3>
-                    <v-text-field v-model="nameSearch" label="Nazwa Firmy"></v-text-field>
+                    <v-text-field v-model="nameSearch" @input="updateVisibleCompanies" label="Nazwa Firmy"></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-text-field v-model="REGONSearch" label="regon"></v-text-field>
+                    <v-text-field v-model="REGONSearch" @input="updateVisibleCompanies" label="regon"></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-btn :disabled="!valid" color="info">
+                    <v-btn :disabled="!valid" @click="updateVisibleCompanies" color="info">
                       <span>Szukaj</span>
                       <v-icon right>search</v-icon>
                     </v-btn>
@@ -70,7 +69,7 @@
             </v-form>
 
             <v-expansion-panel my-2>
-              <v-expansion-panel-content v-for="(firma,i) in companies" :key="i">
+              <v-expansion-panel-content v-for="(firma,i) in visibleCompanies" :key="i">
                 <template v-slot:header>
                   <ul class="patient__header">
                     <li>{{firma.nazwa}}</li>
@@ -98,8 +97,15 @@
                 </v-card>
               </v-expansion-panel-content>
             </v-expansion-panel>
+              <v-pagination
+                v-model="currentPage"
+                :page="currentPage + 1"
+                :length="companies.length / pageSize"
+                @click.native="updateVisibleCompanies"
+              ></v-pagination>
           </v-flex>
         </v-layout>
+
 
         <v-form v-if="selection == 3" v-model="valid">
           <v-container grid-list-md>
@@ -135,7 +141,7 @@
           <h2>companyToAdd</h2>
           <pre><code>{{companyToAdd}}</code></pre>
           <h2>firma</h2>
-          <pre><code>{{wizyta.pacjent.firma}}</code></pre>
+          <pre><code>{{wizyta}}</code></pre>
         </v-form>
       </v-flex>
     </v-layout>
@@ -143,20 +149,16 @@
 </template>
 
 <script>
-// import DialogBox from "./DialogBox";
-// import ListOfCompanies from "./ListOfCompanies";
-// import AddCompany from "./AddCompany";
+
 import { mapMutations } from "vuex";
 import API from "../constants/api";
 import axios from 'axios';
 
 export default {
-  components: {
-    // DialogBox,
-    // ListOfCompanies,
-    // AddCompany
-  },
   data: () => ({
+    currentPage: 1,
+    pageSize: 10,
+    visibleCompanies: [],
     companies: [],
     companyToAdd: {
       firmaId: "",
@@ -169,12 +171,12 @@ export default {
       ryczalt: false,
     },
     firma: {},
-    selection: null,
+    selection: 1,
     selectedCompany: null,
     nameSearch: "",
     REGONSearch: "",
     valid: true,
-    wizyta:{},
+    wizyta: null,
   }),
   methods: {
 
@@ -202,9 +204,23 @@ export default {
 
     updatePatientCompany() {
       this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma);
-      this.$emit("update", {
-        firma: this.wizyta.pacjent.firma
-      });
+    },
+
+
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber;
+      this.updateVisibleCompanies();
+    },
+    updateVisibleCompanies() {
+      let begin = (this.currentPage * this.pageSize) - this.pageSize;
+      let end = begin + this.pageSize;
+
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
+
+      if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1);
+      }
+
     },
 
     addNewCompany(payload) {
@@ -261,19 +277,27 @@ export default {
   },
 
   mounted: function() {
-    this.patientForReg = this.$store.getters.getPatientForReg;
     this.companies = this.$store.getters.getCompanies;
     this.wizyta = this.$store.getters.getWizyta;
+    this.updateVisibleCompanies();
   },
   computed: {
     filteredCompanies: function() {
       return this.companies.filter(firma => {
         return (
-          firma.nazwa.match(this.nameSearch) &&
-          firma.regon.toString().match(this.REGONSearch)
+          firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
+          firma.regon.toLowerCase().toString().match(this.REGONSearch.toLowerCase())
         );
       });
-    }
+    },
+    filteredVisibleCompanies: function() {
+      return this.visibleCompanies.filter(firma => {
+        return (
+          firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
+          firma.regon.toLowerCase().toString().match(this.REGONSearch.toLowerCase())
+        );
+      });
+    },
   },
   ryczaltMapped: function() {
       return this.ryczalt == "TAK" ? true : false;

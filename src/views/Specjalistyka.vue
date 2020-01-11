@@ -2,7 +2,7 @@
   <!-- <div class="container"> -->
     <v-container>
       <!-- alt-labels -->
-    <v-stepper  v-model="e1">
+    <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1" :editable="editable">Wybierz datę i godzinę</v-stepper-step>
 
@@ -64,7 +64,7 @@ export default {
           wizyta: {},
           e1: 1,
           steps: 2,
-          vertical: false,
+          vertical: true,
           altLabels: false,
           editable: true,
           typWizytyConst: typWizytyConst

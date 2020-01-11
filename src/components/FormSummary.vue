@@ -1,11 +1,11 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
     <h2>Rejestracja - {{title}}</h2>
-    <h3>Podsumowanie Rejestracji</h3>
+    <h4>Podsumowanie Rejestracji</h4>
     
     <v-layout v-if="typeOfSummary == typWizytyConst.MEDYCYNA_PRACY" row wrap justify-center>
       <v-flex xs6>
-        <h2>Pacjent</h2>
+        <h3>Pacjent</h3>
         <ul class="patient-list">
           <li>Imię: {{wizyta.pacjent.imie}}</li>
           <li>Nazwisko: {{wizyta.pacjent.nazwisko}}</li>
@@ -13,7 +13,7 @@
         </ul>
       </v-flex>
       <v-flex xs6 sm6>
-        <h2>Firma</h2>
+        <h3>Firma</h3>
         <ul>
           <li>Nazwa: {{wizyta.pacjent.firma.nazwa}}</li>
           <li>Ulica: {{wizyta.pacjent.firma.ulica}}</li>
@@ -24,14 +24,14 @@
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2>Usługa</h2>
+        <h3>Usługa</h3>
         <ul>
           <li>Nazwa usługi: {{wizyta.usluga.nazwa}}</li>
           <li>Cena: {{wizyta.usluga.cenaZwykla}}</li>
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2>Godzina i data wizyty</h2>
+        <h3>Godzina i data wizyty</h3>
         <ul>
           <li>Data: {{date | moment("MM-DD-YYYY")}}</li>
           <li>Godzina: {{date | moment("HH:mm")}}</li>
@@ -40,8 +40,8 @@
     </v-layout>
 
     <v-layout v-if="typeOfSummary == typWizytyConst.SPECJALISTYKA" row wrap justify-center>
-      <v-flex xs6>
-        <h2>Pacjent</h2>
+      <v-flex xs12>
+        <h3>Pacjent</h3>
         <ul class="patient-list">
           <li>Imię: {{wizyta.pacjent.imie}}</li>
           <li>Nazwisko: {{wizyta.pacjent.nazwisko}}</li>
@@ -49,14 +49,14 @@
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2>Usługa</h2>
+        <h3>Usługa</h3>
         <ul>
           <li>Nazwa usługi: {{wizyta.usluga.nazwa}}</li>
           <li>Cena: {{wizyta.usluga.cenaZwykla}}</li>
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2>Godzina i data wizyty</h2>
+        <h3>Godzina i data wizyty</h3>
         <ul>
           <li>Data: {{date | moment("MM-DD-YYYY")}}</li>
           <li>Godzina: {{date | moment("HH:mm")}}</li>
@@ -76,28 +76,36 @@ export default {
     date: '',
     typWizytyConst: typWizytyConst
   }),
-  mounted: function() {
-    console.log("DATA WIZYTY mounted")
-    console.log(this.wizyta.dataWizyty)
-    this.wizyta = this.$store.getters.getWizyta;
-    this.date = new Date(this.wizyta.dataWizyty);
-  },
+
   computed: {
     data() {
       return this.date.getDate();
     },
-    godzina() {
-      return  this.moment.format('YYYY MM DD');
-    }
-  }
+  },
+  created() {
+    this.wizyta = this.$store.getters.getWizyta;
+    this.date = new Date(this.wizyta.dataWizyty);
+    console.log("Form summary mounted")
+    console.log(this.date);
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'UPDATE_DATE_AND_TIME') {
+        console.log(`Updating to ${state.wizyta.dataWizyty}`);
+
+        this.date = state.wizyta.dataWizyty;
+      }
+    });
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 ul {
   li {
     list-style: none;
     text-align: left;
   }
+}
+h3 {
+  text-align: left;
 }
 </style>
