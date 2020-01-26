@@ -26,7 +26,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "completed" */ "./views/Completed.vue")
     },
     {
-      path: "/invoice",
+      path: "/invoice/:id",
       name: "Invoice",
       component: () => import(/* webpackChunkName: "invoice" */ "./views/Invoice.vue")
     },

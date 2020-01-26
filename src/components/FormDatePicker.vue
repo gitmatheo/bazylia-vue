@@ -23,7 +23,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" @input="menu2 = false" :min="nowDate"></v-date-picker>
+          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
         </v-menu>
       </v-flex>
 
@@ -66,7 +66,7 @@
         <span>{{date}}</span>
       </p>
       <p>
-         &nbsp; i godzinę:
+        &nbsp; i godzinę:
         <span>{{time}}</span>
       </p>
     </v-layout>
@@ -74,11 +74,10 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex';
 export default {
-  props: ["title"],
+  props: ['title'],
   data: () => ({
-    nowDate: new Date().toISOString().substr(0, 10),
     date: new Date().toISOString().substr(0, 10),
     menu: false,
     modal: false,
@@ -88,23 +87,25 @@ export default {
     modal2: false,
     landscape: true,
     reactive: false,
-    wizyta: {},
+    wizyta: {}
   }),
   mounted: function() {
-
+    let now = new Date();
     this.wizyta = this.$store.getters.getWizyta;
+    let minutes =
+      now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes();
+    // let minutes2 = now.getMinutes().padStart(2, 0);
+    this.time = now.getHours() + ':' + minutes;
   },
   updated: function() {
-
     let timeString = this.time + ':00';
     let dataWizyty = new Date(this.date + ' ' + timeString).toISOString();
-    this.wizyta.dataWizyty = dataWizyty
-    console.log(dataWizyty);
+    this.wizyta.dataWizyty = dataWizyty;
 
     this.addDateAndTime(dataWizyty);
   },
   methods: {
-    ...mapMutations(["UPDATE_DATE_AND_TIME"]),
+    ...mapMutations(['UPDATE_DATE_AND_TIME']),
     addDateAndTime(dataWizyty) {
       this.UPDATE_DATE_AND_TIME(dataWizyty);
     }

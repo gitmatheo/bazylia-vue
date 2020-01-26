@@ -2,7 +2,7 @@
   <v-container grid-list-md text-xs-center class="white">
     <h2>Rejestracja - {{title}}</h2>
     <h4>Podsumowanie Rejestracji</h4>
-    
+
     <v-layout v-if="typeOfSummary == typWizytyConst.MEDYCYNA_PRACY" row wrap justify-center>
       <v-flex xs6>
         <h3>Pacjent</h3>
@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import { typWizytyConst } from "../constants/constants";
+import { typWizytyConst } from '../constants/constants';
 
 export default {
-  props: ["typeOfSummary", "title"],
+  props: ['typeOfSummary', 'title'],
   data: () => ({
     wizyta: {},
     date: '',
@@ -80,21 +80,17 @@ export default {
   computed: {
     data() {
       return this.date.getDate();
-    },
+    }
   },
   created() {
     this.wizyta = this.$store.getters.getWizyta;
     this.date = new Date(this.wizyta.dataWizyty);
-    console.log("Form summary mounted")
-    console.log(this.date);
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'UPDATE_DATE_AND_TIME') {
-        console.log(`Updating to ${state.wizyta.dataWizyty}`);
-
         this.date = state.wizyta.dataWizyty;
       }
     });
-  },
+  }
 };
 </script>
 

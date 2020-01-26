@@ -27,7 +27,9 @@
           </li>
           <li>
             Kod-Pocztowy:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.kodPocztowy}}</span>
+            <span
+              class="font-weight-medium font-italic"
+            >{{wizyta.pacjent.firma.kodPocztowy}}</span>
           </li>
           <li>
             Regon:
@@ -37,14 +39,13 @@
             Ryczałt:
             <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.ryczalt}}</span>
           </li>
-           <li>
+          <li>
             Rabat:
             <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.rabat}}</span>
           </li>
         </ul>
       </v-flex>
       <v-flex xs12>
-
         <h2 v-if="selection == 1" class="headline">option 1: uzyj firmy domyslnej</h2>
         <v-layout v-if="selection == 2" row justify-center>
           <v-flex xs12>
@@ -53,10 +54,18 @@
               <v-container>
                 <v-layout>
                   <v-flex xs3>
-                    <v-text-field v-model="nameSearch" @input="updateVisibleCompanies" label="Nazwa Firmy"></v-text-field>
+                    <v-text-field
+                      v-model="nameSearch"
+                      @input="updateVisibleCompanies"
+                      label="Nazwa Firmy"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-text-field v-model="REGONSearch" @input="updateVisibleCompanies" label="regon"></v-text-field>
+                    <v-text-field
+                      v-model="REGONSearch"
+                      @input="updateVisibleCompanies"
+                      label="regon"
+                    ></v-text-field>
                   </v-flex>
                   <v-flex xs3>
                     <v-btn :disabled="!valid" @click="updateVisibleCompanies" color="info">
@@ -97,15 +106,14 @@
                 </v-card>
               </v-expansion-panel-content>
             </v-expansion-panel>
-              <v-pagination
-                v-model="currentPage"
-                :page="currentPage + 1"
-                :length="companies.length / pageSize"
-                @click.native="updateVisibleCompanies"
-              ></v-pagination>
+            <v-pagination
+              v-model="currentPage"
+              :page="currentPage + 1"
+              :length="companies.length / pageSize"
+              @click.native="updateVisibleCompanies"
+            ></v-pagination>
           </v-flex>
         </v-layout>
-
 
         <v-form v-if="selection == 3" v-model="valid">
           <v-container grid-list-md>
@@ -134,7 +142,7 @@
                 <v-select :items="[true, false]" label="Ryczałt" v-model="companyToAdd.ryczalt"></v-select>
               </v-flex>
               <v-flex xs12>
-                <v-btn color="success" @click="addNewCompany(companyToAdd)">Dodaj Firmę</v-btn>
+                <v-btn color="success" @click="addNewCompany()">Dodaj Firmę</v-btn>
               </v-flex>
             </v-layout>
           </v-container>
@@ -149,9 +157,8 @@
 </template>
 
 <script>
-
-import { mapMutations } from "vuex";
-import API from "../constants/api";
+import { mapMutations } from 'vuex';
+import API from '../constants/api';
 import axios from 'axios';
 
 export default {
@@ -161,43 +168,45 @@ export default {
     visibleCompanies: [],
     companies: [],
     companyToAdd: {
-      firmaId: "",
-      nazwa: "",
-      ulica: "",
-      miasto: "",
-      kodPocztowy: "",
-      regon: "",
+      firmaId: '',
+      nazwa: '',
+      ulica: '',
+      miasto: '',
+      kodPocztowy: '',
+      regon: '',
       umowa: false,
-      ryczalt: false,
+      ryczalt: false
     },
     firma: {},
     selection: 1,
     selectedCompany: null,
-    nameSearch: "",
-    REGONSearch: "",
+    nameSearch: '',
+    REGONSearch: '',
     valid: true,
-    wizyta: null,
+    wizyta: null
   }),
   methods: {
-
-    ...mapMutations(["ADD_COMPANY", "UPDATE_PATIENT_COMPANY"]),
+    ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),
 
     getCompany(id) {
-      axios.get(`${API.url}/firmy/${id}`)
-        .then((res) => {
-          this.wizyta.pacjent.firma = res.data
-          })
-        .catch(err => console.log(err));
+      axios
+        .get(`${API.url}/firmy/${id}`)
+        .then(res => {
+          this.wizyta.pacjent.firma = res.data;
+        })
+        .catch(err => console.error(err));
     },
 
     select(selection) {
-      if(selection == 2) {
-        axios.get(`${API.url}/firmy`)
-          .then((response) => {
+      if (selection == 2) {
+        axios
+          .get(`${API.url}/firmy`)
+          .then(response => {
             this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data);
             this.companies = this.$store.getters.getCompanies;
+            this.updateVisibleCompanies();
           })
-          .catch(err => console.log(err));
+          .catch(err => console.error(err));
       }
       this.selectedCompany = selection;
     },
@@ -206,36 +215,34 @@ export default {
       this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma);
     },
 
-
     updatePage(pageNumber) {
       this.currentPage = pageNumber;
       this.updateVisibleCompanies();
     },
     updateVisibleCompanies() {
-      let begin = (this.currentPage * this.pageSize) - this.pageSize;
+      let begin = this.currentPage * this.pageSize - this.pageSize;
       let end = begin + this.pageSize;
 
-      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end);
 
       if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1);
       }
-
     },
 
-    addNewCompany(payload) {
+    addNewCompany() {
       // this.companyToAdd.id = this.companies.length + 1;
       // debugger;
-      // console.log("Elo from addNewCompany");
-      console.log(payload);
-      // console.log(this.companyToAdd);
-      axios.post(`${API.url}/firmy`, this.companyToAdd)
+      axios
+        .post(`${API.url}/firmy`, this.companyToAdd)
         .then(response => {
-          const firmaId = response.headers.location.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/)[0]
+          const firmaId = response.headers.location.match(
+            /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+          )[0];
           this.getCompany(firmaId);
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(function(error) {
+          console.error(error);
         });
       // this.ADD_COMPANY(payload);
       // this.firma = { ...this.companyToAdd };
@@ -243,12 +250,12 @@ export default {
       // this.clearForm();
     },
     clearForm() {
-      this.companyToAdd.nazwa = "";
-      this.companyToAdd.ulica = "";
-      this.companyToAdd.miasto = "";
-      this.companyToAdd.kodPocztowy = "";
-      this.companyToAdd.regon = "";
-      this.companyToAdd.ryczalt = "";
+      this.companyToAdd.nazwa = '';
+      this.companyToAdd.ulica = '';
+      this.companyToAdd.miasto = '';
+      this.companyToAdd.kodPocztowy = '';
+      this.companyToAdd.regon = '';
+      this.companyToAdd.ryczalt = '';
     },
     addToSelected() {},
     selectCompany(index) {
@@ -279,14 +286,16 @@ export default {
   mounted: function() {
     this.companies = this.$store.getters.getCompanies;
     this.wizyta = this.$store.getters.getWizyta;
-    this.updateVisibleCompanies();
   },
   computed: {
     filteredCompanies: function() {
       return this.companies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
-          firma.regon.toLowerCase().toString().match(this.REGONSearch.toLowerCase())
+          firma.regon
+            .toLowerCase()
+            .toString()
+            .match(this.REGONSearch.toLowerCase())
         );
       });
     },
@@ -294,14 +303,17 @@ export default {
       return this.visibleCompanies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
-          firma.regon.toLowerCase().toString().match(this.REGONSearch.toLowerCase())
+          firma.regon
+            .toLowerCase()
+            .toString()
+            .match(this.REGONSearch.toLowerCase())
         );
       });
-    },
+    }
   },
   ryczaltMapped: function() {
-      return this.ryczalt == "TAK" ? true : false;
-    }
+    return this.ryczalt == 'TAK' ? true : false;
+  }
 };
 </script>
 

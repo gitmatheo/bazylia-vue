@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="container"> -->
-    <v-container>
-      <!-- alt-labels -->
+  <v-container>
+    <!-- alt-labels -->
     <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1" :editable="editable">Wybierz datę i godzinę</v-stepper-step>
@@ -17,39 +17,40 @@
 
       <v-stepper-items>
         <v-stepper-content step="1">
-          <FormDatePicker title="Specjalistyka"/>
-          <v-btn color="primary" @click="e1 = 2"> Dalej </v-btn>
+          <FormDatePicker title="Specjalistyka" />
+          <v-btn color="primary" @click="e1 = 2">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="2">
-
-          <FormUsluga title="Specjalistyka"/>
+          <FormUsluga title="Specjalistyka" />
 
           <v-btn text @click="e1 = 1">Wróć</v-btn>
           <v-btn color="primary" @click="e1 = 3">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
-
-          <FormSummary :typeOfSummary="typWizytyConst.SPECJALISTYKA" title="Specjalistyka"/>
+          <FormSummary :typeOfSummary="typWizytyConst.SPECJALISTYKA" title="Specjalistyka" />
 
           <v-btn text @click="e1 = 2">Wróć</v-btn>
-          <v-btn color="primary" @click="zarejestrujWizyte"> Zarejestruj wizytę </v-btn>
+          <v-btn
+            color="primary"
+            @click="zarejestrujWizyte"
+            :disabled="zarejestrowano"
+          >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
     <pre><code>{{wizyta}}</code></pre>
-    </v-container>
+  </v-container>
   <!-- </div> -->
-
 </template>
 
 <script>
-import FormDatePicker from "../components/FormDatePicker";
-import FormUsluga from "../components/FormUsluga";
-import FormSummary from "../components/FormSummary";
-import { typWizytyConst } from "../constants/constants";
-import API from "../constants/api";
+import FormDatePicker from '../components/FormDatePicker';
+import FormUsluga from '../components/FormUsluga';
+import FormSummary from '../components/FormSummary';
+import { typWizytyConst } from '../constants/constants';
+import API from '../constants/api';
 import axios from 'axios';
 
 export default {
@@ -59,59 +60,60 @@ export default {
     FormSummary
   },
 
-  data () {
-        return {
-          wizyta: {},
-          e1: 1,
-          steps: 2,
-          vertical: true,
-          altLabels: false,
-          editable: true,
-          typWizytyConst: typWizytyConst
-        }
-      },
+  data() {
+    return {
+      zarejestrowano: false,
+      wizyta: {},
+      e1: 1,
+      steps: 2,
+      vertical: true,
+      altLabels: false,
+      editable: true,
+      typWizytyConst: typWizytyConst
+    };
+  },
 
   watch: {
-    steps (val) {
+    steps(val) {
       if (this.e1 > val) {
-        this.e1 = val
+        this.e1 = val;
       }
     },
-    vertical () {
-      this.e1 = 2
-      requestAnimationFrame(() => this.e1 = 1) // Workarounds
-    },
+    vertical() {
+      this.e1 = 2;
+      requestAnimationFrame(() => (this.e1 = 1)); // Workarounds
+    }
   },
 
   methods: {
-    onInput (val) {
-      this.steps = parseInt(val)
+    onInput(val) {
+      this.steps = parseInt(val);
     },
-    nextStep (n) {
+    nextStep(n) {
       if (n === this.steps) {
-        this.e1 = 1
+        this.e1 = 1;
       } else {
-        this.e1 = n + 1
+        this.e1 = n + 1;
       }
     },
-   zarejestrujWizyte() {
-      axios.post(`${API.url}/wizyty`, this.wizyta)
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
-    },
+    zarejestrujWizyte() {
+      this.zarejestrowano = true;
+      axios
+        .post(`${API.url}/wizyty`, this.wizyta)
+        .then(() => this.$router.push({ path: '/' }))
+        .catch(err => console.error(err));
+    }
   },
 
   mounted: function() {
     this.wizyta = this.$store.getters.getWizyta;
-  },
+  }
 };
 </script>
 
 <style lang="scss">
-
-  .container {
-    width: 80%;
-    margin: 20px;
-  }
-
+.container {
+  width: 80%;
+  margin: 20px;
+}
 </style>

@@ -14,14 +14,22 @@
           <v-card-text class="display-1">Rodzaj Wizyty</v-card-text>
           <v-layout row wrap>
             <v-flex xs6>
-              <v-btn color="error" class="custom-btn" large @click.native="updateTypWizyty(typWizytyConst.MEDYCYNA_PRACY)">
-                <router-link to="/medycyna-pracy">Medycyna Pracy</router-link>
-              </v-btn>
+              <v-btn
+                color="error"
+                class="custom-btn"
+                large
+                @click.native="updateTypWizyty(typWizytyConst.MEDYCYNA_PRACY)"
+                to="/medycyna-pracy"
+              >Medycyna Pracy</v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn color="error" class="custom-btn" large @click.native="updateTypWizyty(typWizytyConst.SPECJALISTYKA)">
-                <router-link to="/specjalistyka">Specjalistyka</router-link>
-              </v-btn>
+              <v-btn
+                color="error"
+                class="custom-btn"
+                large
+                @click.native="updateTypWizyty(typWizytyConst.SPECJALISTYKA)"
+                to="/specjalistyka"
+              >Specjalistyka</v-btn>
             </v-flex>
           </v-layout>
         </v-card>
@@ -35,8 +43,6 @@
 import { typWizytyConst } from '../constants/constants';
 import { mapMutations } from 'vuex';
 
-
-
 export default {
   data: () => ({
     pacjent: {},
@@ -46,9 +52,9 @@ export default {
     this.pacjent = this.$store.getters.getWizyta.pacjent;
   },
   methods: {
-    ...mapMutations(["UPDATE_TYP_WIZYTY"]),
+    ...mapMutations(['UPDATE_TYP_WIZYTY']),
     updateTypWizyty(typWizyty) {
-      this.UPDATE_TYP_WIZYTY(typWizyty)
+      this.UPDATE_TYP_WIZYTY(typWizyty);
     }
   }
 };
