@@ -5,9 +5,9 @@
     <v-layout row wrap justify-center>
       <v-flex xs6>
         <v-radio-group justify-center v-model="selection" @click="select(selection)">
-          <v-radio label="Użyj Firmy / ostatnio wybrana" color="error" :value="1"></v-radio>
-          <v-radio label="Użyj firmy z bazy danych" color="error" :value="2"></v-radio>
-          <v-radio label="Dodaj firmę" color="error" :value="3"></v-radio>
+          <v-radio label="Użyj Firmy / ostatnio wybrana" :value="1"></v-radio>
+          <v-radio label="Użyj firmy z bazy danych" :value="2"></v-radio>
+          <v-radio label="Dodaj firmę" :value="3"></v-radio>
         </v-radio-group>
       </v-flex>
       <v-flex xs6>
@@ -68,7 +68,7 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-btn :disabled="!valid" @click="updateVisibleCompanies" color="info">
+                    <v-btn :disabled="!valid" @click="updateVisibleCompanies">
                       <span>Szukaj</span>
                       <v-icon right>search</v-icon>
                     </v-btn>
@@ -97,7 +97,6 @@
                     <li>Ryczałt: {{firma.ryczalt}}</li>
                     <li>
                       <v-btn
-                        color="success"
                         class="customBtn"
                         @click="selectCompany(i)"
                       >Wybierz firmę</v-btn>
@@ -142,7 +141,7 @@
                 <v-select :items="[true, false]" label="Ryczałt" v-model="companyToAdd.ryczalt"></v-select>
               </v-flex>
               <v-flex xs12>
-                <v-btn color="success" @click="addNewCompany()">Dodaj Firmę</v-btn>
+                <v-btn @click="addNewCompany()">Dodaj Firmę</v-btn>
               </v-flex>
             </v-layout>
           </v-container>

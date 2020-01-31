@@ -15,7 +15,6 @@
           <v-layout row wrap>
             <v-flex xs6>
               <v-btn
-                color="error"
                 class="custom-btn"
                 large
                 @click.native="updateTypWizyty(typWizytyConst.MEDYCYNA_PRACY)"
@@ -24,7 +23,6 @@
             </v-flex>
             <v-flex xs6>
               <v-btn
-                color="error"
                 class="custom-btn"
                 large
                 @click.native="updateTypWizyty(typWizytyConst.SPECJALISTYKA)"

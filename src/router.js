@@ -1,6 +1,6 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
 // import Raports from "./views/Raports.vue";
 // import Completed from "./views/Completed.vue";
 // import Invoice from "./views/Invoice.vue";
@@ -9,56 +9,47 @@ Vue.use(Router);
 Vue.use(require('vue-moment'));
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: Home
     },
     {
-      path: "/completed",
-      name: "Completed",
+      path: '/invoice/:id',
+      name: 'Invoice',
       // route level code-splitting
-      // this generates a separate chunk (completed.[hash].js) for this route
+      // this generates a separate chunk (invoice.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "completed" */ "./views/Completed.vue")
-    },
-    {
-      path: "/invoice/:id",
-      name: "Invoice",
-      component: () => import(/* webpackChunkName: "invoice" */ "./views/Invoice.vue")
-    },
-    {
-      path: "/add-patient",
-      name: "AddPatient",
       component: () =>
-        import(/* webpackChunkName: "add-patient" */ "./views/AddPatient.vue")
+        import(/* webpackChunkName: "invoice" */ './views/Invoice.vue')
     },
     {
-      path: "/rozliczenia",
-      name: "Rozliczenia",
-      component: () =>
-        import(/* webpackChunkName: "add-patient" */ "./views/Rozliczenia.vue")
+      path: '/add-patient',
+      name: 'AddPatient',
+      component: () => import('./views/AddPatient.vue')
     },
     {
-      path: "/registration",
-      name: "Registration",
-      component: () =>
-        import(/* webpackChunkName: "registration" */ "./views/Registration.vue")
+      path: '/rozliczenia',
+      name: 'Rozliczenia',
+      component: () => import('./views/Rozliczenia.vue')
     },
     {
-      path: "/specjalistyka",
-      name: "Specjalistyka",
-      component: () =>
-        import(/* webpackChunkName: "specjalistyka" */ "./views/Specjalistyka.vue")
+      path: '/registration',
+      name: 'Registration',
+      component: () => import('./views/Registration.vue')
     },
     {
-      path: "/medycyna-pracy",
-      name: "MedycynaPracy",
-      component: () =>
-        import(/* webpackChunkName: "medycyna-pracy" */ "./views/MedycynaPracy.vue")
+      path: '/specjalistyka',
+      name: 'Specjalistyka',
+      component: () => import('./views/Specjalistyka.vue')
+    },
+    {
+      path: '/medycyna-pracy',
+      name: 'MedycynaPracy',
+      component: () => import('./views/MedycynaPracy.vue')
     }
   ]
 });

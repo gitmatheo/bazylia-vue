@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-btn slot="activator" color="primary" dark>Dodaj Firmę</v-btn>
+      <v-btn slot="activator" dark>Dodaj Firmę</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Dodaj Firmę</span>
@@ -36,8 +36,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">wstecz</v-btn>
-          <v-btn color="success" @click.native="dialog = false">Dodaj Firmę</v-btn>
+          <v-btn flat @click.native="dialog = false">wstecz</v-btn>
+          <v-btn @click.native="dialog = false">Dodaj Firmę</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

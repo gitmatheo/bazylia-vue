@@ -9,7 +9,7 @@
             <v-text-field v-model="nazwaUslugi" label="Nazwa uslugi"></v-text-field>
           </v-flex>
           <v-flex xs3>
-            <v-btn :disabled="!valid" color="info">
+            <v-btn :disabled="!valid">
               <span>Szukaj</span>
               <v-icon right>search</v-icon>
             </v-btn>

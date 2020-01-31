@@ -9,22 +9,24 @@
         <v-form v-model="valid" lazy-validation>
           <v-container>
             <v-layout>
-              <v-flex xs12 md4>
+              <v-flex xs12 md3>
                 <v-text-field v-model="name" @change="getFilteresPatients" label="Imię"></v-text-field>
               </v-flex>
-              <v-flex xs12 md4>
+              <v-flex xs12 md3>
                 <v-text-field v-model="secondName" @change="getFilteresPatients" label="Nazwisko"></v-text-field>
               </v-flex>
-              <v-flex xs12 md4>
+              <v-flex xs12 md3>
                 <v-text-field v-model="pesel" @change="getFilteresPatients" label="PESEL"></v-text-field>
+              </v-flex>
+              <v-flex xs12 md3>
+                <v-btn :disabled="!valid">
+                  <span>Szukaj</span>
+                  <v-icon right>search</v-icon>
+                </v-btn>
               </v-flex>
             </v-layout>
           </v-container>
-          <v-btn :disabled="!valid" color="success">
-            <span>Szukaj</span>
-            <v-icon right>search</v-icon>
-          </v-btn>
-          <v-btn color="error" class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
+          <v-btn @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -188,7 +190,6 @@ export default {
 
 <style lang="scss">
 .search-form {
-  border-radius: 5px;
   padding: 20px;
   display: flex;
   flex-direction: column;

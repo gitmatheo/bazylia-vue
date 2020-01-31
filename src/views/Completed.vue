@@ -9,7 +9,7 @@
       <v-flex xs12 justify-center pb-4>
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on }">
-            <v-btn color="green" dark v-on="on">Wystaw fakturę</v-btn>
+            <v-btn dark v-on="on">Wystaw fakturę</v-btn>
           </template>
           <v-card>
             <v-card-title class="headline grey lighten-2" primary-title>Wystawianie faktury</v-card-title>
@@ -43,8 +43,8 @@
               </v-radio-group>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="grey" flat @click="dialog = false">Anuluj</v-btn>
-                <v-btn color="success" flat @click="dialog = false">Wystaw Fakturę</v-btn>
+                <v-btn flat @click="dialog = false">Anuluj</v-btn>
+                <v-btn flat @click="dialog = false">Wystaw Fakturę</v-btn>
               </v-card-actions>
             </v-container>
           </v-card>

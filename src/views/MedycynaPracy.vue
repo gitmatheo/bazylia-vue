@@ -24,7 +24,6 @@
         <v-stepper-content step="1">
           <FormTypeOfService />
           <v-btn
-            color="primary"
             @click="currentStepNumber = 2"
             :disabled="wizyta.rodzajBadan.length == 0"
           >Dalej</v-btn>
@@ -33,20 +32,19 @@
         <v-stepper-content step="2">
           <FormCompany />
           <v-btn text @click="currentStepNumber = 1">Wróć</v-btn>
-          <v-btn color="primary" @click="currentStepNumber = 3">Dalej</v-btn>
+          <v-btn  @click="currentStepNumber = 3">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
           <FormDatePicker title="Medycyna pracy" />
           <v-btn text @click="currentStepNumber = 2">Wróć</v-btn>
-          <v-btn color="primary" @click="currentStepNumber = 4">Dalej</v-btn>
+          <v-btn  @click="currentStepNumber = 4">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4">
           <FormUsluga title="Medycyna pracy" />
           <v-btn text @click="currentStepNumber = 3">Wróć</v-btn>
           <v-btn
-            color="primary"
             @click="currentStepNumber = 5"
             :disabled="wizyta.usluga.nazwa.length == 0"
           >Dalej</v-btn>
@@ -56,7 +54,6 @@
           <FormSummary :typeOfSummary="typWizytyConst.MEDYCYNA_PRACY" title="Medycyna pracy" />
           <v-btn text @click="currentStepNumber = 4">Wróć</v-btn>
           <v-btn
-            color="primary"
             @click="zarejestrujWizyte"
             :disabled="zarejestrowano"
           >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</v-btn>

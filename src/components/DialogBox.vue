@@ -18,8 +18,8 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" flat @click="cancelDelete">Nie. Wstecz</v-btn>
-          <v-btn color="primary" flat @click="confirmDelete">Tak. Usuń</v-btn>
+          <v-btn flat @click="cancelDelete">Nie. Wstecz</v-btn>
+          <v-btn flat @click="confirmDelete">Tak. Usuń</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

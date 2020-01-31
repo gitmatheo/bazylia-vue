@@ -18,14 +18,14 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <FormDatePicker title="Specjalistyka" />
-          <v-btn color="primary" @click="e1 = 2">Dalej</v-btn>
+          <v-btn @click="e1 = 2">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <FormUsluga title="Specjalistyka" />
 
           <v-btn text @click="e1 = 1">Wróć</v-btn>
-          <v-btn color="primary" @click="e1 = 3">Dalej</v-btn>
+          <v-btn @click="e1 = 3">Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
@@ -33,7 +33,6 @@
 
           <v-btn text @click="e1 = 2">Wróć</v-btn>
           <v-btn
-            color="primary"
             @click="zarejestrujWizyte"
             :disabled="zarejestrowano"
           >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</v-btn>

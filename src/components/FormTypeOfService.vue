@@ -5,14 +5,13 @@
     <v-layout row wrap justify-center>
       <v-flex xs12>
         <v-radio-group row justify-center v-model="rodzajBadan" @click="select(rodzajBadan)">
-          <v-radio label="Wstępne" color="error" :value="rodzajBadanConst.WSTEPNE" checked></v-radio>
-          <v-radio label="Okresowe" color="error" :value="rodzajBadanConst.OKRESOWE"></v-radio>
+          <v-radio label="Wstępne" :value="rodzajBadanConst.WSTEPNE" checked></v-radio>
+          <v-radio label="Okresowe" :value="rodzajBadanConst.OKRESOWE"></v-radio>
           <v-radio
             label="Sanitarno-epidemiologiczne"
-            color="error"
             :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
           ></v-radio>
-          <v-radio label="Kontrolne" color="error" :value="rodzajBadanConst.KONTROLNE"></v-radio>
+          <v-radio label="Kontrolne" :value="rodzajBadanConst.KONTROLNE"></v-radio>
         </v-radio-group>
         <span>Wybrano: {{rodzajBadan}}</span>
       </v-flex>

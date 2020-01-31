@@ -6,10 +6,10 @@
       <v-form v-model="valid" lazy-validation>
         <v-container>
           <v-layout>
-            <v-flex xs12 md4>
+            <v-flex xs12 md3>
               <v-text-field v-model="name" @change.stop="getPatients" label="Imię" required></v-text-field>
             </v-flex>
-            <v-flex xs12 md4>
+            <v-flex xs12 md3>
               <v-text-field
                 v-model="secondName"
                 @change="getFilteredPatients"
@@ -17,7 +17,7 @@
                 required
               ></v-text-field>
             </v-flex>
-            <v-flex xs12 md4>
+            <v-flex xs12 md3>
               <v-text-field
                 v-model="pesel"
                 :rules="peselRules"
@@ -26,13 +26,16 @@
                 required
               ></v-text-field>
             </v-flex>
+            <v-flex xs12 md3>
+              <v-btn :disabled="!valid">
+                <span>Szukaj</span>
+                <v-icon right>search</v-icon>
+              </v-btn>
+            </v-flex>
           </v-layout>
         </v-container>
-        <v-btn :disabled="!valid" color="success">
-          <span>Szukaj</span>
-          <v-icon right>search</v-icon>
-        </v-btn>
-        <v-btn color="error" class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
+
+        <v-btn class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
       </v-form>
     </v-flex>
   </v-layout>
@@ -40,18 +43,18 @@
 
 <script>
 export default {
-  props: ["getPatients", "name", "secondName", "pesel", "getFilteredPatients"],
+  props: ['getPatients', 'name', 'secondName', 'pesel', 'getFilteredPatients'],
   data: () => ({
     valid: true,
     peselRules: [
-      v => (v && v.length == 11) || "PESEL powinien składać się z 11 cyfr"
+      v => (v && v.length == 11) || 'PESEL powinien składać się z 11 cyfr'
     ]
   }),
 
   methods: {
     submit() {
-      this.name = "";
-      this.secondName = "";
+      this.name = '';
+      this.secondName = '';
       this.pesel = null;
     }
   }

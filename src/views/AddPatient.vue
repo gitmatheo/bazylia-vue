@@ -85,13 +85,13 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <pre><code>{{pacjent}}</code></pre>
+        <!-- <pre><code>{{pacjent}}</code></pre>
         <h2>nipFormatted</h2>
         <pre><code>{{nipFormatted}}</code></pre>
         <h2>nip</h2>
-        <pre><code>{{pacjent.nip}}</code></pre>
+        <pre><code>{{pacjent.nip}}</code></pre>-->
         <!-- <v-btn color="success" @click.native="dialog = false">Dodaj Pacjenta</v-btn> -->
-        <v-btn color="success" @click.native="submitPatient()">Dodaj Pacjenta</v-btn>
+        <v-btn @click.native="submitPatient()">Dodaj Pacjenta</v-btn>
       </v-card-actions>
     </v-card>
   </v-layout>

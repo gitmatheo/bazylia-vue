@@ -19,7 +19,7 @@
               <li>Firma: {{patient.company}}</li>
               <!-- <li>PESEL: {{patient.pesel}}</li> -->
               <li>
-                <v-btn color="success" class="customBtn" @click="register(i)">Rejestruj wizytę</v-btn>
+                <v-btn class="customBtn" @click="register(i)">Rejestruj wizytę</v-btn>
                 <!-- <DialogBox
                   color="green"
                   :patients="patients[i]"
