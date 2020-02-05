@@ -3,7 +3,7 @@
     <h2>Rejestracja - {{title}}</h2>
     <h4>Podsumowanie Rejestracji</h4>
 
-    <v-layout v-if="typeOfSummary == typWizytyConst.MEDYCYNA_PRACY" row wrap justify-center>
+    <v-layout v-if="typeOfSummary == typWizytyConst.MEDYCYNA_PRACY && wizyta.pacjent.firma" row wrap justify-center>
       <v-flex xs6>
         <h3>Pacjent</h3>
         <ul class="patient-list">
@@ -39,7 +39,7 @@
       </v-flex>
     </v-layout>
 
-    <v-layout v-if="typeOfSummary == typWizytyConst.SPECJALISTYKA" row wrap justify-center>
+    <v-layout v-if="typeOfSummary == typWizytyConst.SPECJALISTYKA && wizyta.pacjent.firma" row wrap justify-center>
       <v-flex xs12>
         <h3>Pacjent</h3>
         <ul class="patient-list">
@@ -84,6 +84,7 @@ export default {
   },
   created() {
     this.wizyta = this.$store.getters.getWizyta;
+    console.log(this.wizyta);
     this.date = new Date(this.wizyta.dataWizyty);
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'UPDATE_DATE_AND_TIME') {

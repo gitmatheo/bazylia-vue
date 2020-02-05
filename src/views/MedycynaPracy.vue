@@ -23,6 +23,7 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <FormTypeOfService />
+          <v-btn text to="/registration">Wróć</v-btn>
           <v-btn
             @click="currentStepNumber = 2"
             :disabled="wizyta.rodzajBadan.length == 0"
@@ -32,13 +33,15 @@
         <v-stepper-content step="2">
           <FormCompany />
           <v-btn text @click="currentStepNumber = 1">Wróć</v-btn>
-          <v-btn  @click="currentStepNumber = 3">Dalej</v-btn>
+          <v-btn  @click="currentStepNumber = 3"
+          :disabled="!wizyta.pacjent.firma">{{wizyta.pacjent.firma ? "Dalej" : "Nie wybrano firmy"}}</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="3">
           <FormDatePicker title="Medycyna pracy" />
           <v-btn text @click="currentStepNumber = 2">Wróć</v-btn>
-          <v-btn  @click="currentStepNumber = 4">Dalej</v-btn>
+          <v-btn  @click="currentStepNumber = 4"
+          >Dalej</v-btn>
         </v-stepper-content>
 
         <v-stepper-content step="4">

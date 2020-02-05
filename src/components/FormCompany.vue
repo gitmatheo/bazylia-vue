@@ -11,8 +11,8 @@
         </v-radio-group>
       </v-flex>
       <v-flex xs6>
-        <h3>Wybrana firma</h3>
-        <ul v-if="wizyta" class="company-desc">
+        <h3>{{wizyta.pacjent.firma ? "Wybrana firma" : "Nie wybrano firmy"}}</h3>
+        <ul v-if="wizyta.pacjent.firma" class="company-desc">
           <li>
             Nazwa:
             <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.nazwa}}</span>
@@ -77,7 +77,7 @@
               </v-container>
             </v-form>
 
-            <v-expansion-panel my-2>
+            <v-expansion-panel v-if="visibleCompanies" my-2>
               <v-expansion-panel-content v-for="(firma,i) in visibleCompanies" :key="i">
                 <template v-slot:header>
                   <ul class="patient__header">
@@ -182,7 +182,11 @@ export default {
     nameSearch: '',
     REGONSearch: '',
     valid: true,
-    wizyta: null
+    wizyta: {
+      pacjent: {
+        firma: ''
+      }
+    }
   }),
   methods: {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),

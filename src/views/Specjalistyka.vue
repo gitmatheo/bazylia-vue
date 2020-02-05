@@ -18,6 +18,7 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <FormDatePicker title="Specjalistyka" />
+          <v-btn text to="/registration">Wróć</v-btn>
           <v-btn @click="e1 = 2">Dalej</v-btn>
         </v-stepper-content>
 
@@ -111,8 +112,8 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+/* .container {
   width: 80%;
   margin: 20px;
-}
+} */
 </style>
