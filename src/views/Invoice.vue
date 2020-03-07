@@ -7,7 +7,7 @@
         </div>
       </v-flex>
     </v-layout>-->
-    <v-container id="section-to-print" class="white container" my-5 elevation-2>
+    <v-container id="section-to-print" class="white container" my-5 >
       <v-layout row>
         <v-flex xs7>
           <p>ZOZ "BAZYLIA" SPECJALISTYCZNE USŁUGI MEDYCZNE</p>
@@ -88,7 +88,7 @@
             :headers="headers"
             :items="faktura.uslugi"
             hide-actions
-            class="elevation-1"
+            class=""
           >
             <template v-slot:items="props">
               <td>{{ }}</td>

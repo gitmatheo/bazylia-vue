@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs12 class="search-form white" mt-5 elevation-5>
+    <v-flex xs12 class="search-form white" mt-5 >
       <h2>Lista Firm</h2>
       <v-expansion-panel my-2>
         <v-expansion-panel-content v-for="(company,i) in companies" :key="i">

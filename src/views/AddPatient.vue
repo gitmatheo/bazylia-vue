@@ -1,6 +1,6 @@
 <template>
   <v-layout class="search-form" row justify-center>
-    <v-card my-4 class="elevation-15">
+    <v-card my-4 class="">
       <v-card-title>
         <span class="headline">Dodaj Pacjenta</span>
       </v-card-title>
@@ -157,4 +157,7 @@ export default {
 </script>
 
 <style>
+.container {
+  max-width: 1360px !important;
+}
 </style>

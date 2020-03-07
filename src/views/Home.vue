@@ -3,30 +3,29 @@
     <!-- <SearchPatient :getPatients="getPatients" :name="name" :secondName="secondName" :pesel="pesel"></SearchPatient> -->
 
     <v-layout row justify-center>
-      <v-flex xs12 class="search-form white" elevation-5>
-        <h2>Wyszukaj Pacjenta</h2>
+      <v-flex xs12 class="search-form white" >
+        <h2>Wyszukaj Pacjenta <span class="subtitle">(wpisz nazwisko lub pesel)</span></h2>
 
-        <v-form v-model="valid" lazy-validation>
-          <v-container>
+        <v-form class="form" v-model="valid" lazy-validation>
+
             <v-layout>
-              <v-flex xs12 md3>
+              <!-- <v-flex xs12 md3>
                 <v-text-field v-model="name" @change="getFilteresPatients" label="Imię"></v-text-field>
-              </v-flex>
-              <v-flex xs12 md3>
-                <v-text-field v-model="secondName" @change="getFilteresPatients" label="Nazwisko"></v-text-field>
-              </v-flex>
-              <v-flex xs12 md3>
-                <v-text-field v-model="pesel" @change="getFilteresPatients" label="PESEL"></v-text-field>
-              </v-flex>
-              <v-flex xs12 md3>
-                <v-btn :disabled="!valid">
+              </v-flex> -->
+              <div class="form__input-wrapper flex xs12 md4">
+                <input v-model="secondName" @change="getFilteresPatients" placeholder="Nazwisko" label="Nazwisko"/>
+              </div>
+              <div class="form__input-wrapper flex xs12 md4">
+                <input v-model="pesel" @change="getFilteresPatients" placeholder="Pesel" label="PESEL"/>
+              </div>
+              <div class="form__input-wrapper flex xs12 md4">
+                <button class="my-btn" :disabled="!valid">
                   <span>Szukaj</span>
                   <v-icon right>search</v-icon>
-                </v-btn>
-              </v-flex>
+                </button>
+              </div>
             </v-layout>
-          </v-container>
-          <v-btn @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
+          <button class="my-btn my-btn--black" @click.prevent="getPatients">Pokaż wszystkich pacjentów</button>
         </v-form>
       </v-flex>
     </v-layout>
@@ -120,8 +119,10 @@ export default {
         .then(response => {
           this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data);
           this.patients = this.$store.getters.getPatients;
+          console.log("WHAT RESPONSE")
         })
         .catch(function(error) {
+           console.log("WHAT error")
           console.error(error);
         });
     },
@@ -190,12 +191,67 @@ export default {
 
 <style lang="scss">
 .search-form {
-  padding: 20px;
+  padding: 30px 130px;
   display: flex;
   flex-direction: column;
 
   h2 {
     margin: 10px 0 20px 0;
+    .subtitle {
+      font-size: 14px;
+      font-weight: normal;
+    }
   }
 }
+
+.my-btn {
+    background-color: #20CE99;
+    color: white;
+    height: 48px;
+    width: 224px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    i {
+      color: white !important;
+    }
+
+    &--black {
+      background-color: black;
+    }
+}
+
+
+.form {
+&__input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  button {
+    align-self: flex-start;
+  }
+  &:nth-child(2) {
+    margin-left: 32px;
+  }
+  input {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50px;
+    width: 100%;
+    height: 48px;
+    padding: 20px;
+    outline: none;
+  }
+}
+
+
+}
+
+
+.container {
+  max-width: 1360px !important;
+}
+
+
 </style>
