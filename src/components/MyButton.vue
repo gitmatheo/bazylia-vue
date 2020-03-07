@@ -1,7 +1,11 @@
 
 
 <template>
-    <v-btn :to="to" class="btn" :color="color" ><slot></slot></v-btn>
+    <v-btn 
+    :to="to" 
+    :color="color"
+    :style="{'color': fontColor}"
+    class="btn"  ><slot></slot></v-btn>
 </template>
 
 
@@ -12,6 +16,7 @@ export default {
   props: {
     color: String,
     to: String,
+    fontColor: String
   },
   data: () => ({
     // color: this.color,
@@ -31,8 +36,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #20CE99 !important;
-    color: white !important;
+    background-color: #20CE99;
+    color: white;
     height: 48px;
     width: 224px;
     border-radius: 50px;

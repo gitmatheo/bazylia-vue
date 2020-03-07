@@ -144,46 +144,10 @@ export default {
       }
     },
 
-    register(index) {
-      const {
-        pacjentId,
-        imie,
-        nazwisko,
-        pesel,
-        numerKarty,
-        ulica,
-        miasto,
-        kodPocztowy,
-        numerTelefonu,
-        nip,
-        firma,
-        stanowisko,
-        dataOrzeczenia
-      } = this.patients[index];
-      const patientForReg = {
-        pacjentId,
-        imie,
-        nazwisko,
-        pesel,
-        numerKarty,
-        ulica,
-        miasto,
-        kodPocztowy,
-        numerTelefonu,
-        nip,
-        firma,
-        stanowisko,
-        dataOrzeczenia
-      };
-      this.setPatientForReg(patientForReg);
-      const confirmed = confirm(`Chcesz zarejestrować tego pacjenta ?
-      Imię: ${imie}
-      Nazwisko: ${nazwisko}
-      PESEL: ${pesel}`);
-
-      if (confirmed) {
-        this.$router.push({ path: '/registration' });
-      }
+    register(patient) {
+      console.log("==========Register clicked");
+      console.log(patient);
+      this.setPatientForReg(patient);
     }
   }
 };

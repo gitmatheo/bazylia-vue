@@ -48,7 +48,7 @@ export default new Vuex.Store({
         dataOrzeczenia: null
       },
       typWizyty: '',
-      rodzajBadan: '',
+      rodzajBadan: null,
       dataWizyty: '',
       usluga: {
         uslugaId: '',

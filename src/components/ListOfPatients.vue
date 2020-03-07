@@ -15,28 +15,65 @@
         </v-expansion-panel-content>
         <v-expansion-panel-content v-for="(patient,i) in filteredPatients" :key="i">
           <template v-slot:header>
-            <ul class="patient__header">
+            <ul class="patient__header patient__header--bold">
               <li>{{patient.imie}}</li>
               <li>{{patient.nazwisko}}</li>
-              <li>PESEL: {{patient.pesel}}</li>
-              <li>Szczegóły</li>
+              <li>{{patient.pesel}}</li>
+              <li class="patient__details-element">Szczegóły</li>
             </ul>
           </template>
-          <v-card>
-            <ul ref="patient" class="patient__desc">
-              <li>Imię: {{patient.imie}}</li>
-              <li>Nazwisko: {{patient.nazwisko}}</li>
-              <li>Firma: {{patient.company}}</li>
-              <!-- <li>PESEL: {{patient.pesel}}</li> -->
+          <v-card >
+            
+            <div class="patient__desc">
+              <ul ref="patient" class="patient__desc-col" >
+                <li>
+                  <span>Numer karty: </span>
+                  <span>{{patient.numerKarty}}</span>
+                </li>
+                <li>
+                  <span>Ulica: </span>
+                  <span>{{patient.ulica}}</span>
+                </li>
+                <li>
+                  <span>Miasto:</span> 
+                  <span>{{patient.miasto}}</span>
+                </li>
+                <li>
+                  <span>Kod-pocztowy:</span> 
+                  <span>{{patient.kodPocztowy}}</span>
+                </li>
+                <li>
+                  <span>Telefon: </span>
+                  <span>{{patient.numerTelefonu}}</span>
+                </li>
+                <li>
+                  <span>Stanowisko: </span>
+                  <span>{{patient.stanowisko}}</span>
+                </li>
+                <li>
+                  <span>NIP:</span> 
+                  <span>{{patient.nip}}</span>
+                </li>
+                <li>
+                  <span>Data orzeczenia: </span>
+                  <span>{{patient.dataOrzeczenia}}</span>
+                </li>
+              </ul>
 
-            </ul>
+               <!-- FIRMA -->
+              <ul ref="patient" class="patient__desc-col">
+                <li v-if="patient.firma">
+                  <span>Firma: </span>
+                  <span>{{patient.firma.nazwa}}</span>
+                </li>
+              </ul>
+            </div>
+
             <div class="patient__btns">
-               
                 <RegistrationPopUp
                   :patients="patients[i]"
-                  @click="register(i)"
-                  @clicked="updateTypWizyty($event)"
-                >Rejestruj wizytę</RegistrationPopUp>
+                  @clicked="register($event)"
+                ></RegistrationPopUp>
                 <DeletePatientPopUp :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DeletePatientPopUp>
              </div>
           </v-card>
@@ -63,62 +100,95 @@ export default {
       console.log("event ListOfPatients dialog box")
       console.log($event);
     }
+  },
+  created() {
+    console.log("PATIENTS")
+    console.log(this.patients)
   }
+
 };
 </script>
 
 <style lang="scss">
 
-
+.v-expansion-panel__header {
+  padding: 12px 0px !important;
+}
 .patient {
   border-bottom: 1px solid rgba(0,0,0, 0.2);
 
 
-  &__btns {
+  &__card {
     display: flex;
-    padding: 10px;
-    button {
-      &:nth-child(2){
-        margin-left: 36px;
+    justify-content: space-between;
+  }
+
+
+  &__header {
+  display: flex;
+  list-style: none;
+  padding: 0px;
+    li {
+      width:25%;
+      &:nth-child(2) {
+        padding-left:7px;
+      }
+      &:nth-child(3) {
+        padding-left:12px;
+      }
+    }
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__desc {
+    display:flex;
+    justify-content: space-between;
+  }
+
+  &__desc-col {
+    list-style: none;
+    padding-top: 2rem;
+    /* background: chocolate; */
+    width: 50%;
+    padding-left: 0px;
+    /* &:first-child {
+      padding-left: 47px;
+    } */
+
+
+    li {
+      display:flex;
+      padding-top:8px;
+      span{
+        display: block;
+        width: 50%;
       }
     }
   }
-}
-.patient__header {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  li {
-    padding-right: 20px;
-  }
-}
 
-.patient__desc {
-  list-style: none;
-  padding-top: 2rem;
-  li {
-    padding: 3px 0;
-  }
-}
-
-.my-btn {
-    background-color: #20CE99;
-    color: white;
-    height: 48px;
-    width: 224px;
-    border-radius: 50px;
+  &__btns {
     display: flex;
-    justify-content: center;
-    i {
-      color: white !important // dlaczego kurwa important ?;
-    }
+    padding: 10px 0px;
+    width: 50%;
 
-    &--black {
-      background-color: black;
+    div {
+      width: 50%;
     }
-    &--red {
-      background-color: #F44336 !important // dlaczego kurwa important ?;
-    }
+  }
+
+
+  &__details-element {
+    text-align: right;
+    padding-right: 3px;
+  }
 }
+
+
+
+
+
 
 </style>
