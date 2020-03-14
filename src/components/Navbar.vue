@@ -3,22 +3,49 @@
       <v-tab :class="{ 'active': path == '/' }" @click="setPath('/')" to="/">Wyszukaj Pacjenta</v-tab>
       <v-tab :class="{ 'active': path == '/add-patient' }" @click="setPath('/add-patient')" to="/add-patient">Dodaj Pacjenta</v-tab>
       <v-tab :class="{ 'active': path == '/rozliczenia'}" @click="setPath('/rozliczenia')" to="/rozliczenia">Rozliczenia</v-tab>
+      <v-tab v-if="isAuthenticated" @click="logout" >Wyloguj</v-tab>
     </v-toolbar>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import API from '../constants/api';
+import axios from 'axios';
 export default {
   data: () => ({
     isActive: true,
-    path: "/"
+    path: "/",
+    isAuthenticated: false,
   }),
   methods:{
+      ...mapMutations(['AUTHENTICATE_USER']),
     setPath(path) {
       this.path = path;
-      console.log("TPAAAARADSADASDSADHISSS")
-      console.log(this.path)
-
     },
+    logout() {
+
+
+      console.log("LOGOUTTT")
+      axios
+        .get(`${API.url}/logout`)
+        .then(() => {
+          sessionStorage.clear()
+          this.$store.commit('AUTHENTICATE_USER', false);
+          this.$router.push({ path: '/login' })
+        })
+        .catch((err) => {
+          console.log("logout error")
+          console.error(err)
+        });
+
+    }
+  },
+  mounted() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'AUTHENTICATE_USER') {
+        this.isAuthenticated = state.isAuthenticated;
+      }
+    });
   }
 }
 </script>

@@ -117,16 +117,13 @@ export default {
 .patient {
   border-bottom: 1px solid rgba(0,0,0, 0.2);
 
-
   &__card {
     display: flex;
     justify-content: space-between;
   }
 
-
   &__header {
   display: flex;
-  list-style: none;
   padding: 0px;
     li {
       width:25%;
@@ -149,15 +146,9 @@ export default {
   }
 
   &__desc-col {
-    list-style: none;
     padding-top: 2rem;
-    /* background: chocolate; */
     width: 50%;
     padding-left: 0px;
-    /* &:first-child {
-      padding-left: 47px;
-    } */
-
 
     li {
       display:flex;

@@ -9,7 +9,7 @@
       <v-flex xs12 justify-center pb-4>
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on }">
-            <v-btn dark v-on="on">Wystaw fakturę</v-btn>
+            <v-btn v-on="on">Wystaw fakturę</v-btn>
           </template>
           <v-card>
             <v-card-title class="headline grey lighten-2" primary-title>Wystawianie faktury</v-card-title>

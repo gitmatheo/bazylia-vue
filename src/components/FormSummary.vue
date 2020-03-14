@@ -98,7 +98,6 @@ export default {
 <style lang="scss" scoped>
 ul {
   li {
-    list-style: none;
     text-align: left;
   }
 }
