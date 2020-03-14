@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isAuthenticated: false,
     patients: [
       {
         pacjentId: 'ca798f3c-fd0c-4e59-a675-170de7a03290',
@@ -93,10 +94,16 @@ export default new Vuex.Store({
     },
     getFaktura: state => {
       return state.faktura;
+    },
+    getIsAuthenticated: state => {
+      return state.isAuthenticated;
     }
   },
 
   mutations: {
+    AUTHENTICATE_USER: (state, isAuthenticated) => {
+      state.isAuthenticated = isAuthenticated;
+    },
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
       state.wizyta.pacjent = pacjent;
     },

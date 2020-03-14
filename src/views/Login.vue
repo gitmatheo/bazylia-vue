@@ -4,7 +4,7 @@
     <div class="login-wrapper">
         <h1>Zaloguj się.</h1>
 
-        
+        <div class="form__input-wrapper">
         <v-text-field
               v-model="login"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -18,7 +18,9 @@
 
               @click:append="show1 = !show1"
         ></v-text-field>
+        </div>
 
+        <div class="form__input-wrapper">
         <v-text-field
               v-model="password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -33,6 +35,7 @@
 
               @click:append="show1 = !show1"
         ></v-text-field>
+        </div>
 
         <!-- <div class="form__input-wrapper">
             <v-text-field v-model="mail" label="e-mail" required></v-text-field>
@@ -40,7 +43,7 @@
         <!-- <div class="form__input-wrapper">
             <v-text-field v-model="password" label="hasło" required></v-text-field>
         </div> -->
-        <my-button color="#20CE99" fontColor="white">Zaloguj</my-button>
+        <my-button color="#20CE99" fontColor="white" @click.native="loginek">Zaloguj</my-button>
     </div>
 
 
@@ -48,14 +51,18 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import MyButton from "../components/MyButton";
+import API from '../constants/api';
+import axios from 'axios';
+
 export default {
   components: {
     MyButton
   },
   data: () => ({
       show1: false,
-      mail:"",
+      login:"",
       password: '',
         rules: {
             requiredLogin: value => !!value || 'Login jest wymagany.',
@@ -63,6 +70,31 @@ export default {
             min: v => v.length >= 8 || 'Min 8 characters',
         },
   }),
+methods: {
+  ...mapMutations(['AUTHENTICATE_USER']),
+  loginek () {
+    var encodedBase64String = btoa(`${this.login}:${this.password}`)
+    const options = {
+      headers: {
+        'Authorization': `Basic ${encodedBase64String}`
+        },
+      withCredentials: true
+      };
+
+    axios
+      .get(`${API.url}/login`, options)
+      .then(res => {
+        sessionStorage.setItem('ROLE', `${res.data.roles[0]}`);
+        sessionStorage.setItem('isAuthenticated', true);
+        this.$router.push({ path: '/' })
+        this.$store.commit('AUTHENTICATE_USER', true);
+      })
+      .catch(err => {
+        console.error(err)
+      });
+  }
+}
+
 
 };
 </script>

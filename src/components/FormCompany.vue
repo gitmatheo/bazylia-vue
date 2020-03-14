@@ -76,8 +76,8 @@
                 </v-layout>
               </v-container>
             </v-form>
-
-            <v-expansion-panel v-if="visibleCompanies" my-2>
+          <v-expansion-panels flat>
+            <v-expansion-panel flat v-if="visibleCompanies" my-2>
               <v-expansion-panel-content v-for="(firma,i) in visibleCompanies" :key="i">
                 <template v-slot:header>
                   <ul class="patient__header">
@@ -105,6 +105,8 @@
                 </v-card>
               </v-expansion-panel-content>
             </v-expansion-panel>
+          </v-expansion-panels>
+
             <v-pagination
               v-model="currentPage"
               :page="currentPage + 1"
