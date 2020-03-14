@@ -196,9 +196,9 @@ export default {
   button {
     align-self: flex-start;
   }
-  &:nth-child(2) {
+  /* &:nth-child(2) {
     margin-left: 32px;
-  }
+  } */
   input {
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 50px;
