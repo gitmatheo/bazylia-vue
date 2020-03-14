@@ -324,7 +324,6 @@ export default {
 
 <style>
 .company-desc {
-  list-style: none;
   text-align: left;
 }
 </style>

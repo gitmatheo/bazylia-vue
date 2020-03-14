@@ -1,12 +1,12 @@
 <template>
-  <v-container class="white" elevation-0 row justify-center>
-    <div my-4 class="component-wrapper">
+  <v-container elevation-0 row justify-center>
+    <div my-4 class="white component-wrapper">
       <h2 class="headline">Dodaj Pacjenta</h2>
  
         <v-form v-model="valid">
  
-            <v-layout wrap>
-              <div class="form__input-wrapper flex xs6">
+            <v-layout class="form__container">
+              <div class="form__input-wrapper">
                 <v-text-field
                   v-model="pacjent.imie"
                   label="Imię"
@@ -15,28 +15,28 @@
                   required
                 ></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.nazwisko" label="Nazwisko" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.pesel" label="Pesel" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field  v-model="pacjent.numerKarty" label="Numer Karty" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
-                <v-text-field height="90px" v-model="pacjent.ulica" label="Ulica" required></v-text-field>
+              <div class="form__input-wrapper">
+                <v-text-field v-model="pacjent.ulica" label="Ulica" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.miasto" label="Miasto" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.kodPocztowy" label="Kod-Pocztowy" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.numerTelefonu" label="Numer Telefonu" required></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field
                   v-model="pacjent.nip"
                   label="NIP"
@@ -44,11 +44,11 @@
                   required
                 ></v-text-field>
               </div>
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-text-field v-model="pacjent.stanowisko" label="Stanowisko" required></v-text-field>
               </div>
               <!-- Input with datepicker -->
-              <div class="form__input-wrapper flex xs6">
+              <div class="form__input-wrapper">
                 <v-menu
                   v-model="fromDateMenu"
                   :close-on-content-click="false"
@@ -88,7 +88,8 @@
         <h2>nip</h2>
         <pre><code>{{pacjent.nip}}</code></pre>-->
         <!-- <v-btn color="success" @click.native="dialog = false">Dodaj Pacjenta</v-btn> -->
-        <my-button @click.native="submitPatient()">Dodaj Pacjenta</my-button>
+        <my-button               fontColor="white"
+              color="#20CE99" @click.native="submitPatient()">Dodaj Pacjenta</my-button>
       </v-card-actions>
     </div>
   </v-container>
@@ -157,24 +158,20 @@ export default {
 <style lang="scss">
 
 
-.container {
-  max-width: 1360px !important;
-}
-
-.component-wrapper {
-  padding: 60px 120px;
-}
 
 .form {
+
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5%;
+  }
   &__input-wrapper {
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
+    margin:0px;
 
-    input {
-      /* padding: 20px; */
-
-    }
   }
 }
 

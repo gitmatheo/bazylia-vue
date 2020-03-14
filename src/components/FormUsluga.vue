@@ -67,7 +67,6 @@ export default {
 
 <style lang="scss">
 .usluga {
-  list-style: none;
   text-align: left;
   cursor: pointer;
 }

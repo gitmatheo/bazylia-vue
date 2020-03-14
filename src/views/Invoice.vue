@@ -330,9 +330,9 @@ p {
   margin: 0px;
 }
 
-.container {
+/* .container {
   padding: 40px;
-}
+} */
 .invoice-number {
   padding: 50px 0;
 }

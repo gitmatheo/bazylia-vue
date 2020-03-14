@@ -32,10 +32,20 @@ export default {
   box-sizing: border-box;
 }
 
+li {
+    list-style: none;
+}
+
 
 .container {
   max-width: 1360px !important;
+  margin-top: 100px;
 }
+
+/* .accent--text {
+  color: #20CE99 !important;
+  caret-color: #20CE99 !important;
+} */
 
 
 // ==== custom v-text-field START ====
@@ -71,6 +81,14 @@ export default {
     max-height: 48px!important;
     padding-left: 30px!important;
   } 
+}
+
+.v-messages__message {
+  margin-left: 20px;
+}
+
+.component-wrapper {
+  padding: 60px 120px;
 }
 
 // ==== custom v-text-field END ====

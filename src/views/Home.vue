@@ -213,9 +213,6 @@ export default {
 }
 
 
-.container {
-  max-width: 1360px !important;
-}
 
 
 </style>

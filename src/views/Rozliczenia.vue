@@ -1,26 +1,33 @@
 <template>
-  <v-layout class="search-form" row justify-center>
-    <v-card my-4 class="">
-      <v-card-title>
-        <span class="headline">Rozliczenia</span>
-      </v-card-title>
+    <v-container  elevation-0 row justify-center>
+          <div my-4 class="white component-wrapper">
+      <h2>Rozliczenia</h2>
       <v-card-text v-if="rozliczenia">
-        <!-- <pre><code> {{rozliczenia}} </code></pre> -->
-        <v-layout row mt-5>
-          <v-flex xs12 justify-center pb-4>
-            <v-dialog v-model="dialog" width="500">
+        <v-expansion-panel my-2 class="patient elevation-0">
+          <v-expansion-panel-content v-for="(rozliczenie, i) in rozliczenia" :key="i">
+            <template v-slot:header>
+              <ul class="patient__header">
+                <li>{{rozliczenie.firma.nazwa}}</li>
+                <!-- <li>{{rozliczenie.firma.ulica}}</li>
+                <li>regon: {{rozliczenie.firma.regon}}</li> -->
+                <li class="patient__details-element">Szczegóły</li>
+              </ul>
+            </template>
+            <v-card>
+              <div class="btns-wrapper">
+
+             <v-dialog v-model="dialog" width="500">
               <template v-slot:activator="{ on }">
-                <v-btn dark v-on="on">Wystaw fakturę</v-btn>
+                <!-- <my-button dark v-on="on">Wystaw fakturę</my-button> -->
+                <v-btn v-on="on">Wystaw fakturę</v-btn>
               </template>
               <v-card>
-                <v-card-title class="headline grey  en-2" primary-title>Wystawianie faktury</v-card-title>
+                <v-card-title class="headline en-2" primary-title>Wystawianie faktury</v-card-title>
 
-                <pre>{{sposobPlatnosciGroup}}</pre>
-                <pre>{{sposobPlatnosci}}</pre>
-
-                <v-divider></v-divider>
-                <v-card-text>Sposób płatności</v-card-text>
+                
+                
                 <v-container>
+                  <h3>Sposób płatności</h3>
                   <v-radio-group v-model="sposobPlatnosciGroup">
                     <v-flex row>
                       <v-radio
@@ -32,8 +39,8 @@
                     </v-flex>
                   </v-radio-group>
 
-                  <v-divider></v-divider>
-                  <v-card-text>Rodzaj daty:</v-card-text>
+                  <!-- <v-divider></v-divider> -->
+                  <h3>Rodzaj daty:</h3>
                   <v-radio-group v-model="rodzajDatyGroup">
                     <v-flex row>
                       <v-radio
@@ -44,8 +51,8 @@
                       ></v-radio>
                     </v-flex>
                   </v-radio-group>
-
-                  <v-card-text>Termin płatności:</v-card-text>
+                  <!-- <v-divider></v-divider> -->
+                  <h3>Termin płatności:</h3>
                   <v-radio-group v-model="terminPlatnosciGroup">
                     <v-radio
                       v-for="item in terminPlatnosci"
@@ -56,65 +63,78 @@
                   </v-radio-group>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn flat @click="dialog = false">Anuluj</v-btn>
-                    <v-btn flat @click="dialog = false">Wystaw Fakturę</v-btn>
+                    <my-button color="white" @click.native="dialog = false">Anuluj</my-button>
+                    <my-button color="#20CE99" fontColor="white" @click.native="submitForInvoice">Wystaw Fakturę</my-button>
                   </v-card-actions>
                 </v-container>
               </v-card>
             </v-dialog>
-          </v-flex>
-        </v-layout>
-        <!-- TODO WEZ TO OGARNIJ -->
-        <v-btn dark @click="submitForInvoice">Wyslij do zafakturowania</v-btn>
 
-        <v-expansion-panel my-2>
-          <v-expansion-panel-content v-for="(rozliczenie, i) in rozliczenia" :key="i">
-            <template v-slot:header>
-              <ul class="patient__header">
-                <li>{{rozliczenie.firma.nazwa}}</li>
-                <li>{{rozliczenie.firma.ulica}}</li>
-                <li>regon: {{rozliczenie.firma.regon}}</li>
-              </ul>
-            </template>
-            <v-card>
+
+                <div class="select-all-checkbox">
+                    <v-checkbox
+                      v-model="selectAll"
+                      :label="`Zaznacz wszystkie`"
+                      @change="select(rozliczenie)"
+                    ></v-checkbox>
+                </div>
+              </div>
+ 
+
               <ul>
-                <li v-for="(pacjent, i) in rozliczenie.pacjenci" :key="i">
-                  {{pacjent.pacjent.imie}}
-                  <ul>
+                <li class="patient__list-element" v-for="(pacjent, i) in rozliczenie.pacjenci" :key="i">
+                  <div>
+                    {{pacjent.pacjent.imie}}
+                    {{pacjent.pacjent.nazwisko}}
+                   </div>
+
+                  <ul class="patient__service">
                     <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
-                      Nazwa usługi: {{wizyta.usluga.nazwa}}
-                      <br />
-                      Data: {{wizyta.dataWizyty | moment("MM-DD-YYYY")}}
-                      <v-checkbox
-                        v-model="selected"
-                        label="Zaznacz do zafakturowania"
-                        :value="wizyta.wizytaId"
-                        @click="updateWizytyDoZafakturowania"
-                      ></v-checkbox>
+                      <div>
+                        <span>{{wizyta.usluga.nazwa}}</span>
+                        <!-- <br />
+                        <span>{{wizyta.dataWizyty | moment("MM-DD-YYYY")}} </span> -->
+                      </div>
+                       <div class="patient__checkbox">
+                        <v-checkbox
+                          v-model="selected"
+                          :label="wizyta.dataWizyty"
+                          :value="wizyta.wizytaId"
+                          @change="updateWizytyDoZafakturowania"
+                        ></v-checkbox>
+                      </div>
                     </li>
                   </ul>
                 </li>
               </ul>
+
             </v-card>
           </v-expansion-panel-content>
         </v-expansion-panel>
         <!-- <pre><code> {{selected}} </code></pre> -->
-        <pre><code> {{doZafakturowania}} </code></pre>
+
       </v-card-text>
       <v-card-text v-if="brakDanychMessage">{{brakDanychMessage}}</v-card-text>
-    </v-card>
-  </v-layout>
+      </div>
+              <pre><code> {{doZafakturowania}} </code></pre>
+    </v-container>
+    
 </template>
 
 <script>
 import API from '../constants/api';
 import axios from 'axios';
+import MyButton from "../components/MyButton";
 
 export default {
+  components: {
+    MyButton
+  },
   data: () => ({
     rozliczenia: false,
     brakDanychMessage: false,
     selected: [],
+    selectAll: false,
     dialog: false,
     terminPlatnosci: [7, 14, 30],
     terminPlatnosciGroup: '',
@@ -149,8 +169,22 @@ export default {
   },
   methods: {
     updateWizytyDoZafakturowania() {
+      // console.log("what")
+      // console.log(this.selected)
       this.doZafakturowania.wizyty = this.selected;
     },
+    select(rozliczenie) {
+      this.selected = [];
+      this.doZafakturowania.wizyty = [];
+			if (this.selectAll) {
+        rozliczenie.pacjenci.map(pacjent => {
+          pacjent.wizyty.map(wizyta => {
+            this.selected.push(wizyta.wizytaId)
+            this.doZafakturowania.wizyty = this.selected;
+          })
+        })
+			}
+		},
     submitForInvoice() {
       axios
         .post(`${API.url}/faktury`, this.doZafakturowania)
@@ -170,5 +204,92 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
+.btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accent--text {
+  color: #20CE99 !important;
+  caret-color: #20CE99 !important;
+}
+
+
+.patient {
+  border-bottom: 1px solid rgba(0,0,0, 0.2);
+
+  &__card {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header {
+  display: flex;
+  padding: 0px;
+  justify-content: space-between;
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__desc {
+    display:flex;
+    justify-content: space-between;
+  }
+
+  &__desc-col {
+    padding-top: 2rem;
+    padding-left: 0px;
+
+    li {
+      display:flex;
+      padding-top:8px;
+
+    }
+  }
+
+  &__btns {
+    display: flex;
+    padding: 10px 0px;
+  }
+
+  &__list-element {
+    margin: 20px 0 30px;
+  }
+
+  &__service {
+    li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    align-items: flex-end;
+    .patient__checkbox {
+      height: 40px;
+    }
+    }
+
+  }
+
+
+  &__details-element {
+    text-align: right;
+    padding-right: 3px;
+  }
+}
+
+
+.v-input {
+  &__slot {
+        display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+
 </style>

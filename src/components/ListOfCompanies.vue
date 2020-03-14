@@ -56,7 +56,6 @@ export default {
 <style lang="scss">
 .patient__header {
   display: flex;
-  list-style: none;
   justify-content: space-between;
   li {
     padding-right: 20px;
@@ -64,7 +63,6 @@ export default {
 }
 
 .patient__desc {
-  list-style: none;
   background: darken(white, 5);
   padding-top: 2rem;
   li {
