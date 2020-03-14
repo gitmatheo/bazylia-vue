@@ -32,33 +32,47 @@ export default {
   box-sizing: border-box;
 }
 
-.app {
-  background: #F4F4F4 !important;
-}
-
-h2 {
-  font-size: 24px;
-}
 
 .container {
   max-width: 1360px !important;
 }
 
 
-/* .app {
-  background: url("./assets/background.jpg") !important;
-  background-size: cover !important;
+// ==== custom v-text-field START ====
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(246,249,252, 0.7) ;
-    width: 100%;
-    height: 100%;
+.v-text-field {
+  .v-label {
+    &--active {
+      transform: translateY(-21px) translateX(10px) scale(0.75)!important;
+      background: white!important;
+      width: fit-content!important;
+      padding: 0 10px!important;
+    }
   }
-} */
+}
 
+.v-text-field__slot {
+  label {
+    margin-left:20px!important;
+    top: 14px!important;
+  }
+}
+
+.v-input {
+  &__slot {
+    &:after {
+      border: none!important;
+    }
+    &:before {
+      border: none!important;
+    }
+  }
+  input {
+    max-height: 48px!important;
+    padding-left: 30px!important;
+  } 
+}
+
+// ==== custom v-text-field END ====
 
 </style>

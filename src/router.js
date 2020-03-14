@@ -37,11 +37,6 @@ export default new Router({
       component: () => import('./views/Rozliczenia.vue')
     },
     {
-      path: '/registration',
-      name: 'Registration',
-      component: () => import('./views/Registration.vue')
-    },
-    {
       path: '/specjalistyka',
       name: 'Specjalistyka',
       component: () => import('./views/Specjalistyka.vue')

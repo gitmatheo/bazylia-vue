@@ -112,8 +112,5 @@ export default {
 </script>
 
 <style lang="scss">
-/* .container {
-  width: 80%;
-  margin: 20px;
-} */
+
 </style>
