@@ -1,21 +1,20 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
-    <h2>Rejestracja - Medycyna Pracy</h2>
-    <h3>Wybierz typ badań</h3>
-    <v-layout row wrap justify-center>
-      <v-flex xs12>
-        <v-radio-group row justify-center v-model="rodzajBadan" @click="select(rodzajBadan)">
-          <v-radio label="Wstępne" :value="rodzajBadanConst.WSTEPNE" checked></v-radio>
-          <v-radio label="Okresowe" :value="rodzajBadanConst.OKRESOWE"></v-radio>
-          <v-radio
-            label="Sanitarno-epidemiologiczne"
-            :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
-          ></v-radio>
-          <v-radio label="Kontrolne" :value="rodzajBadanConst.KONTROLNE"></v-radio>
-        </v-radio-group>
-        <span>Wybrano: {{rodzajBadan}}</span>
-      </v-flex>
-    </v-layout>
+
+    <div class="service-info">
+      Imie i nazwisko: Bogdan Brzęczyszczykiewicz, PESEL: 323151132, Rodzaj badań: Medycyna Pracy
+    </div>
+    <h2>Wybierz typ badań</h2>
+      <v-radio-group class="wrapper" row justify-center v-model="rodzajBadan" @click="select(rodzajBadan)">
+        <v-radio color="#20CE99" label="Wstępne" :value="rodzajBadanConst.WSTEPNE" checked></v-radio>
+        <v-radio color="#20CE99" label="Okresowe" :value="rodzajBadanConst.OKRESOWE"></v-radio>
+        <v-radio
+          color="#20CE99"
+          label="Sanitarno-epidemiologiczne"
+          :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
+        ></v-radio>
+        <v-radio color="#20CE99" label="Kontrolne" :value="rodzajBadanConst.KONTROLNE"></v-radio>
+      </v-radio-group>
   </v-container>
 </template>
 
@@ -44,5 +43,38 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
+h2 {
+  margin:50px 0px;
+}
+
+.service-info {
+  box-shadow: 0px 2px 5px rgba(34, 34, 34, 0.2);
+  border-radius: 10px;
+  padding:20px 30px;
+  width: fit-content;
+  margin: 0 auto;
+
+}
+
+.wrapper {
+  display:flex;
+  justify-content: space-evenly;
+
+  .v-input__control{
+    display:block;
+    width: 70%;
+
+    .v-input__slot {
+      display: block;
+      /* background: yellowgreen; */
+      .v-input--radio-group__input{
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
 </style>

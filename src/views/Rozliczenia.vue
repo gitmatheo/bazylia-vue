@@ -1,6 +1,6 @@
 <template>
   <v-layout class="search-form" row justify-center>
-    <v-card my-4 class="elevation-15">
+    <v-card my-4 class="">
       <v-card-title>
         <span class="headline">Rozliczenia</span>
       </v-card-title>
@@ -13,7 +13,7 @@
                 <v-btn dark v-on="on">Wystaw fakturę</v-btn>
               </template>
               <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>Wystawianie faktury</v-card-title>
+                <v-card-title class="headline grey  en-2" primary-title>Wystawianie faktury</v-card-title>
 
                 <pre>{{sposobPlatnosciGroup}}</pre>
                 <pre>{{sposobPlatnosci}}</pre>

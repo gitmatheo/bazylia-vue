@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs12 class="search-form white" elevation-5>
+    <v-flex xs12 class="search-form white" >
       <h2>Wyszukaj Pacjenta</h2>
 
       <v-form v-model="valid" lazy-validation>

@@ -1,20 +1,20 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <v-stepper v-model="currentStepNumber">
+    <v-stepper v-model="currentStepNumber" >
       <v-stepper-header>
-        <v-stepper-step :complete="currentStepNumber > 1" step="1">Wybierz typ badań</v-stepper-step>
+        <v-stepper-step :complete="currentStepNumber > 1" step="1">Typ badań</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="currentStepNumber > 2" step="2">Wybierz firmę</v-stepper-step>
+        <v-stepper-step :complete="currentStepNumber > 2" step="2">Firma</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="currentStepNumber > 3" step="3">Wybierz datę i godzinę</v-stepper-step>
+        <v-stepper-step :complete="currentStepNumber > 3" step="3">Data i godzina</v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="currentStepNumber > 4" step="4">Wybierz usługę</v-stepper-step>
+        <v-stepper-step :complete="currentStepNumber > 4" step="4">Usługa</v-stepper-step>
         <v-divider></v-divider>
 
         <v-stepper-step step="5">Podsumowanie</v-stepper-step>
@@ -23,43 +23,56 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <FormTypeOfService />
-          <v-btn text to="/registration">Wróć</v-btn>
-          <v-btn
-            @click="currentStepNumber = 2"
-            :disabled="wizyta.rodzajBadan.length == 0"
-          >Dalej</v-btn>
+          <div class="btns">
+            <my-button text fontColor="black" color="white" to="/">Wróć</my-button>
+            <my-button
+              fontColor="white"
+              color="#20CE99"
+              @click.native="currentStepNumber = 2"
+              :disabled="wizyta.rodzajBadan.length == 0"
+            >Dalej</my-button>
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <FormCompany />
-          <v-btn text @click="currentStepNumber = 1">Wróć</v-btn>
-          <v-btn  @click="currentStepNumber = 3"
-          :disabled="!wizyta.pacjent.firma">{{wizyta.pacjent.firma ? "Dalej" : "Nie wybrano firmy"}}</v-btn>
+          <div class="btns">
+            <my-button text fontColor="black" color="white" @click.native="currentStepNumber = 1">Wróć</my-button>
+            <my-button fontColor="white" color="#20CE99" @click.native="currentStepNumber = 3"
+            :disabled="!wizyta.pacjent.firma">{{wizyta.pacjent.firma ? "Dalej" : "Nie wybrano firmy"}}</my-button>
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="3">
           <FormDatePicker title="Medycyna pracy" />
-          <v-btn text @click="currentStepNumber = 2">Wróć</v-btn>
-          <v-btn  @click="currentStepNumber = 4"
-          >Dalej</v-btn>
+          <div class="btns">
+            <my-button text fontColor="black" color="white" @click.native="currentStepNumber = 2">Wróć</my-button>
+            <my-button  fontColor="white" color="#20CE99" @click.native="currentStepNumber = 4"
+            >Dalej</my-button>
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="4">
           <FormUsluga title="Medycyna pracy" />
-          <v-btn text @click="currentStepNumber = 3">Wróć</v-btn>
-          <v-btn
-            @click="currentStepNumber = 5"
-            :disabled="wizyta.usluga.nazwa.length == 0"
-          >Dalej</v-btn>
+          <div class="btns">
+            <my-button text fontColor="black" color="white" @click.native="currentStepNumber = 3">Wróć</my-button>
+            <my-button fontColor="white" color="#20CE99"
+              @click.native="currentStepNumber = 5"
+              :disabled="wizyta.usluga.nazwa.length == 0"
+            >Dalej</my-button>
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="5">
           <FormSummary :typeOfSummary="typWizytyConst.MEDYCYNA_PRACY" title="Medycyna pracy" />
-          <v-btn text @click="currentStepNumber = 4">Wróć</v-btn>
-          <v-btn
-            @click="zarejestrujWizyte"
-            :disabled="zarejestrowano"
-          >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</v-btn>
+          <div class="btns">
+            <my-button text fontColor="black" color="white" @click.native="currentStepNumber = 4">Wróć</my-button>
+            <my-button
+              fontColor="white" color="#20CE99"
+              @click.native="zarejestrujWizyte"
+              :disabled="zarejestrowano"
+            >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</my-button>
+          </div>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -76,6 +89,7 @@ import FormUsluga from '../components/FormUsluga';
 import API from '../constants/api';
 import { typWizytyConst } from '../constants/constants';
 import axios from 'axios';
+import MyButton from "../components/MyButton";
 
 export default {
   components: {
@@ -83,7 +97,8 @@ export default {
     FormCompany,
     FormDatePicker,
     FormSummary,
-    FormUsluga
+    FormUsluga,
+    MyButton
   },
   data() {
     return {
@@ -138,4 +153,37 @@ export default {
 </script>
 
 <style lang="scss">
+
+/* .v-stepper__step .v-stepper__step--active */
+
+.v-stepper__header {
+  width: 80%;
+  margin-top:25px !important;
+  margin: 0 auto;
+  box-shadow: none;
+}
+
+.v-stepper__step.v-stepper__step--active {
+  .v-stepper__step__step.primary {
+    background:black!important;
+    border: 1px solid black!important;
+    color: white!important;
+  }
+}
+
+.v-stepper__step {
+  .v-stepper__step__step {
+    background:white!important;
+    border: 1px solid grey!important;
+    color: grey!important;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 0 auto;
+};
+
 </style>

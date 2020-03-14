@@ -1,5 +1,5 @@
 <template>
-  <v-container class="white search-form elevation-15" my-4>
+  <v-container class="white search-form " my-4>
     <h2 class="font-weight-light">
       Pacjenci bez zaświadczenia
       <span class="font-weight-bold">{{patients.length}}</span>
@@ -72,7 +72,7 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
-    <v-data-table :headers="headers" :items="patients" class="elevation-1">
+    <v-data-table :headers="headers" :items="patients" class="">
       <template v-slot:items="props">
         <td>{{ props.item.id }}</td>
         <td>{{ props.item.company }}</td>

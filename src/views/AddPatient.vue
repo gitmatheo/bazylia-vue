@@ -1,6 +1,6 @@
 <template>
-  <v-layout class="search-form" row justify-center>
-    <v-card my-4 class="elevation-15">
+  <v-container elevation-0 row justify-center>
+    <v-card my-4 class="">
       <v-card-title>
         <span class="headline">Dodaj Pacjenta</span>
       </v-card-title>
@@ -94,7 +94,7 @@
         <v-btn @click.native="submitPatient()">Dodaj Pacjenta</v-btn>
       </v-card-actions>
     </v-card>
-  </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -156,5 +156,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.container {
+  max-width: 1360px !important;
+}
 </style>
