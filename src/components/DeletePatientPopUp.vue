@@ -30,13 +30,9 @@
 </template>
 
 <script>
-import MyButton from '../components/MyButton'
 import { typWizytyConst } from '../constants/constants'
 
 export default {
-  components: {
-    MyButton
-  },
   props: ['patients', 'deletePatient', 'color'],
   data() {
     return {

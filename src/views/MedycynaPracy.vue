@@ -145,7 +145,6 @@ import FormUsluga from '../components/FormUsluga'
 import API from '../constants/api'
 import { typWizytyConst } from '../constants/constants'
 import axios from 'axios'
-import MyButton from '../components/MyButton'
 
 export default {
   components: {
@@ -153,8 +152,7 @@ export default {
     FormCompany,
     FormDatePicker,
     FormSummary,
-    FormUsluga,
-    MyButton
+    FormUsluga
   },
   data() {
     return {

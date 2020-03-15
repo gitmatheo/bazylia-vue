@@ -9,6 +9,9 @@ import store from '@/store/store'
 import './registerServiceWorker'
 import './style/style.styl'
 import './style/variables.scss'
+import MyButton from '@/components/MyButton'
+
+Vue.component('MyButton', MyButton)
 
 Vue.config.productionTip = false
 

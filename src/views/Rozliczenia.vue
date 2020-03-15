@@ -134,12 +134,8 @@
 <script>
 import API from '../constants/api'
 import axios from 'axios'
-import MyButton from '../components/MyButton'
 
 export default {
-  components: {
-    MyButton
-  },
   data: () => ({
     rozliczenia: false,
     brakDanychMessage: false,

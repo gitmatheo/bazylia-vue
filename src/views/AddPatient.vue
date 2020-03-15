@@ -130,19 +130,10 @@
 </template>
 
 <script>
-// import uuidv1 from 'uuid/v1';
-// const uuidv1 = require('uuid/v1');
 import { mapMutations, mapActions } from 'vuex'
 import API from '../constants/api'
 import axios from 'axios'
-import MyButton from '../components/MyButton'
 export default {
-  components: {
-    // DialogBox,
-    // ListOfCompanies,
-    // AddCompany,
-    MyButton
-  },
   data: () => ({
     valid: false,
     pacjent: {

@@ -49,14 +49,10 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import MyButton from '../components/MyButton'
 import API from '../constants/api'
 import axios from 'axios'
 
 export default {
-  components: {
-    MyButton
-  },
   data: () => ({
     show1: false,
     login: '',

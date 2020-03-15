@@ -88,14 +88,12 @@
 </template>
 
 <script>
-// import MyButton from "../components/MyButton";
 import RegistrationPopUp from '../components/RegistrationPopUp'
 import DeletePatientPopUp from '../components/DeletePatientPopUp'
 export default {
   components: {
     RegistrationPopUp,
     DeletePatientPopUp
-    // MyButton
   },
   props: ['patients', 'deletePatient', 'register', 'filteredPatients'],
   data: () => ({}),
