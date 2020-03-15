@@ -1,12 +1,15 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
-    <h2>Rejestracja - {{title}}</h2>
+    <h2>Rejestracja - {{ title }}</h2>
     <h3>Wybierz usługę</h3>
     <v-form v-model="valid" lazy-validation>
       <v-container>
         <v-layout>
           <v-flex xs3>
-            <v-text-field v-model="nazwaUslugi" label="Nazwa uslugi"></v-text-field>
+            <v-text-field
+              v-model="nazwaUslugi"
+              label="Nazwa uslugi"
+            ></v-text-field>
           </v-flex>
           <v-flex xs3>
             <v-btn :disabled="!valid">
@@ -31,9 +34,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapMutations } from 'vuex';
-import API from '../constants/api';
+import axios from 'axios'
+import { mapMutations } from 'vuex'
+import API from '../constants/api'
 
 export default {
   props: ['title'],
@@ -45,24 +48,24 @@ export default {
     valid: false
   }),
   mounted: function() {
-    this.patientForReg = this.$store.getters.getPatientForReg;
+    this.patientForReg = this.$store.getters.getPatientForReg
     axios
       .get(`${API.url}/uslugi`)
       .then(res => (this.uslugi = res.data))
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
   },
   computed: {
     filteredUslugi() {
-      return this.uslugi.filter(usluga => usluga.nazwa.match(this.nazwaUslugi));
+      return this.uslugi.filter(usluga => usluga.nazwa.match(this.nazwaUslugi))
     }
   },
   methods: {
     ...mapMutations(['UPDATE_USLUGA']),
     wybierzUsluge(usluga) {
-      this.UPDATE_USLUGA(usluga);
+      this.UPDATE_USLUGA(usluga)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

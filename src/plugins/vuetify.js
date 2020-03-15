@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
-import 'vuetify/src/stylus/app.styl';
+import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
+import 'vuetify/src/stylus/app.styl'
 
 Vue.use(Vuetify, {
   iconfont: 'md',
@@ -16,4 +16,4 @@ Vue.use(Vuetify, {
     customWhite: '#F0F7F4',
     backgroundLight: 'F6F9FC'
   }
-});
+})

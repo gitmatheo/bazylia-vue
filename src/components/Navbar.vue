@@ -1,51 +1,61 @@
 <template>
-    <v-toolbar id="navbar" class="navbar">
-      <v-tab :class="{ 'active': path == '/' }" @click="setPath('/')" to="/">Wyszukaj Pacjenta</v-tab>
-      <v-tab :class="{ 'active': path == '/add-patient' }" @click="setPath('/add-patient')" to="/add-patient">Dodaj Pacjenta</v-tab>
-      <v-tab :class="{ 'active': path == '/rozliczenia'}" @click="setPath('/rozliczenia')" to="/rozliczenia">Rozliczenia</v-tab>
-      <v-tab v-if="isAuthenticated" @click="logout" >Wyloguj</v-tab>
-    </v-toolbar>
+  <v-toolbar id="navbar" class="navbar">
+    <v-tab :class="{ active: path == '/' }" @click="setPath('/')" to="/"
+      >Wyszukaj Pacjenta</v-tab
+    >
+    <v-tab
+      :class="{ active: path == '/add-patient' }"
+      @click="setPath('/add-patient')"
+      to="/add-patient"
+      >Dodaj Pacjenta</v-tab
+    >
+    <v-tab
+      :class="{ active: path == '/rozliczenia' }"
+      @click="setPath('/rozliczenia')"
+      to="/rozliczenia"
+      >Rozliczenia</v-tab
+    >
+    <v-spacer></v-spacer>
+    <v-tab v-if="isAuthenticated" @click="logout">Wyloguj</v-tab>
+  </v-toolbar>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import API from '../constants/api';
-import axios from 'axios';
+import { mapMutations } from 'vuex'
+import API from '../constants/api'
+import axios from 'axios'
 export default {
   data: () => ({
     isActive: true,
-    path: "/",
-    isAuthenticated: false,
+    path: '/',
+    isAuthenticated: false
   }),
-  methods:{
-      ...mapMutations(['AUTHENTICATE_USER']),
+  methods: {
+    ...mapMutations(['AUTHENTICATE_USER']),
     setPath(path) {
-      this.path = path;
+      this.path = path
     },
     logout() {
-
-
-      console.log("LOGOUTTT")
+      console.log('LOGOUTTT')
       axios
         .get(`${API.url}/logout`)
         .then(() => {
           sessionStorage.clear()
-          this.$store.commit('AUTHENTICATE_USER', false);
+          this.$store.commit('AUTHENTICATE_USER', false)
           this.$router.push({ path: '/login' })
         })
-        .catch((err) => {
-          console.log("logout error")
+        .catch(err => {
+          console.log('logout error')
           console.error(err)
-        });
-
+        })
     }
   },
   mounted() {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'AUTHENTICATE_USER') {
-        this.isAuthenticated = state.isAuthenticated;
+        this.isAuthenticated = state.isAuthenticated
       }
-    });
+    })
   }
 }
 </script>
@@ -63,21 +73,19 @@ template nav {
   box-shadow: none;
 } */
 .v-toolbar {
-  background: #F4F4F4;
+  background: #f4f4f4;
   box-shadow: none !important;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   &__content {
     max-width: 1360px;
     margin: 0 auto;
 
     .v-tabs__div {
       &.active {
-        border-bottom: 2px solid #20CE99;
-        color: #20CE99;
+        border-bottom: 2px solid #20ce99;
+        color: #20ce99;
       }
     }
   }
 }
-
-
 </style>

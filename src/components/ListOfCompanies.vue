@@ -1,23 +1,23 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs12 class="search-form white" mt-5 >
+    <v-flex xs12 class="search-form white" mt-5>
       <h2>Lista Firm</h2>
       <v-expansion-panel my-2>
-        <v-expansion-panel-content v-for="(company,i) in companies" :key="i">
+        <v-expansion-panel-content v-for="(company, i) in companies" :key="i">
           <template v-slot:header>
             <ul class="patient__header">
-              <li>{{company.name}}</li>
-              <li>{{company.secondName}}</li>
-              <li>PESEL: {{company.pesel}}</li>
-              <li>{{company.company}}</li>
+              <li>{{ company.name }}</li>
+              <li>{{ company.secondName }}</li>
+              <li>PESEL: {{ company.pesel }}</li>
+              <li>{{ company.company }}</li>
             </ul>
           </template>
           <v-card>
             <ul ref="patient" class="patient__desc">
-              <li>Imię: {{company.name}}</li>
-              <li>Nazwisko: {{company.secondName}}</li>
-              <li>Firma: {{company.company}}</li>
-              <li>PESEL: {{company.pesel}}</li>
+              <li>Imię: {{ company.name }}</li>
+              <li>Nazwisko: {{ company.secondName }}</li>
+              <li>Firma: {{ company.company }}</li>
+              <li>PESEL: {{ company.pesel }}</li>
               <li>
                 <v-btn class="customBtn">Rejestruj wizytę</v-btn>
                 <!-- <DialogBox
@@ -26,7 +26,7 @@
                   @click="deletePatient"
                 >Rejestruj wizytę</DialogBox>-->
                 <v-btn class="customBtn white--text">Usuń Pacjenta</v-btn>
-                <DialogBox >Usuń Pacjenta</DialogBox>
+                <DialogBox>Usuń Pacjenta</DialogBox>
               </li>
             </ul>
           </v-card>
@@ -37,20 +37,20 @@
 </template>
 
 <script>
-import DialogBox from "../components/DialogBox";
+import DialogBox from '../components/DialogBox'
 export default {
   components: {
     DialogBox
   },
-  props: ["companies"],
+  props: ['companies'],
   data: () => ({
     companies: []
   }),
   methods: {},
   mounted: function() {
-    this.companies = this.$store.getters.getCompanies;
+    this.companies = this.$store.getters.getCompanies
   }
-};
+}
 </script>
 
 <style lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center class="white">
-    <h2>Rejestracja - {{title}}</h2>
+    <h2>Rejestracja - {{ title }}</h2>
     <h3>Wybierz datę i godzinę</h3>
     <v-layout row wrap justify-center>
       <v-flex xs6>
@@ -63,18 +63,18 @@
 
       <p>
         Wybrano datę:
-        <span>{{date}}</span>
+        <span>{{ date }}</span>
       </p>
       <p>
         &nbsp; i godzinę:
-        <span>{{time}}</span>
+        <span>{{ time }}</span>
       </p>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations } from 'vuex'
 export default {
   props: ['title'],
   data: () => ({
@@ -90,28 +90,27 @@ export default {
     wizyta: {}
   }),
   mounted: function() {
-    let now = new Date();
-    this.wizyta = this.$store.getters.getWizyta;
+    let now = new Date()
+    this.wizyta = this.$store.getters.getWizyta
     let minutes =
-      now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes();
+      now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes()
     // let minutes2 = now.getMinutes().padStart(2, 0);
-    this.time = now.getHours() + ':' + minutes;
+    this.time = now.getHours() + ':' + minutes
   },
   updated: function() {
-    let timeString = this.time + ':00';
-    let dataWizyty = new Date(this.date + ' ' + timeString).toISOString();
-    this.wizyta.dataWizyty = dataWizyty;
+    let timeString = this.time + ':00'
+    let dataWizyty = new Date(this.date + ' ' + timeString).toISOString()
+    this.wizyta.dataWizyty = dataWizyty
 
-    this.addDateAndTime(dataWizyty);
+    this.addDateAndTime(dataWizyty)
   },
   methods: {
     ...mapMutations(['UPDATE_DATE_AND_TIME']),
     addDateAndTime(dataWizyty) {
-      this.UPDATE_DATE_AND_TIME(dataWizyty);
+      this.UPDATE_DATE_AND_TIME(dataWizyty)
     }
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

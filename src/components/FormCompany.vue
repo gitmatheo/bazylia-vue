@@ -4,49 +4,69 @@
     <h3>Wybierz firmę</h3>
     <v-layout row wrap justify-center>
       <v-flex xs6>
-        <v-radio-group justify-center v-model="selection" @click="select(selection)">
+        <v-radio-group
+          justify-center
+          v-model="selection"
+          @click="select(selection)"
+        >
           <v-radio label="Użyj Firmy / ostatnio wybrana" :value="1"></v-radio>
           <v-radio label="Użyj firmy z bazy danych" :value="2"></v-radio>
           <v-radio label="Dodaj firmę" :value="3"></v-radio>
         </v-radio-group>
       </v-flex>
       <v-flex xs6>
-        <h3>{{wizyta.pacjent.firma ? "Wybrana firma" : "Nie wybrano firmy"}}</h3>
+        <h3>
+          {{ wizyta.pacjent.firma ? 'Wybrana firma' : 'Nie wybrano firmy' }}
+        </h3>
         <ul v-if="wizyta.pacjent.firma" class="company-desc">
           <li>
             Nazwa:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.nazwa}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.nazwa
+            }}</span>
           </li>
           <li>
             Ulica:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.ulica}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.ulica
+            }}</span>
           </li>
           <li>
             Miasto:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.miasto}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.miasto
+            }}</span>
           </li>
           <li>
             Kod-Pocztowy:
-            <span
-              class="font-weight-medium font-italic"
-            >{{wizyta.pacjent.firma.kodPocztowy}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.kodPocztowy
+            }}</span>
           </li>
           <li>
             Regon:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.regon}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.regon
+            }}</span>
           </li>
           <li>
             Ryczałt:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.ryczalt}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.ryczalt
+            }}</span>
           </li>
           <li>
             Rabat:
-            <span class="font-weight-medium font-italic">{{wizyta.pacjent.firma.rabat}}</span>
+            <span class="font-weight-medium font-italic">{{
+              wizyta.pacjent.firma.rabat
+            }}</span>
           </li>
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2 v-if="selection == 1" class="headline">option 1: uzyj firmy domyslnej</h2>
+        <h2 v-if="selection == 1" class="headline">
+          option 1: uzyj firmy domyslnej
+        </h2>
         <v-layout v-if="selection == 2" row justify-center>
           <v-flex xs12>
             <h2 class="headline">Wybierz firmę z bazy</h2>
@@ -76,36 +96,38 @@
                 </v-layout>
               </v-container>
             </v-form>
-          <v-expansion-panels flat>
-            <v-expansion-panel flat v-if="visibleCompanies" my-2>
-              <v-expansion-panel-content v-for="(firma,i) in visibleCompanies" :key="i">
-                <template v-slot:header>
-                  <ul class="patient__header">
-                    <li>{{firma.nazwa}}</li>
-                    <li>{{firma.ulica}}</li>
-                    <li>regon: {{firma.regon}}</li>
-                  </ul>
-                </template>
-                <v-card>
-                  <ul ref="patient" class="patient__desc">
-                    <li>Nazwa: {{firma.nazwa}}</li>
-                    <li>Ulica: {{firma.ulica}}</li>
-                    <li>Miasto: {{firma.miasto}}</li>
-                    <li>Kod-pocztowy: {{firma.kodPocztowy}}</li>
-                    <li>Regon: {{firma.regon}}</li>
-                    <li>Rabat: {{firma.rabat}}</li>
-                    <li>Ryczałt: {{firma.ryczalt}}</li>
-                    <li>
-                      <v-btn
-                        class="customBtn"
-                        @click="selectCompany(i)"
-                      >Wybierz firmę</v-btn>
-                    </li>
-                  </ul>
-                </v-card>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+            <v-expansion-panels flat>
+              <v-expansion-panel flat v-if="visibleCompanies" my-2>
+                <v-expansion-panel-content
+                  v-for="(firma, i) in visibleCompanies"
+                  :key="i"
+                >
+                  <template v-slot:header>
+                    <ul class="patient__header">
+                      <li>{{ firma.nazwa }}</li>
+                      <li>{{ firma.ulica }}</li>
+                      <li>regon: {{ firma.regon }}</li>
+                    </ul>
+                  </template>
+                  <v-card>
+                    <ul ref="patient" class="patient__desc">
+                      <li>Nazwa: {{ firma.nazwa }}</li>
+                      <li>Ulica: {{ firma.ulica }}</li>
+                      <li>Miasto: {{ firma.miasto }}</li>
+                      <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
+                      <li>Regon: {{ firma.regon }}</li>
+                      <li>Rabat: {{ firma.rabat }}</li>
+                      <li>Ryczałt: {{ firma.ryczalt }}</li>
+                      <li>
+                        <v-btn class="customBtn" @click="selectCompany(i)"
+                          >Wybierz firmę</v-btn
+                        >
+                      </li>
+                    </ul>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
 
             <v-pagination
               v-model="currentPage"
@@ -121,26 +143,50 @@
             <h2 class="headline">Dodaj Firmę</h2>
             <v-layout wrap flex>
               <v-flex xs12 md6>
-                <v-text-field label="Nazwa Firmy" v-model="companyToAdd.nazwa"></v-text-field>
+                <v-text-field
+                  label="Nazwa Firmy"
+                  v-model="companyToAdd.nazwa"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Ulica" v-model="companyToAdd.ulica"></v-text-field>
+                <v-text-field
+                  label="Ulica"
+                  v-model="companyToAdd.ulica"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Miasto" v-model="companyToAdd.miasto"></v-text-field>
+                <v-text-field
+                  label="Miasto"
+                  v-model="companyToAdd.miasto"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 md6>
-                <v-text-field label="Kod-Pocztowy" v-model="companyToAdd.kodPocztowy"></v-text-field>
+                <v-text-field
+                  label="Kod-Pocztowy"
+                  v-model="companyToAdd.kodPocztowy"
+                ></v-text-field>
               </v-flex>
 
               <v-flex xs12 md6>
-                <v-text-field label="regon" type="number" v-model="companyToAdd.regon"></v-text-field>
+                <v-text-field
+                  label="regon"
+                  type="number"
+                  v-model="companyToAdd.regon"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="rabat" type="number" v-model="companyToAdd.rabat"></v-text-field>
+                <v-text-field
+                  label="rabat"
+                  type="number"
+                  v-model="companyToAdd.rabat"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-select :items="[true, false]" label="Ryczałt" v-model="companyToAdd.ryczalt"></v-select>
+                <v-select
+                  :items="[true, false]"
+                  label="Ryczałt"
+                  v-model="companyToAdd.ryczalt"
+                ></v-select>
               </v-flex>
               <v-flex xs12>
                 <v-btn @click="addNewCompany()">Dodaj Firmę</v-btn>
@@ -158,9 +204,9 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import API from '../constants/api';
-import axios from 'axios';
+import { mapMutations } from 'vuex'
+import API from '../constants/api'
+import axios from 'axios'
 
 export default {
   data: () => ({
@@ -197,9 +243,9 @@ export default {
       axios
         .get(`${API.url}/firmy/${id}`)
         .then(res => {
-          this.wizyta.pacjent.firma = res.data;
+          this.wizyta.pacjent.firma = res.data
         })
-        .catch(err => console.error(err));
+        .catch(err => console.error(err))
     },
 
     select(selection) {
@@ -207,31 +253,31 @@ export default {
         axios
           .get(`${API.url}/firmy`)
           .then(response => {
-            this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data);
-            this.companies = this.$store.getters.getCompanies;
-            this.updateVisibleCompanies();
+            this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
+            this.companies = this.$store.getters.getCompanies
+            this.updateVisibleCompanies()
           })
-          .catch(err => console.error(err));
+          .catch(err => console.error(err))
       }
-      this.selectedCompany = selection;
+      this.selectedCompany = selection
     },
 
     updatePatientCompany() {
-      this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma);
+      this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma)
     },
 
     updatePage(pageNumber) {
-      this.currentPage = pageNumber;
-      this.updateVisibleCompanies();
+      this.currentPage = pageNumber
+      this.updateVisibleCompanies()
     },
     updateVisibleCompanies() {
-      let begin = this.currentPage * this.pageSize - this.pageSize;
-      let end = begin + this.pageSize;
+      let begin = this.currentPage * this.pageSize - this.pageSize
+      let end = begin + this.pageSize
 
-      this.visibleCompanies = this.filteredCompanies.slice(begin, end);
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
 
       if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1);
+        this.updatePage(this.currentPage - 1)
       }
     },
 
@@ -243,24 +289,24 @@ export default {
         .then(response => {
           const firmaId = response.headers.location.match(
             /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-          )[0];
-          this.getCompany(firmaId);
+          )[0]
+          this.getCompany(firmaId)
         })
         .catch(function(error) {
-          console.error(error);
-        });
+          console.error(error)
+        })
       // this.ADD_COMPANY(payload);
       // this.firma = { ...this.companyToAdd };
       // this.updatePatientCompany();
       // this.clearForm();
     },
     clearForm() {
-      this.companyToAdd.nazwa = '';
-      this.companyToAdd.ulica = '';
-      this.companyToAdd.miasto = '';
-      this.companyToAdd.kodPocztowy = '';
-      this.companyToAdd.regon = '';
-      this.companyToAdd.ryczalt = '';
+      this.companyToAdd.nazwa = ''
+      this.companyToAdd.ulica = ''
+      this.companyToAdd.miasto = ''
+      this.companyToAdd.kodPocztowy = ''
+      this.companyToAdd.regon = ''
+      this.companyToAdd.ryczalt = ''
     },
     addToSelected() {},
     selectCompany(index) {
@@ -272,7 +318,7 @@ export default {
         kodPocztowy,
         regon,
         ryczalt
-      } = this.companies[index];
+      } = this.companies[index]
       const firma = {
         firmaId,
         nazwa,
@@ -281,16 +327,16 @@ export default {
         kodPocztowy,
         regon,
         ryczalt
-      };
+      }
 
-      this.wizyta.pacjent.firma = { ...firma };
-      this.updatePatientCompany();
+      this.wizyta.pacjent.firma = { ...firma }
+      this.updatePatientCompany()
     }
   },
 
   mounted: function() {
-    this.companies = this.$store.getters.getCompanies;
-    this.wizyta = this.$store.getters.getWizyta;
+    this.companies = this.$store.getters.getCompanies
+    this.wizyta = this.$store.getters.getWizyta
   },
   computed: {
     filteredCompanies: function() {
@@ -301,8 +347,8 @@ export default {
             .toLowerCase()
             .toString()
             .match(this.REGONSearch.toLowerCase())
-        );
-      });
+        )
+      })
     },
     filteredVisibleCompanies: function() {
       return this.visibleCompanies.filter(firma => {
@@ -312,17 +358,15 @@ export default {
             .toLowerCase()
             .toString()
             .match(this.REGONSearch.toLowerCase())
-        );
-      });
+        )
+      })
     }
   },
   ryczaltMapped: function() {
-    return this.ryczalt == 'TAK' ? true : false;
+    return this.ryczalt == 'TAK' ? true : false
   }
-};
+}
 </script>
-
-
 
 <style>
 .company-desc {

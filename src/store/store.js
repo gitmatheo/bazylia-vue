@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 // import axios from 'axios';
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -78,61 +78,61 @@ export default new Vuex.Store({
   },
   getters: {
     getPatients: state => {
-      return state.patients;
+      return state.patients
     },
     getPatientForReg: state => {
-      return state.patientForReg;
+      return state.patientForReg
     },
     getCompanies: state => {
-      return state.companies;
+      return state.companies
     },
     getWizyta: state => {
-      return state.wizyta;
+      return state.wizyta
     },
     getAllRozliczenia: state => {
-      return state.rozliczenia;
+      return state.rozliczenia
     },
     getFaktura: state => {
-      return state.faktura;
+      return state.faktura
     },
     getIsAuthenticated: state => {
-      return state.isAuthenticated;
+      return state.isAuthenticated
     }
   },
 
   mutations: {
     AUTHENTICATE_USER: (state, isAuthenticated) => {
-      state.isAuthenticated = isAuthenticated;
+      state.isAuthenticated = isAuthenticated
     },
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
-      state.wizyta.pacjent = pacjent;
+      state.wizyta.pacjent = pacjent
     },
     UPDATE_TYP_WIZYTY: (state, typWizyty) => {
-      state.wizyta.typWizyty = typWizyty;
+      state.wizyta.typWizyty = typWizyty
     },
     UPDATE_RODZAJ_BADAN: (state, rodzajBadan) => {
-      state.wizyta.rodzajBadan = rodzajBadan;
+      state.wizyta.rodzajBadan = rodzajBadan
     },
     UPDATE_DATE_AND_TIME: (state, dataWizyty) => {
-      state.wizyta.dataWizyty = dataWizyty;
+      state.wizyta.dataWizyty = dataWizyty
     },
     UPDATE_PATIENT_COMPANY: (state, firma) => {
-      state.wizyta.pacjent.firma = firma;
+      state.wizyta.pacjent.firma = firma
     },
     UPDATE_USLUGA: (state, usluga) => {
-      state.wizyta.usluga = usluga;
+      state.wizyta.usluga = usluga
     },
     GET_ALL_PATIENTS_FROM_DB: (state, patients) => {
-      state.patients = patients;
+      state.patients = patients
     },
     GET_ALL_COMPANIES_FROM_DB: (state, companies) => {
-      state.companies = companies;
+      state.companies = companies
     },
     GET_ALL_ROZLICZENIA_FROM_DB: (state, rozliczenia) => {
-      state.rozliczenia = rozliczenia;
+      state.rozliczenia = rozliczenia
     },
     GET_FAKTURA: (state, faktura) => {
-      state.faktura = faktura;
+      state.faktura = faktura
     },
     ADD_COMPANY: (state, company) => {
       let newCompany = {
@@ -143,8 +143,8 @@ export default new Vuex.Store({
         NIP: company.NIP,
         REGON: company.REGON,
         ryczalt: company.ryczalt
-      };
-      state.companies.push(newCompany);
+      }
+      state.companies.push(newCompany)
     },
     ADD_PATIENT: (state, patient) => {
       let newPatient = {
@@ -160,9 +160,9 @@ export default new Vuex.Store({
         nip: patient.nip,
         stanowisko: patient.stanowisko,
         dataOrzeczenia: patient.dataOrzeczenia
-      };
-      state.patients.push(newPatient);
+      }
+      state.patients.push(newPatient)
     }
   },
   actions: {}
-});
+})

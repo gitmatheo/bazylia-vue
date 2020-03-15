@@ -3,7 +3,7 @@
     <v-flex xs12 class="search-form white" pt-5>
       <h2>Lista pacjentów</h2>
       <v-expansion-panel my-2 class="patient elevation-0">
-          <v-expansion-panel-content>
+        <v-expansion-panel-content>
           <template v-slot:header>
             <ul class="patient__header">
               <li>Imię</li>
@@ -13,69 +13,73 @@
             </ul>
           </template>
         </v-expansion-panel-content>
-        <v-expansion-panel-content v-for="(patient,i) in filteredPatients" :key="i">
+        <v-expansion-panel-content
+          v-for="(patient, i) in filteredPatients"
+          :key="i"
+        >
           <template v-slot:header>
             <ul class="patient__header patient__header--bold">
-              <li>{{patient.imie}}</li>
-              <li>{{patient.nazwisko}}</li>
-              <li>{{patient.pesel}}</li>
+              <li>{{ patient.imie }}</li>
+              <li>{{ patient.nazwisko }}</li>
+              <li>{{ patient.pesel }}</li>
               <li class="patient__details-element">Szczegóły</li>
             </ul>
           </template>
-          <v-card >
-            
+          <v-card>
             <div class="patient__desc">
-              <ul ref="patient" class="patient__desc-col" >
+              <ul ref="patient" class="patient__desc-col">
                 <li>
                   <span>Numer karty: </span>
-                  <span>{{patient.numerKarty}}</span>
+                  <span>{{ patient.numerKarty }}</span>
                 </li>
                 <li>
                   <span>Ulica: </span>
-                  <span>{{patient.ulica}}</span>
+                  <span>{{ patient.ulica }}</span>
                 </li>
                 <li>
-                  <span>Miasto:</span> 
-                  <span>{{patient.miasto}}</span>
+                  <span>Miasto:</span>
+                  <span>{{ patient.miasto }}</span>
                 </li>
                 <li>
-                  <span>Kod-pocztowy:</span> 
-                  <span>{{patient.kodPocztowy}}</span>
+                  <span>Kod-pocztowy:</span>
+                  <span>{{ patient.kodPocztowy }}</span>
                 </li>
                 <li>
                   <span>Telefon: </span>
-                  <span>{{patient.numerTelefonu}}</span>
+                  <span>{{ patient.numerTelefonu }}</span>
                 </li>
                 <li>
                   <span>Stanowisko: </span>
-                  <span>{{patient.stanowisko}}</span>
+                  <span>{{ patient.stanowisko }}</span>
                 </li>
                 <li>
-                  <span>NIP:</span> 
-                  <span>{{patient.nip}}</span>
+                  <span>NIP:</span>
+                  <span>{{ patient.nip }}</span>
                 </li>
                 <li>
                   <span>Data orzeczenia: </span>
-                  <span>{{patient.dataOrzeczenia}}</span>
+                  <span>{{ patient.dataOrzeczenia }}</span>
                 </li>
               </ul>
 
-               <!-- FIRMA -->
+              <!-- FIRMA -->
               <ul ref="patient" class="patient__desc-col">
                 <li v-if="patient.firma">
                   <span>Firma: </span>
-                  <span>{{patient.firma.nazwa}}</span>
+                  <span>{{ patient.firma.nazwa }}</span>
                 </li>
               </ul>
             </div>
 
             <div class="patient__btns">
-                <RegistrationPopUp
-                  :patients="patients[i]"
-                  @clicked="register($event)"
-                ></RegistrationPopUp>
-                <DeletePatientPopUp :patients="patients[i]" @click="deletePatient">Usuń Pacjenta</DeletePatientPopUp>
-             </div>
+              <RegistrationPopUp
+                :patients="patients[i]"
+                @clicked="register($event)"
+              ></RegistrationPopUp>
+              <DeletePatientPopUp :patients="patients[i]" @click="deletePatient"
+                >Usuń Pacjenta</DeletePatientPopUp
+              >
+            </div>
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -85,37 +89,35 @@
 
 <script>
 // import MyButton from "../components/MyButton";
-import RegistrationPopUp from "../components/RegistrationPopUp";
-import DeletePatientPopUp from "../components/DeletePatientPopUp";
+import RegistrationPopUp from '../components/RegistrationPopUp'
+import DeletePatientPopUp from '../components/DeletePatientPopUp'
 export default {
   components: {
     RegistrationPopUp,
     DeletePatientPopUp
     // MyButton
   },
-    props: ["patients", "deletePatient", "register", "filteredPatients"],
+  props: ['patients', 'deletePatient', 'register', 'filteredPatients'],
   data: () => ({}),
   methods: {
     updateTypWizyty($event) {
-      console.log("event ListOfPatients dialog box")
-      console.log($event);
+      console.log('event ListOfPatients dialog box')
+      console.log($event)
     }
   },
   created() {
-    console.log("PATIENTS")
+    console.log('PATIENTS')
     console.log(this.patients)
   }
-
-};
+}
 </script>
 
 <style lang="scss">
-
 .v-expansion-panel__header {
   padding: 12px 0px !important;
 }
 .patient {
-  border-bottom: 1px solid rgba(0,0,0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
   &__card {
     display: flex;
@@ -123,15 +125,15 @@ export default {
   }
 
   &__header {
-  display: flex;
-  padding: 0px;
+    display: flex;
+    padding: 0px;
     li {
-      width:25%;
+      width: 25%;
       &:nth-child(2) {
-        padding-left:7px;
+        padding-left: 7px;
       }
       &:nth-child(3) {
-        padding-left:12px;
+        padding-left: 12px;
       }
     }
 
@@ -141,7 +143,7 @@ export default {
   }
 
   &__desc {
-    display:flex;
+    display: flex;
     justify-content: space-between;
   }
 
@@ -151,9 +153,9 @@ export default {
     padding-left: 0px;
 
     li {
-      display:flex;
-      padding-top:8px;
-      span{
+      display: flex;
+      padding-top: 8px;
+      span {
         display: block;
         width: 50%;
       }
@@ -170,16 +172,9 @@ export default {
     }
   }
 
-
   &__details-element {
     text-align: right;
     padding-right: 3px;
   }
 }
-
-
-
-
-
-
 </style>

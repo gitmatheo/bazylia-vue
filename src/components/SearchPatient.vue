@@ -1,13 +1,18 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs12 class="search-form white" >
+    <v-flex xs12 class="search-form white">
       <h2>Wyszukaj Pacjenta</h2>
 
       <v-form v-model="valid" lazy-validation>
         <v-container>
           <v-layout>
             <v-flex xs12 md3>
-              <v-text-field v-model="name" @change.stop="getPatients" label="Imię" required></v-text-field>
+              <v-text-field
+                v-model="name"
+                @change.stop="getPatients"
+                label="Imię"
+                required
+              ></v-text-field>
             </v-flex>
             <v-flex xs12 md3>
               <v-text-field
@@ -35,7 +40,9 @@
           </v-layout>
         </v-container>
 
-        <v-btn class="white--text" @click="getPatients">Pokaż wszystkich pacjentów</v-btn>
+        <v-btn class="white--text" @click="getPatients"
+          >Pokaż wszystkich pacjentów</v-btn
+        >
       </v-form>
     </v-flex>
   </v-layout>
@@ -53,13 +60,12 @@ export default {
 
   methods: {
     submit() {
-      this.name = '';
-      this.secondName = '';
-      this.pesel = null;
+      this.name = ''
+      this.secondName = ''
+      this.pesel = null
     }
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>
