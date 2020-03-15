@@ -1,6 +1,6 @@
 export default function slownie(kwota) {
   // pobranie liczby
-  var liczba = parseInt(kwota);
+  var liczba = parseInt(kwota)
 
   var jednosci = [
     '',
@@ -13,7 +13,7 @@ export default function slownie(kwota) {
     ' siedem',
     ' osiem',
     ' dziewięć'
-  ];
+  ]
   var nascie = [
     '',
     ' jedenaście',
@@ -25,7 +25,7 @@ export default function slownie(kwota) {
     ' siedemnaście',
     ' osiemnaście',
     ' dziewietnaście'
-  ];
+  ]
   var dziesiatki = [
     '',
     ' dziesięć',
@@ -37,7 +37,7 @@ export default function slownie(kwota) {
     ' siedemdziesiąt',
     ' osiemdziesiąt',
     ' dziewięćdziesiąt'
-  ];
+  ]
   var setki = [
     '',
     ' sto',
@@ -49,7 +49,7 @@ export default function slownie(kwota) {
     ' siedemset',
     ' osiemset',
     ' dziewięćset'
-  ];
+  ]
   var grupy = [
     ['', '', ''],
     [' tysiąc', ' tysiące', ' tysięcy'],
@@ -58,34 +58,34 @@ export default function slownie(kwota) {
     [' bilion', ' biliony', ' bilionów'],
     [' biliard', ' biliardy', ' biliardów'],
     [' trylion', ' tryliony', ' trylionów']
-  ];
+  ]
 
   // jezeli pole zawiera poprawna wartosc calkowita
   if (kwota == liczba.toString()) {
-    var wynik = '';
-    var znak = '';
-    if (liczba == 0) wynik = 'zero';
+    var wynik = ''
+    var znak = ''
+    if (liczba == 0) wynik = 'zero'
     if (liczba < 0) {
-      znak = 'minus';
-      liczba = -liczba;
+      znak = 'minus'
+      liczba = -liczba
     }
 
-    var g = 0;
+    var g = 0
     while (liczba > 0) {
-      var s = Math.floor((liczba % 1000) / 100);
-      var n = 0;
-      var d = Math.floor((liczba % 100) / 10);
-      var j = Math.floor(liczba % 10);
+      var s = Math.floor((liczba % 1000) / 100)
+      var n = 0
+      var d = Math.floor((liczba % 100) / 10)
+      var j = Math.floor(liczba % 10)
 
       if (d == 1 && j > 0) {
-        n = j;
-        d = 0;
-        j = 0;
+        n = j
+        d = 0
+        j = 0
       }
 
-      var k = 2;
-      if (j == 1 && s + d + n == 0) k = 0;
-      if (j == 2 || j == 3 || j == 4) k = 1;
+      var k = 2
+      if (j == 1 && s + d + n == 0) k = 0
+      if (j == 2 || j == 3 || j == 4) k = 1
       if (s + d + n + j > 0)
         wynik =
           setki[s] +
@@ -93,13 +93,13 @@ export default function slownie(kwota) {
           nascie[n] +
           jednosci[j] +
           grupy[g][k] +
-          wynik;
+          wynik
 
-      g++;
-      liczba = Math.floor(liczba / 1000);
+      g++
+      liczba = Math.floor(liczba / 1000)
     }
-    return znak + wynik;
+    return znak + wynik
   } else {
-    return 'Podano nieprawidlowa wartosc!';
+    return 'Podano nieprawidlowa wartosc!'
   }
 }

@@ -7,7 +7,7 @@
         </div>
       </v-flex>
     </v-layout>-->
-    <v-container id="section-to-print" class="white container" my-5 >
+    <v-container id="section-to-print" class="white container" my-5>
       <v-layout row>
         <v-flex xs7>
           <p>ZOZ "BAZYLIA" SPECJALISTYCZNE USŁUGI MEDYCZNE</p>
@@ -20,7 +20,7 @@
           <div>
             <p class="details__element">
               <span>Data wystawienia:</span>
-              <span>{{faktura.dataFaktury | moment("DD-MM-YYYY")}}</span>
+              <span>{{ faktura.dataFaktury | moment('DD-MM-YYYY') }}</span>
             </p>
             <p class="details__element">
               <span>Miejsce wystawienia:</span>
@@ -28,15 +28,15 @@
             </p>
             <p class="details__element">
               <span>Data wykonania usługi:</span>
-              <span>{{faktura.dataUslugi | moment("DD-MM-YYYY")}}</span>
+              <span>{{ faktura.dataUslugi | moment('DD-MM-YYYY') }}</span>
             </p>
             <p class="details__element">
               <span>Termin płatności:</span>
-              <span>{{terminPlatnosci}}</span>
+              <span>{{ terminPlatnosci }}</span>
             </p>
             <p class="details__element">
               <span>Sposób płatności:</span>
-              <span>{{sposobPlatnosci}}</span>
+              <span>{{ sposobPlatnosci }}</span>
             </p>
           </div>
         </v-flex>
@@ -47,7 +47,7 @@
           <div class="invoice-title">
             <h2>
               Faktura VAT nr:
-              <span>{{faktura.numerFaktury}}</span>
+              <span>{{ faktura.numerFaktury }}</span>
             </h2>
           </div>
         </v-flex>
@@ -57,11 +57,9 @@
         <v-flex xs7 class="seller">
           <h2>Sprzedawca</h2>
           <p>
-            <br />ZOZ "BAZYLIA" SPECJALISTYCZNE USŁUGI MEDYCZNE
-            <br />ul. A. Struga 23, 95-100 Zgierz
-            <br />NIP: 735-151-40-46
-            <br />Nr konta: 21 1020 3440 0000 7802 0013 9329
-            <br />Bank: PKO BP S.A o/Zgierz
+            <br />ZOZ "BAZYLIA" SPECJALISTYCZNE USŁUGI MEDYCZNE <br />ul. A.
+            Struga 23, 95-100 Zgierz <br />NIP: 735-151-40-46 <br />Nr konta: 21
+            1020 3440 0000 7802 0013 9329 <br />Bank: PKO BP S.A o/Zgierz
           </p>
         </v-flex>
 
@@ -69,15 +67,15 @@
           <h2>Nabywca</h2>
           <p>
             <br />
-            {{faktura.firma.nazwa}}
+            {{ faktura.firma.nazwa }}
             <br />
             <span>ul.</span>
-            {{faktura.firma.ulica}}
+            {{ faktura.firma.ulica }}
             <br />
-            {{faktura.firma.kodPocztowy}}, {{faktura.firma.miasto}}
+            {{ faktura.firma.kodPocztowy }}, {{ faktura.firma.miasto }}
             <br />
             <span>REGON:</span>
-            {{faktura.firma.regon}}
+            {{ faktura.firma.regon }}
           </p>
         </v-flex>
       </v-layout>
@@ -91,7 +89,7 @@
             class=""
           >
             <template v-slot:items="props">
-              <td>{{ }}</td>
+              <td>{{}}</td>
               <!-- Lp -->
               <td>{{ props.item.nazwa }}</td>
               <!-- nazwa -->
@@ -103,7 +101,7 @@
               <!-- cenaNetto -->
               <td>{{ props.item.wartoscNetto }}</td>
               <!-- Wartosc netto -->
-              <td>{{ props.item.stawkaVat + "%" }}</td>
+              <td>{{ props.item.stawkaVat + '%' }}</td>
               <!-- Stawka VAT -->
               <td>{{ props.item.wartoscVat }}</td>
               <!-- wartosc VAT -->
@@ -117,17 +115,21 @@
 
       <v-layout row justify-end py-5>
         <v-flex xs5>
-          <h3>Do zapłaty: {{faktura.sumaBrutto}} zł</h3>
-          <p>Słownie: {{kwotaSlownie}}</p>
+          <h3>Do zapłaty: {{ faktura.sumaBrutto }} zł</h3>
+          <p>Słownie: {{ kwotaSlownie }}</p>
         </v-flex>
       </v-layout>
       <v-layout row justify-space-around py-5>
         <v-flex xs4 class="text-sm-center">
-          <p>..........................................................................</p>
+          <p>
+            ..........................................................................
+          </p>
           <p>Podpis osoby upoważnionej do wystawienia dokumentu</p>
         </v-flex>
         <v-flex xs4 class="text-sm-center">
-          <p>..................................................................</p>
+          <p>
+            ..................................................................
+          </p>
           <p>Podpis osoby upoważnionej do odbioru dokumentu</p>
         </v-flex>
       </v-layout>
@@ -136,9 +138,9 @@
 </template>
 
 <script>
-import API from '../constants/api';
-import axios from 'axios';
-import slownie from '../utils/slownie.js';
+import API from '../constants/api'
+import axios from 'axios'
+import slownie from '../utils/slownie.js'
 
 export default {
   data() {
@@ -217,7 +219,7 @@ export default {
         terminPlatnosci: 14,
         sposobPlatnosci: 'GOTOWKA'
       }
-    };
+    }
   },
   methods: {
     // printInvoice(divName) {
@@ -229,50 +231,48 @@ export default {
     // }
   },
   mounted: function() {
-    const fakturaId = this.$route.params.id;
+    const fakturaId = this.$route.params.id
     axios
       .get(`${API.url}/faktury/${fakturaId}`)
       .then(response => {
-        this.$store.commit('GET_FAKTURA', response.data);
-        this.faktura = this.$store.getters.getFaktura;
+        this.$store.commit('GET_FAKTURA', response.data)
+        this.faktura = this.$store.getters.getFaktura
 
         this.faktura.uslugi.map(usluga => {
-          usluga.wartoscNetto = usluga.cenaNetto * usluga.ilosc;
+          usluga.wartoscNetto = usluga.cenaNetto * usluga.ilosc
 
           usluga.wartoscVat =
             usluga.stawkaVat == 0
               ? 0
               : parseFloat(
                   ((usluga.wartoscNetto * usluga.stawkaVat) / 100).toFixed(2)
-                );
+                )
 
           usluga.wartoscBrutto =
             usluga.stawkaVat == 0
               ? usluga.wartoscNetto
-              : parseFloat(
-                  (usluga.wartoscNetto + usluga.wartoscVat).toFixed(2)
-                );
-        });
+              : parseFloat((usluga.wartoscNetto + usluga.wartoscVat).toFixed(2))
+        })
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
   },
   computed: {
     terminPlatnosci() {
       return this.$moment(this.faktura.dataFaktury)
         .add(this.faktura.terminPlatnosci, 'days')
-        .format('DD-MM-YYYY');
+        .format('DD-MM-YYYY')
     },
     sposobPlatnosci() {
-      return this.faktura.sposobPlatnosci == 'GOTOWKA' ? 'Gotówka' : 'Przelew';
+      return this.faktura.sposobPlatnosci == 'GOTOWKA' ? 'Gotówka' : 'Przelew'
     },
     kwotaSlownie() {
-      let kwota = this.faktura.sumaBrutto.split('.');
-      let zlote = kwota[0];
-      let grosze = kwota[1];
-      return `${slownie(zlote)} zł i ${slownie(grosze)} gr `;
+      let kwota = this.faktura.sumaBrutto.split('.')
+      let zlote = kwota[0]
+      let grosze = kwota[1]
+      return `${slownie(zlote)} zł i ${slownie(grosze)} gr `
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

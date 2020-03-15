@@ -3,8 +3,9 @@ module.exports = {
   env: {
     node: true
   },
-  'extends': [
+  extends: [
     'plugin:vue/essential',
+    'plugin:prettier/recommended',
     'eslint:recommended'
   ],
   rules: {

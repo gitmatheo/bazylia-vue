@@ -1,7 +1,7 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-btn slot="activator" >Dodaj Firmę</v-btn>
+      <v-btn slot="activator">Dodaj Firmę</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Dodaj Firmę</span>
@@ -23,13 +23,21 @@
               </v-flex>
 
               <v-flex xs6>
-                <v-text-field label="Regon" type="number" required></v-text-field>
+                <v-text-field
+                  label="Regon"
+                  type="number"
+                  required
+                ></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-text-field label="NIP" type="number" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-select :items="['TAK', 'NIE']" label="Ryczałt" required></v-select>
+                <v-select
+                  :items="['TAK', 'NIE']"
+                  label="Ryczałt"
+                  required
+                ></v-select>
               </v-flex>
             </v-layout>
           </v-container>
@@ -49,9 +57,7 @@ export default {
   data: () => ({
     dialog: false
   })
-};
+}
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

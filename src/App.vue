@@ -2,17 +2,19 @@
   <v-app class="app">
     <Navbar></Navbar>
     <v-content>
-      <router-view></router-view>
+      <transition name="slide-fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
+import Navbar from '@/components/Navbar'
 // import API from './constants/api';
 // import axios from 'axios';
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Navbar
   },
@@ -22,19 +24,17 @@ export default {
       role: '',
       isAuthenticated: false,
       menuItems: [
-        { icon: "home", title: "Wyszukaj Pacjenta", link: "/" },
-        { icon: "done", title: "Zrealizowane", link: "/completed" }
+        { icon: 'home', title: 'Wyszukaj Pacjenta', link: '/' },
+        { icon: 'done', title: 'Zrealizowane', link: '/completed' }
       ]
-    };
+    }
   },
-  created(){
-
+  created() {
     // this.role = sessionStorage.getItem('ROLE');
     // this.isAuthenticated = sessionStorage.getItem('isAuthenticated');
     // console.log("SIemaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     // console.log(this.role);
     // console.log(this.isAuthenticated)
-
     //   axios
     //     .get(`${API.url}/login`)
     //     .then(res => {
@@ -43,7 +43,7 @@ export default {
     //     })
     //     .catch(err => console.error(err));
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -52,9 +52,8 @@ export default {
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
-
 
 .container {
   max-width: 1360px !important;
@@ -66,40 +65,39 @@ li {
   caret-color: #20CE99 !important;
 } */
 
-
 // ==== custom v-text-field START ====
 
 .v-text-field {
   .v-label {
     &--active {
-      transform: translateY(-21px) translateX(10px) scale(0.75)!important;
-      background: white!important;
-      width: fit-content!important;
-      padding: 0 10px!important;
+      transform: translateY(-21px) translateX(10px) scale(0.75) !important;
+      background: white !important;
+      width: fit-content !important;
+      padding: 0 10px !important;
     }
   }
 }
 
 .v-text-field__slot {
   label {
-    margin-left:20px!important;
-    top: 14px!important;
+    margin-left: 20px !important;
+    top: 14px !important;
   }
 }
 
 .v-input {
   &__slot {
     &:after {
-      border: none!important;
+      border: none !important;
     }
     &:before {
-      border: none!important;
+      border: none !important;
     }
   }
   input {
-    max-height: 48px!important;
-    padding-left: 30px!important;
-  } 
+    max-height: 48px !important;
+    padding-left: 30px !important;
+  }
 }
 
 .v-messages__message {
@@ -112,4 +110,43 @@ li {
 
 // ==== custom v-text-field END ====
 
+// TRANSITIONS
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-out;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter {
+  transform: translateX(50px);
+  opacity: 0;
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-fade-leave-to {
+  transform: translateX(-50px);
+  opacity: 0;
+}
+
+.slide-up-enter {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
+}
 </style>

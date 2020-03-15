@@ -4,11 +4,15 @@
     <!-- alt-labels -->
     <v-stepper v-model="e1">
       <v-stepper-header>
-        <v-stepper-step :complete="e1 > 1" step="1" :editable="editable">Wybierz datę i godzinę</v-stepper-step>
+        <v-stepper-step :complete="e1 > 1" step="1" :editable="editable"
+          >Wybierz datę i godzinę</v-stepper-step
+        >
 
         <v-divider></v-divider>
 
-        <v-stepper-step :complete="e1 > 2" step="2" :editable="editable">Wybierz usługę</v-stepper-step>
+        <v-stepper-step :complete="e1 > 2" step="2" :editable="editable"
+          >Wybierz usługę</v-stepper-step
+        >
 
         <v-divider></v-divider>
 
@@ -30,13 +34,15 @@
         </v-stepper-content>
 
         <v-stepper-content step="3">
-          <FormSummary :typeOfSummary="typWizytyConst.SPECJALISTYKA" title="Specjalistyka" />
+          <FormSummary
+            :typeOfSummary="typWizytyConst.SPECJALISTYKA"
+            title="Specjalistyka"
+          />
 
           <v-btn text @click="e1 = 2">Wróć</v-btn>
-          <v-btn
-            @click="zarejestrujWizyte"
-            :disabled="zarejestrowano"
-          >{{zarejestrowano ? "Zarejestrowano wizytę" : "Zarejestruj wizytę"}}</v-btn>
+          <v-btn @click="zarejestrujWizyte" :disabled="zarejestrowano">{{
+            zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
+          }}</v-btn>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -46,12 +52,12 @@
 </template>
 
 <script>
-import FormDatePicker from '../components/FormDatePicker';
-import FormUsluga from '../components/FormUsluga';
-import FormSummary from '../components/FormSummary';
-import { typWizytyConst } from '../constants/constants';
-import API from '../constants/api';
-import axios from 'axios';
+import FormDatePicker from '../components/FormDatePicker'
+import FormUsluga from '../components/FormUsluga'
+import FormSummary from '../components/FormSummary'
+import { typWizytyConst } from '../constants/constants'
+import API from '../constants/api'
+import axios from 'axios'
 
 export default {
   components: {
@@ -70,47 +76,45 @@ export default {
       altLabels: false,
       editable: true,
       typWizytyConst: typWizytyConst
-    };
+    }
   },
 
   watch: {
     steps(val) {
       if (this.e1 > val) {
-        this.e1 = val;
+        this.e1 = val
       }
     },
     vertical() {
-      this.e1 = 2;
-      requestAnimationFrame(() => (this.e1 = 1)); // Workarounds
+      this.e1 = 2
+      requestAnimationFrame(() => (this.e1 = 1)) // Workarounds
     }
   },
 
   methods: {
     onInput(val) {
-      this.steps = parseInt(val);
+      this.steps = parseInt(val)
     },
     nextStep(n) {
       if (n === this.steps) {
-        this.e1 = 1;
+        this.e1 = 1
       } else {
-        this.e1 = n + 1;
+        this.e1 = n + 1
       }
     },
     zarejestrujWizyte() {
-      this.zarejestrowano = true;
+      this.zarejestrowano = true
       axios
         .post(`${API.url}/wizyty`, this.wizyta)
         .then(() => this.$router.push({ path: '/' }))
-        .catch(err => console.error(err));
+        .catch(err => console.error(err))
     }
   },
 
   mounted: function() {
-    this.wizyta = this.$store.getters.getWizyta;
+    this.wizyta = this.$store.getters.getWizyta
   }
-};
+}
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

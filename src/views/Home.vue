@@ -3,29 +3,43 @@
     <!-- <SearchPatient :getPatients="getPatients" :name="name" :secondName="secondName" :pesel="pesel"></SearchPatient> -->
 
     <v-layout row justify-center>
-      <v-flex xs12 class="search-form white" >
-        <h2>Wyszukaj Pacjenta <span class="subtitle">(wpisz nazwisko lub pesel)</span></h2>
+      <v-flex xs12 class="search-form white">
+        <h2>
+          Wyszukaj Pacjenta
+          <span class="subtitle">(wpisz nazwisko lub pesel)</span>
+        </h2>
 
         <v-form class="form" v-model="valid" lazy-validation>
-
-            <v-layout>
-              <!-- <v-flex xs12 md3>
+          <v-layout>
+            <!-- <v-flex xs12 md3>
                 <v-text-field v-model="name" @change="getFilteresPatients" label="Imię"></v-text-field>
               </v-flex> -->
-              <div class="form__input-wrapper flex xs12 md4">
-                <input v-model="secondName" @change="getFilteresPatients" placeholder="Nazwisko" label="Nazwisko"/>
-              </div>
-              <div class="form__input-wrapper flex xs12 md4">
-                <input v-model="pesel" @change="getFilteresPatients" placeholder="Pesel" label="PESEL"/>
-              </div>
-              <div class="form__input-wrapper flex xs12 md4">
-                <button class="my-btn" :disabled="!valid">
-                  <span>Szukaj</span>
-                  <v-icon right>search</v-icon>
-                </button>
-              </div>
-            </v-layout>
-          <button class="my-btn my-btn--black" @click.prevent="getPatients">Pokaż wszystkich pacjentów</button>
+            <div class="form__input-wrapper flex xs12 md4">
+              <input
+                v-model="secondName"
+                @change="getFilteresPatients"
+                placeholder="Nazwisko"
+                label="Nazwisko"
+              />
+            </div>
+            <div class="form__input-wrapper flex xs12 md4">
+              <input
+                v-model="pesel"
+                @change="getFilteresPatients"
+                placeholder="Pesel"
+                label="PESEL"
+              />
+            </div>
+            <div class="form__input-wrapper flex xs12 md4">
+              <button class="my-btn" :disabled="!valid">
+                <span>Szukaj</span>
+                <v-icon right>search</v-icon>
+              </button>
+            </div>
+          </v-layout>
+          <button class="my-btn my-btn--black" @click.prevent="getPatients">
+            Pokaż wszystkich pacjentów
+          </button>
         </v-form>
       </v-flex>
     </v-layout>
@@ -39,10 +53,10 @@
 </template>
 
 <script>
-import ListOfPatients from '../components/ListOfPatients';
-import { mapMutations } from 'vuex';
-import API from '../constants/api';
-import axios from 'axios';
+import ListOfPatients from '../components/ListOfPatients'
+import { mapMutations } from 'vuex'
+import API from '../constants/api'
+import axios from 'axios'
 
 export default {
   components: {
@@ -87,8 +101,8 @@ export default {
           patient.imie.match(this.name) &&
           patient.nazwisko.match(this.nazwisko) &&
           patient.pesel.match(this.pesel)
-        );
-      });
+        )
+      })
     }
   },
 
@@ -98,15 +112,15 @@ export default {
       'GET_ALL_PATIENTS_FROM_DB'
     ]),
     setPatientForReg(patientForReg) {
-      this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg);
+      this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg)
     },
     getFilteresPatients() {
-      this.patients = this.$store.getters.getPatients;
+      this.patients = this.$store.getters.getPatients
     },
     getPatients() {
-      this.name = '';
-      this.secondName = '';
-      this.pesel = '';
+      this.name = ''
+      this.secondName = ''
+      this.pesel = ''
 
       axios
         .get(`${API.url}/pacjenci`, {
@@ -117,40 +131,40 @@ export default {
           }
         })
         .then(response => {
-          this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data);
-          this.patients = this.$store.getters.getPatients;
-          console.log("WHAT RESPONSE")
+          this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
+          this.patients = this.$store.getters.getPatients
+          console.log('WHAT RESPONSE')
         })
         .catch(function(error) {
-           console.log("WHAT error")
-          console.error(error);
-        });
+          console.log('WHAT error')
+          console.error(error)
+        })
     },
     getFilteredPatients() {
       this.patients = this.$store.getters.getPatients.filter(patient => {
-        return patient.name.match(this.name);
-      });
+        return patient.name.match(this.name)
+      })
     },
     deletePatient(index) {
-      const { imie, nazwisko } = this.patients[index];
+      const { imie, nazwisko } = this.patients[index]
       const confirmed = confirm(
         `Jesteś pewny/a, że chcesz usunać pacjenta:
          ${imie} ${nazwisko} ?`
-      );
+      )
       if (confirmed) {
-        const pacjentId = this.patients[index].pacjentId;
-        axios.delete(`${API.url}/pacjenci/${pacjentId}`);
-        return this.$delete(this.patients, index);
+        const pacjentId = this.patients[index].pacjentId
+        axios.delete(`${API.url}/pacjenci/${pacjentId}`)
+        return this.$delete(this.patients, index)
       }
     },
 
     register(patient) {
-      console.log("==========Register clicked");
-      console.log(patient);
-      this.setPatientForReg(patient);
+      console.log('==========Register clicked')
+      console.log(patient)
+      this.setPatientForReg(patient)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -169,50 +183,43 @@ export default {
 }
 
 .my-btn {
-    background-color: #20CE99;
-    color: white;
-    height: 48px;
-    width: 224px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    i {
-      color: white !important;
-    }
+  background-color: #20ce99;
+  color: white;
+  height: 48px;
+  width: 224px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  i {
+    color: white !important;
+  }
 
-    &--black {
-      background-color: black;
-    }
+  &--black {
+    background-color: black;
+  }
 }
-
 
 .form {
-&__input-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 
-  button {
-    align-self: flex-start;
-  }
-  /* &:nth-child(2) {
+    button {
+      align-self: flex-start;
+    }
+    /* &:nth-child(2) {
     margin-left: 32px;
   } */
-  input {
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 50px;
-    width: 100%;
-    height: 48px;
-    padding: 20px;
-    outline: none;
+    input {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50px;
+      width: 100%;
+      height: 48px;
+      padding: 20px;
+      outline: none;
+    }
   }
 }
-
-
-}
-
-
-
-
 </style>
