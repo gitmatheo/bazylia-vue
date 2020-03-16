@@ -12,12 +12,16 @@
         <v-form class="form" v-model="valid" lazy-validation>
           <v-layout>
             <!-- <v-flex xs12 md3>
-                <v-text-field v-model="name" @change="getFilteresPatients" label="Imię"></v-text-field>
-              </v-flex> -->
+              <v-text-field
+                v-model="name"
+                @change="getFilteredPatients"
+                label="Imię"
+              ></v-text-field>
+            </v-flex> -->
             <div class="form__input-wrapper flex xs12 md4">
               <input
-                v-model="secondName"
-                @change="getFilteresPatients"
+                v-model="nazwisko"
+                @change="getFilteredPatients"
                 placeholder="Nazwisko"
                 label="Nazwisko"
               />
@@ -25,7 +29,7 @@
             <div class="form__input-wrapper flex xs12 md4">
               <input
                 v-model="pesel"
-                @change="getFilteresPatients"
+                @change="getFilteredPatients"
                 placeholder="Pesel"
                 label="PESEL"
               />
@@ -45,9 +49,9 @@
     </v-layout>
     <ListOfPatients
       :patients="patients"
-      :deletePatient="deletePatient"
       :filteredPatients="filteredPatients"
       :register="register"
+      @onDeletePatient="deletePatient($event)"
     ></ListOfPatients>
   </v-container>
 </template>
@@ -55,8 +59,7 @@
 <script>
 import ListOfPatients from '../components/ListOfPatients'
 import { mapMutations } from 'vuex'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 
 export default {
   components: {
@@ -91,16 +94,16 @@ export default {
     ],
     valid: false,
     name: '',
-    secondName: '',
+    nazwisko: '',
     pesel: ''
   }),
   computed: {
     filteredPatients: function() {
       return this.patients.filter(patient => {
         return (
-          patient.imie.match(this.name) &&
-          patient.nazwisko.match(this.nazwisko) &&
-          patient.pesel.match(this.pesel)
+          patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
+          patient.nazwisko.toLowerCase().match(this.nazwisko.toLowerCase()) &&
+          patient.pesel.toLowerCase().match(this.pesel.toLowerCase())
         )
       })
     }
@@ -114,29 +117,14 @@ export default {
     setPatientForReg(patientForReg) {
       this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg)
     },
-    getFilteresPatients() {
-      this.patients = this.$store.getters.getPatients
-    },
     getPatients() {
-      this.name = ''
-      this.secondName = ''
-      this.pesel = ''
-
-      axios
-        .get(`${API.url}/pacjenci`, {
-          params: {
-            pageNumber: 1,
-            pageSize: 50,
-            order: 'ASC'
-          }
-        })
+      apiService
+        .getPatients()
         .then(response => {
           this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
           this.patients = this.$store.getters.getPatients
-          console.log('WHAT RESPONSE')
         })
         .catch(function(error) {
-          console.log('WHAT error')
           console.error(error)
         })
     },
@@ -146,21 +134,12 @@ export default {
       })
     },
     deletePatient(index) {
-      const { imie, nazwisko } = this.patients[index]
-      const confirmed = confirm(
-        `Jesteś pewny/a, że chcesz usunać pacjenta:
-         ${imie} ${nazwisko} ?`
-      )
-      if (confirmed) {
-        const pacjentId = this.patients[index].pacjentId
-        axios.delete(`${API.url}/pacjenci/${pacjentId}`)
-        return this.$delete(this.patients, index)
-      }
+      const pacjentId = this.patients[index].pacjentId
+      apiService.deletePatient(pacjentId)
+      return this.$delete(this.patients, index)
     },
 
     register(patient) {
-      console.log('==========Register clicked')
-      console.log(patient)
       this.setPatientForReg(patient)
     }
   }

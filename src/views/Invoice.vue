@@ -138,8 +138,7 @@
 </template>
 
 <script>
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 import slownie from '../utils/slownie.js'
 
 export default {
@@ -232,8 +231,8 @@ export default {
   },
   mounted: function() {
     const fakturaId = this.$route.params.id
-    axios
-      .get(`${API.url}/faktury/${fakturaId}`)
+    apiService
+      .getInvoice(fakturaId)
       .then(response => {
         this.$store.commit('GET_FAKTURA', response.data)
         this.faktura = this.$store.getters.getFaktura

@@ -122,7 +122,7 @@
             <my-button
               fontColor="white"
               color="#20CE99"
-              @click.native="zarejestrujWizyte"
+              @click.native="zarejestrujWizyte(wizyta)"
               :disabled="zarejestrowano"
               >{{
                 zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
@@ -142,9 +142,8 @@ import FormCompany from '../components/FormCompany'
 import FormDatePicker from '../components/FormDatePicker'
 import FormSummary from '../components/FormSummary'
 import FormUsluga from '../components/FormUsluga'
-import API from '../constants/api'
 import { typWizytyConst } from '../constants/constants'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 
 export default {
   components: {
@@ -192,11 +191,12 @@ export default {
     }
   },
   methods: {
-    zarejestrujWizyte() {
-      this.zarejestrowano = true
-      axios
-        .post(`${API.url}/wizyty`, this.wizyta)
-        .then(() => this.$router.push({ path: '/' }))
+    zarejestrujWizyte(wizyta) {
+      apiService
+        .registerVisit(wizyta)
+        .then(() => {
+          this.$router.push({ path: '/' })
+        })
         .catch(err => console.error(err))
     }
   },

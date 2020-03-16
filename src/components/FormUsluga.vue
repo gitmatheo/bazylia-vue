@@ -34,9 +34,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapMutations } from 'vuex'
-import API from '../constants/api'
+import apiService from '@/services/apiService.js'
 
 export default {
   props: ['title'],
@@ -49,14 +48,16 @@ export default {
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg
-    axios
-      .get(`${API.url}/uslugi`)
+    apiService
+      .getUslugi()
       .then(res => (this.uslugi = res.data))
       .catch(err => console.error(err))
   },
   computed: {
     filteredUslugi() {
-      return this.uslugi.filter(usluga => usluga.nazwa.match(this.nazwaUslugi))
+      return this.uslugi.filter(usluga =>
+        usluga.nazwa.toLowerCase().match(this.nazwaUslugi.toLowerCase())
+      )
     }
   },
   methods: {

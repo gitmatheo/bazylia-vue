@@ -121,7 +121,7 @@
         <my-button
           fontColor="white"
           color="#20CE99"
-          @click.native="submitPatient()"
+          @click.native="submitPatient(pacjent)"
           >Dodaj Pacjenta</my-button
         >
       </v-card-actions>
@@ -131,8 +131,8 @@
 
 <script>
 import { mapMutations, mapActions } from 'vuex'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
+
 export default {
   data: () => ({
     valid: false,
@@ -166,9 +166,9 @@ export default {
   methods: {
     ...mapMutations(['ADD_PATIENT']),
     ...mapActions(['addPatient']),
-    submitPatient() {
-      axios
-        .post(`${API.url}/pacjenci`, this.pacjent)
+    submitPatient(patient) {
+      apiService
+        .submitPatient(patient)
         .then(function(response) {
           this.ADD_PATIENT(response)
         })

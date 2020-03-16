@@ -40,7 +40,10 @@
       <!-- <div class="form__input-wrapper">
             <v-text-field v-model="password" label="hasło" required></v-text-field>
         </div> -->
-      <my-button color="#20CE99" fontColor="white" @click.native="loginek"
+      <my-button
+        color="#20CE99"
+        fontColor="white"
+        @click.native="loginek(login, password)"
         >Zaloguj</my-button
       >
     </div>
@@ -49,8 +52,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 
 export default {
   data: () => ({
@@ -65,17 +67,9 @@ export default {
   }),
   methods: {
     ...mapMutations(['AUTHENTICATE_USER']),
-    loginek() {
-      var encodedBase64String = btoa(`${this.login}:${this.password}`)
-      const options = {
-        headers: {
-          Authorization: `Basic ${encodedBase64String}`
-        },
-        withCredentials: true
-      }
-
-      axios
-        .get(`${API.url}/login`, options)
+    loginek(login, password) {
+      apiService
+        .login(login, password)
         .then(res => {
           sessionStorage.setItem('ROLE', `${res.data.roles[0]}`)
           sessionStorage.setItem('isAuthenticated', true)

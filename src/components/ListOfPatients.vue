@@ -76,7 +76,9 @@
                 :patients="patients[i]"
                 @clicked="register($event)"
               ></RegistrationPopUp>
-              <DeletePatientPopUp :patients="patients[i]" @click="deletePatient"
+              <DeletePatientPopUp
+                :patients="patients[i]"
+                @onDeletePatient="deletePatient(i)"
                 >Usuń Pacjenta</DeletePatientPopUp
               >
             </div>
@@ -95,17 +97,17 @@ export default {
     RegistrationPopUp,
     DeletePatientPopUp
   },
-  props: ['patients', 'deletePatient', 'register', 'filteredPatients'],
+  props: ['patients', 'register', 'filteredPatients'],
   data: () => ({}),
   methods: {
     updateTypWizyty($event) {
       console.log('event ListOfPatients dialog box')
       console.log($event)
+    },
+    deletePatient(i) {
+      console.log('Elo index?  ' + i)
+      this.$emit('onDeletePatient', i) //prop drilling. probably there is a better way
     }
-  },
-  created() {
-    console.log('PATIENTS')
-    console.log(this.patients)
   }
 }
 </script>

@@ -40,9 +40,13 @@
           />
 
           <v-btn text @click="e1 = 2">Wróć</v-btn>
-          <v-btn @click="zarejestrujWizyte" :disabled="zarejestrowano">{{
-            zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
-          }}</v-btn>
+          <v-btn
+            @click.native="zarejestrujWizyte(wizyta)"
+            :disabled="zarejestrowano"
+            >{{
+              zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
+            }}</v-btn
+          >
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -56,8 +60,7 @@ import FormDatePicker from '../components/FormDatePicker'
 import FormUsluga from '../components/FormUsluga'
 import FormSummary from '../components/FormSummary'
 import { typWizytyConst } from '../constants/constants'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 
 export default {
   components: {
@@ -102,11 +105,13 @@ export default {
         this.e1 = n + 1
       }
     },
-    zarejestrujWizyte() {
-      this.zarejestrowano = true
-      axios
-        .post(`${API.url}/wizyty`, this.wizyta)
-        .then(() => this.$router.push({ path: '/' }))
+    zarejestrujWizyte(wizyta) {
+      apiService
+        .registerVisit(wizyta)
+        .then(() => {
+          this.zarejestrowano = true
+          this.$router.push({ path: '/' })
+        })
         .catch(err => console.error(err))
     }
   },
