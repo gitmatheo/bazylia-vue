@@ -71,7 +71,7 @@
                         <my-button
                           color="#20CE99"
                           fontColor="white"
-                          @click.native="submitForInvoice"
+                          @click.native="submitForInvoice(doZafakturowania)"
                           >Wystaw Fakturę</my-button
                         >
                       </v-card-actions>
@@ -132,14 +132,9 @@
 </template>
 
 <script>
-import API from '../constants/api'
-import axios from 'axios'
-import MyButton from '../components/MyButton'
+import apiService from '@/services/apiService.js'
 
 export default {
-  components: {
-    MyButton
-  },
   data: () => ({
     rozliczenia: false,
     brakDanychMessage: false,
@@ -160,8 +155,8 @@ export default {
     }
   }),
   mounted: function() {
-    axios
-      .get(`${API.url}/rozliczenia/medycyna-pracy`)
+    apiService
+      .getRozliczenia()
       .then(response => {
         if (response.data.length) {
           this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
@@ -195,9 +190,9 @@ export default {
         })
       }
     },
-    submitForInvoice() {
-      axios
-        .post(`${API.url}/faktury`, this.doZafakturowania)
+    submitForInvoice(doZafakturowania) {
+      apiService
+        .submitForInvoice(doZafakturowania)
         .then(response => {
           const fakturaId = response.headers.location.match(
             /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/

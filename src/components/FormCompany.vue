@@ -189,7 +189,7 @@
                 ></v-select>
               </v-flex>
               <v-flex xs12>
-                <v-btn @click="addNewCompany()">Dodaj Firmę</v-btn>
+                <v-btn @click="addNewCompany(companyToAdd)">Dodaj Firmę</v-btn>
               </v-flex>
             </v-layout>
           </v-container>
@@ -205,8 +205,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
 
 export default {
   data: () => ({
@@ -240,8 +239,8 @@ export default {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),
 
     getCompany(id) {
-      axios
-        .get(`${API.url}/firmy/${id}`)
+      apiService
+        .getCompany(id)
         .then(res => {
           this.wizyta.pacjent.firma = res.data
         })
@@ -250,8 +249,8 @@ export default {
 
     select(selection) {
       if (selection == 2) {
-        axios
-          .get(`${API.url}/firmy`)
+        apiService
+          .getCompanies()
           .then(response => {
             this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
             this.companies = this.$store.getters.getCompanies
@@ -281,11 +280,9 @@ export default {
       }
     },
 
-    addNewCompany() {
-      // this.companyToAdd.id = this.companies.length + 1;
-      // debugger;
-      axios
-        .post(`${API.url}/firmy`, this.companyToAdd)
+    addNewCompany(company) {
+      apiService
+        .addCompany(company)
         .then(response => {
           const firmaId = response.headers.location.match(
             /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
@@ -295,10 +292,6 @@ export default {
         .catch(function(error) {
           console.error(error)
         })
-      // this.ADD_COMPANY(payload);
-      // this.firma = { ...this.companyToAdd };
-      // this.updatePatientCompany();
-      // this.clearForm();
     },
     clearForm() {
       this.companyToAdd.nazwa = ''

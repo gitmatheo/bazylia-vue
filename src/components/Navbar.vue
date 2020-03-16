@@ -22,8 +22,8 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import API from '../constants/api'
-import axios from 'axios'
+import apiService from '@/services/apiService.js'
+
 export default {
   data: () => ({
     isActive: true,
@@ -37,8 +37,8 @@ export default {
     },
     logout() {
       console.log('LOGOUTTT')
-      axios
-        .get(`${API.url}/logout`)
+      apiService
+        .logout()
         .then(() => {
           sessionStorage.clear()
           this.$store.commit('AUTHENTICATE_USER', false)

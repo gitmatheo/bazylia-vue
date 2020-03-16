@@ -30,14 +30,10 @@
 </template>
 
 <script>
-import MyButton from '../components/MyButton'
 import { typWizytyConst } from '../constants/constants'
 
 export default {
-  components: {
-    MyButton
-  },
-  props: ['patients', 'deletePatient', 'color'],
+  props: ['patients', 'color'],
   data() {
     return {
       dialog: false,
@@ -45,11 +41,8 @@ export default {
     }
   },
   methods: {
-    confirmDelete() {
-      this.dialog = false
-    },
-    cancelDelete() {
-      this.dialog = false
+    deletePatient() {
+      this.$emit('onDeletePatient') //prop drilling. probably there is a better way
     },
     onClickButton(typWizyty) {
       console.log('typWizyty inside dialog box')
