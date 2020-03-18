@@ -77,6 +77,14 @@ export default {
     return axios.post(`${API.url}/pacjenci`, patient)
   },
   deletePatient(patientID) {
+    console.log('PATIENT ID')
+    console.log(patientID)
+
+    // const options = {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // }
     return axios.post(`${API.url}/pacjenci`, patientID)
   },
   registerVisit(wizyta) {
@@ -92,7 +100,6 @@ export default {
     return axios.get(`${API.url}/faktury/${invoiceID}`)
   },
   getUslugi() {
-    console.log('eeeE???????')
     return axios.get(`${API.url}/uslugi`)
   },
   login(login, pass) {

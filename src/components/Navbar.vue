@@ -36,12 +36,12 @@ export default {
       this.path = path
     },
     logout() {
-      console.log('LOGOUTTT')
       apiService
         .logout()
         .then(() => {
-          sessionStorage.clear()
+          localStorage.clear()
           this.$store.commit('AUTHENTICATE_USER', false)
+          this.isAuthenticated = false
           this.$router.push({ path: '/login' })
         })
         .catch(err => {
@@ -51,6 +51,7 @@ export default {
     }
   },
   mounted() {
+    this.isAuthenticated = localStorage.getItem('isAuthenticated')
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'AUTHENTICATE_USER') {
         this.isAuthenticated = state.isAuthenticated

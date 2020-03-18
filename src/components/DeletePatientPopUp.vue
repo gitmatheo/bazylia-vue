@@ -6,7 +6,7 @@
           Rejestruj wizytę
         </my-button> -->
         <v-btn class="btnDelete" color="#F44336" v-on="on">
-          Usuń Pacjenta
+          <slot></slot>
         </v-btn>
       </template>
       <v-card>

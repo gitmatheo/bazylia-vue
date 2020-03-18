@@ -71,8 +71,8 @@ export default {
       apiService
         .login(login, password)
         .then(res => {
-          sessionStorage.setItem('ROLE', `${res.data.roles[0]}`)
-          sessionStorage.setItem('isAuthenticated', true)
+          localStorage.setItem('ROLE', `${res.data.roles[0]}`)
+          localStorage.setItem('isAuthenticated', true)
           this.$router.push({ path: '/' })
           this.$store.commit('AUTHENTICATE_USER', true)
         })

@@ -55,7 +55,7 @@
   <!-- </div> -->
 </template>
 
-<script>
+<script lang="typescript">
 import FormDatePicker from '../components/FormDatePicker'
 import FormUsluga from '../components/FormUsluga'
 import FormSummary from '../components/FormSummary'
@@ -81,19 +81,6 @@ export default {
       typWizytyConst: typWizytyConst
     }
   },
-
-  watch: {
-    steps(val) {
-      if (this.e1 > val) {
-        this.e1 = val
-      }
-    },
-    vertical() {
-      this.e1 = 2
-      requestAnimationFrame(() => (this.e1 = 1)) // Workarounds
-    }
-  },
-
   methods: {
     onInput(val) {
       this.steps = parseInt(val)
@@ -116,7 +103,18 @@ export default {
     }
   },
 
-  mounted: function() {
+  mounted() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'UPDATE_PATIENT_FOR_REGISTRATION') {
+        this.wizyta.pacjent = state.wizyta.pacjent
+      }
+      if (mutation.type === 'UPDATE_DATE_AND_TIME') {
+        this.wizyta.dataWizyty = state.wizyta.dataWizyty
+      }
+      if (mutation.type === 'UPDATE_USLUGA') {
+        this.wizyta.usluga = state.wizyta.usluga
+      }
+    })
     this.wizyta = this.$store.getters.getWizyta
   }
 }

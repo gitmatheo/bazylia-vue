@@ -261,10 +261,6 @@ export default {
       this.selectedCompany = selection
     },
 
-    updatePatientCompany() {
-      this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma)
-    },
-
     updatePage(pageNumber) {
       this.currentPage = pageNumber
       this.updateVisibleCompanies()
@@ -272,12 +268,15 @@ export default {
     updateVisibleCompanies() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
-
-      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
-
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end) //
       if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
       }
+    },
+
+    selectCompany(index) {
+      this.wizyta.pacjent.firma = { ...this.visibleCompanies[index] }
+      this.UPDATE_PATIENT_COMPANY(this.wizyta.pacjent.firma)
     },
 
     addNewCompany(company) {
@@ -292,38 +291,6 @@ export default {
         .catch(function(error) {
           console.error(error)
         })
-    },
-    clearForm() {
-      this.companyToAdd.nazwa = ''
-      this.companyToAdd.ulica = ''
-      this.companyToAdd.miasto = ''
-      this.companyToAdd.kodPocztowy = ''
-      this.companyToAdd.regon = ''
-      this.companyToAdd.ryczalt = ''
-    },
-    addToSelected() {},
-    selectCompany(index) {
-      const {
-        firmaId,
-        nazwa,
-        ulica,
-        miasto,
-        kodPocztowy,
-        regon,
-        ryczalt
-      } = this.companies[index]
-      const firma = {
-        firmaId,
-        nazwa,
-        ulica,
-        miasto,
-        kodPocztowy,
-        regon,
-        ryczalt
-      }
-
-      this.wizyta.pacjent.firma = { ...firma }
-      this.updatePatientCompany()
     }
   },
 
@@ -354,9 +321,6 @@ export default {
         )
       })
     }
-  },
-  ryczaltMapped: function() {
-    return this.ryczalt == 'TAK' ? true : false
   }
 }
 </script>
