@@ -85,7 +85,7 @@ export default {
   getRozliczenia() {
     return axios.get(`${API.url}/rozliczenia/medycyna-pracy`)
   },
-  submitforInvoice(doZafakturowania) {
+  submitForInvoice(doZafakturowania) {
     return axios.post(`${API.url}/faktury`, doZafakturowania)
   },
   getInvoice(invoiceID) {

@@ -11,74 +11,22 @@
             <template v-slot:header>
               <ul class="patient__header">
                 <li>{{ rozliczenie.firma.nazwa }}</li>
-                <!-- <li>{{rozliczenie.firma.ulica}}</li>
-                <li>regon: {{rozliczenie.firma.regon}}</li> -->
                 <li class="patient__details-element">Szczegóły</li>
               </ul>
             </template>
             <v-card>
               <div class="btns-wrapper">
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on }">
-                    <!-- <my-button dark v-on="on">Wystaw fakturę</my-button> -->
-                    <v-btn v-on="on">Wystaw fakturę</v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title class="headline en-2" primary-title
-                      >Wystawianie faktury</v-card-title
-                    >
+                <v-btn
+                  color="primary"
+                  dark
+                  rounded
+                  height="48px"
+                  @click.stop="dialog = true"
+                >
+                  Wystaw fakturę
+                </v-btn>
 
-                    <v-container>
-                      <h3>Sposób płatności</h3>
-                      <v-radio-group v-model="sposobPlatnosciGroup">
-                        <v-flex row>
-                          <v-radio
-                            v-for="item in sposobPlatnosci"
-                            :key="item"
-                            :label="`${item}`"
-                            :value="item"
-                          ></v-radio>
-                        </v-flex>
-                      </v-radio-group>
-
-                      <!-- <v-divider></v-divider> -->
-                      <h3>Rodzaj daty:</h3>
-                      <v-radio-group v-model="rodzajDatyGroup">
-                        <v-flex row>
-                          <v-radio
-                            v-for="item in rodzajDaty"
-                            :key="item"
-                            :label="`${item}`"
-                            :value="item"
-                          ></v-radio>
-                        </v-flex>
-                      </v-radio-group>
-                      <!-- <v-divider></v-divider> -->
-                      <h3>Termin płatności:</h3>
-                      <v-radio-group v-model="terminPlatnosciGroup">
-                        <v-radio
-                          v-for="item in terminPlatnosci"
-                          :key="item"
-                          :label="`${item}`"
-                          :value="item"
-                        ></v-radio>
-                      </v-radio-group>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <my-button color="white" @click.native="dialog = false"
-                          >Anuluj</my-button
-                        >
-                        <my-button
-                          color="#20CE99"
-                          fontColor="white"
-                          @click.native="submitForInvoice(doZafakturowania)"
-                          >Wystaw Fakturę</my-button
-                        >
-                      </v-card-actions>
-                    </v-container>
-                  </v-card>
-                </v-dialog>
-
+                <v-btn rounded large color="primary" dark>Rounded Button</v-btn>
                 <div class="select-all-checkbox">
                   <v-checkbox
                     v-model="selectAll"
@@ -127,6 +75,58 @@
         brakDanychMessage
       }}</v-card-text>
     </div>
+
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-title class="headline en-2" primary-title
+          >Wystawianie faktury</v-card-title
+        >
+
+        <v-container>
+          <h3>Sposób płatności</h3>
+          <v-radio-group v-model="sposobPlatnosciGroup">
+            <v-radio
+              v-for="item in sposobPlatnosci"
+              :key="item"
+              :label="`${item}`"
+              :value="item"
+            ></v-radio>
+          </v-radio-group>
+
+          <h3>Rodzaj daty:</h3>
+          <v-radio-group v-model="rodzajDatyGroup">
+            <v-radio
+              v-for="item in rodzajDaty"
+              :key="item"
+              :label="`${item}`"
+              :value="item"
+            ></v-radio>
+          </v-radio-group>
+
+          <h3>Termin płatności:</h3>
+          <v-radio-group v-model="terminPlatnosciGroup">
+            <v-radio
+              v-for="item in terminPlatnosci"
+              :key="item"
+              :label="`${item}`"
+              :value="item"
+            ></v-radio>
+          </v-radio-group>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <my-button color="white" @click.native="dialog = false"
+              >Anuluj</my-button
+            >
+            <my-button
+              color="#20CE99"
+              fontColor="white"
+              @click.native="submitForInvoice(doZafakturowania)"
+              >Wystaw Fakturę</my-button
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
+    </v-dialog>
     <pre><code> {{doZafakturowania}} </code></pre>
   </v-container>
 </template>
@@ -174,8 +174,6 @@ export default {
   },
   methods: {
     updateWizytyDoZafakturowania() {
-      // console.log("what")
-      // console.log(this.selected)
       this.doZafakturowania.wizyty = this.selected
     },
     select(rozliczenie) {
