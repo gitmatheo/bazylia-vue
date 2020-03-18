@@ -77,15 +77,7 @@ export default {
     return axios.post(`${API.url}/pacjenci`, patient)
   },
   deletePatient(patientID) {
-    console.log('PATIENT ID')
-    console.log(patientID)
-
-    // const options = {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-    return axios.post(`${API.url}/pacjenci`, patientID)
+    return axios.delete(`${API.url}/pacjenci`, patientID)
   },
   registerVisit(wizyta) {
     return axios.post(`${API.url}/wizyty`, wizyta)
