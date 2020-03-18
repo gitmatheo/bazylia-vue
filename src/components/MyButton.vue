@@ -15,11 +15,7 @@ export default {
     // color: this.color,
     // to: this.to
   }),
-  methods: {},
-  created() {
-    console.log('Elo from button my button')
-    console.log(this)
-  }
+  methods: {}
 }
 </script>
 

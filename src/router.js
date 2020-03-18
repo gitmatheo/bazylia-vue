@@ -9,11 +9,8 @@ Vue.use(Router)
 Vue.use(require('vue-moment'))
 
 function guardMyroute(to, from, next) {
-  var isAuthenticated = sessionStorage.getItem('isAuthenticated')
-  // if (localStorage.getItem('isAuthenticated')) isAuthenticated = true;
-  // else isAuthenticated = false;
-  console.log('Is Authenticated')
-  console.log(isAuthenticated)
+  var isAuthenticated = localStorage.getItem('isAuthenticated')
+
   if (isAuthenticated) {
     next() // allow to enter route
   } else {

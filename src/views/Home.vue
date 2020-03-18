@@ -50,7 +50,6 @@
     <ListOfPatients
       :patients="patients"
       :filteredPatients="filteredPatients"
-      :register="register"
       @onDeletePatient="deletePatient($event)"
     ></ListOfPatients>
   </v-container>
@@ -110,13 +109,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
-      'UPDATE_PATIENT_FOR_REGISTRATION',
-      'GET_ALL_PATIENTS_FROM_DB'
-    ]),
-    setPatientForReg(patientForReg) {
-      this.UPDATE_PATIENT_FOR_REGISTRATION(patientForReg)
-    },
+    ...mapMutations(['GET_ALL_PATIENTS_FROM_DB']),
     getPatients() {
       apiService
         .getPatients()
@@ -137,10 +130,6 @@ export default {
       const pacjentId = this.patients[index].pacjentId
       apiService.deletePatient(pacjentId)
       return this.$delete(this.patients, index)
-    },
-
-    register(patient) {
-      this.setPatientForReg(patient)
     }
   }
 }

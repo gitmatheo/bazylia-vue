@@ -6,7 +6,7 @@
           Rejestruj wizytę
         </my-button> -->
         <v-btn color="#20CE99" class="btnRegister" v-on="on">
-          Rejestruj wizytę
+          <slot></slot>
         </v-btn>
       </template>
       <v-card>
@@ -14,23 +14,25 @@
           >Rejestracja pacjenta.</v-card-title
         >
         <v-card-text>
-          <div>Imię: {{ patients.imie }}</div>
-          <div>Nazwisko: {{ patients.nazwisko }}</div>
-          <div>PESEL: {{ patients.pesel }}</div>
+          <div>Imię: {{ patient.imie }}</div>
+          <div>Nazwisko: {{ patient.nazwisko }}</div>
+          <div>PESEL: {{ patient.pesel }}</div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="actions">
           <my-button
             color="#20CE99"
             fontColor="white"
-            @click.native="onClickButton(typWizytyConst.MEDYCYNA_PRACY)"
+            @click.native="
+              onClickButton(typWizytyConst.MEDYCYNA_PRACY, patient)
+            "
             to="/medycyna-pracy"
             >Medycyna Pracy</my-button
           >
           <my-button
             color="#20CE99"
             fontColor="white"
-            @click.native="onClickButton(typWizytyConst.SPECJALISTYKA)"
+            @click.native="onClickButton(typWizytyConst.SPECJALISTYKA, patient)"
             to="/specjalistyka"
             >Specjalistyka</my-button
           >
@@ -45,7 +47,7 @@ import { typWizytyConst } from '../constants/constants'
 import { mapMutations } from 'vuex'
 
 export default {
-  props: ['patients', 'deletePatient', 'color'],
+  props: ['patient'],
   data() {
     return {
       dialog: false,
@@ -53,23 +55,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['UPDATE_TYP_WIZYTY']),
-    updateTypWizyty(typWizyty) {
+    ...mapMutations(['UPDATE_TYP_WIZYTY', 'UPDATE_PATIENT_FOR_REGISTRATION']),
+    onClickButton(typWizyty, patient) {
       this.UPDATE_TYP_WIZYTY(typWizyty)
-    },
-    confirmDelete() {
-      this.dialog = false
-    },
-    cancelDelete() {
-      this.dialog = false
-    },
-    onClickButton(typWizyty) {
-      console.log('typWizyty inside dialog box')
-      console.log(typWizyty)
-      this.updateTypWizyty(typWizyty)
-      this.$emit('clicked', {
-        ...this.patients
-      })
+      this.UPDATE_PATIENT_FOR_REGISTRATION(patient)
     }
   }
 }

@@ -72,10 +72,9 @@
             </div>
 
             <div class="patient__btns">
-              <RegistrationPopUp
-                :patients="patients[i]"
-                @clicked="register($event)"
-              ></RegistrationPopUp>
+              <RegistrationPopUp :patient="patients[i]"
+                >Rejestruj wizytę</RegistrationPopUp
+              >
               <DeletePatientPopUp
                 :patients="patients[i]"
                 @onDeletePatient="deletePatient(i)"
@@ -97,15 +96,10 @@ export default {
     RegistrationPopUp,
     DeletePatientPopUp
   },
-  props: ['patients', 'register', 'filteredPatients'],
+  props: ['patients', 'filteredPatients'],
   data: () => ({}),
   methods: {
-    updateTypWizyty($event) {
-      console.log('event ListOfPatients dialog box')
-      console.log($event)
-    },
     deletePatient(i) {
-      console.log('Elo index?  ' + i)
       this.$emit('onDeletePatient', i) //prop drilling. probably there is a better way
     }
   }

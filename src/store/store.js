@@ -61,19 +61,7 @@ export default new Vuex.Store({
     },
     rozliczenia: {},
     faktura: null,
-    companies: [
-      {
-        firmaId: 'fa9b3ce2-b81c-4b15-b254-2b5c6a2fce49',
-        nazwa: 'Sipes LLC',
-        ulica: '80077 Stroman Skyway',
-        miasto: 'Cortezshire',
-        kodPocztowy: '51455-0335',
-        regon: 12982,
-        umowa: false,
-        rabat: null,
-        ryczalt: true
-      }
-    ]
+    companies: []
   },
   getters: {
     getPatients: state => {
@@ -103,6 +91,35 @@ export default new Vuex.Store({
     AUTHENTICATE_USER: (state, isAuthenticated) => {
       state.isAuthenticated = isAuthenticated
     },
+    // RESET_WIZYTA: state => {
+    //   state.wizyta = {
+    //     pacjent: {
+    //       pacjentId: '',
+    //       imie: '',
+    //       nazwisko: '',
+    //       pesel: '',
+    //       numerKarty: '',
+    //       ulica: '',
+    //       miasto: '',
+    //       kodPocztowy: '',
+    //       numerTelefonu: '',
+    //       nip: '',
+    //       stanowisko: '',
+    //       dataOrzeczenia: null
+    //     },
+    //     typWizyty: '',
+    //     rodzajBadan: null,
+    //     dataWizyty: '',
+    //     usluga: {
+    //       uslugaId: '',
+    //       nazwa: '',
+    //       cenaZwykla: null,
+    //       cenaUmowa: null,
+    //       cenaRabat: null
+    //     },
+    //     faktura: ''
+    //   }
+    // },
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
       state.wizyta.pacjent = pacjent
     },
@@ -134,33 +151,10 @@ export default new Vuex.Store({
       state.faktura = faktura
     },
     ADD_COMPANY: (state, company) => {
-      let newCompany = {
-        name: company.name,
-        street: company.street,
-        city: company.city,
-        zipCode: company.zipCode,
-        NIP: company.NIP,
-        REGON: company.REGON,
-        ryczalt: company.ryczalt
-      }
-      state.companies.push(newCompany)
+      state.companies.push(company)
     },
     ADD_PATIENT: (state, patient) => {
-      let newPatient = {
-        pacjentId: patient.pacjentId,
-        imie: patient.imie,
-        nazwisko: patient.nazwisko,
-        pesel: patient.pesel,
-        numerKarty: patient.numerKarty,
-        ulica: patient.ulica,
-        miasto: patient.miasto,
-        kodPocztowy: patient.kodPocztowy,
-        numerTelefonu: patient.numerTelefonu,
-        nip: patient.nip,
-        stanowisko: patient.stanowisko,
-        dataOrzeczenia: patient.dataOrzeczenia
-      }
-      state.patients.push(newPatient)
+      state.patients.push(patient)
     }
   },
   actions: {}

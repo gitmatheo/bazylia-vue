@@ -201,6 +201,27 @@ export default {
     }
   },
   mounted() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'UPDATE_PATIENT_FOR_REGISTRATION') {
+        this.wizyta.pacjent = state.wizyta.pacjent
+      }
+      if (mutation.type === 'UPDATE_TYP_WIZYTY') {
+        this.wizyta.typWizyty = state.wizyta.typWizyty
+      }
+      if (mutation.type === 'UPDATE_RODZAJ_BADAN') {
+        this.wizyta.rodzajBadan = state.wizyta.rodzajBadan
+      }
+      if (mutation.type === 'UPDATE_DATE_AND_TIME') {
+        this.wizyta.dataWizyty = state.wizyta.dataWizyty
+      }
+      if (mutation.type === 'UPDATE_PATIENT_COMPANY') {
+        this.wizyta.firma = state.wizyta.firma
+      }
+      if (mutation.type === 'UPDATE_USLUGA') {
+        this.wizyta.usluga = state.wizyta.usluga
+      }
+    })
+
     this.wizyta = this.$store.getters.getWizyta
   }
 }
