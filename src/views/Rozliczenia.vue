@@ -25,8 +25,6 @@
                 >
                   Wystaw fakturę
                 </v-btn>
-
-                <v-btn rounded large color="primary" dark>Rounded Button</v-btn>
                 <div class="select-all-checkbox">
                   <v-checkbox
                     v-model="selectAll"
@@ -114,7 +112,10 @@
           </v-radio-group>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <my-button color="white" @click.native="dialog = false"
+            <my-button
+              color="white"
+              fontColor="black"
+              @click.native="dialog = false"
               >Anuluj</my-button
             >
             <my-button
