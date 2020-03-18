@@ -4,9 +4,9 @@
       Imie i nazwisko: Bogdan Brzęczyszczykiewicz, PESEL: 323151132, Rodzaj
       badań: Medycyna Pracy
     </div>
-    <h2>Wybierz typ badań</h2>
+    <h2 class="title">Wybierz typ badań</h2>
     <v-radio-group
-      class="wrapper"
+      class="radio-wrapper"
       row
       justify-center
       v-model="rodzajBadan"
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-h2 {
+.title {
   margin: 50px 0px;
 }
 
@@ -74,7 +74,7 @@ h2 {
   margin: 0 auto;
 }
 
-.wrapper {
+.radio-wrapper {
   display: flex;
   justify-content: space-evenly;
 

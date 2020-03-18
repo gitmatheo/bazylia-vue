@@ -34,6 +34,18 @@ const router = new Router({
       component: () => import('./views/Login.vue')
     },
     {
+      path: '/success',
+      name: 'Success',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/Success.vue')
+    },
+    {
+      path: '/error',
+      name: 'Error',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/Error.vue')
+    },
+    {
       path: '/invoice/:id',
       name: 'Invoice',
       beforeEnter: guardMyroute,

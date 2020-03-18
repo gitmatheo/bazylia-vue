@@ -53,6 +53,7 @@
 
 import axios from 'axios'
 import API from '@/constants/api'
+import router from '../router'
 
 export default {
   getCompanies() {
@@ -80,7 +81,10 @@ export default {
     return axios.delete(`${API.url}/pacjenci`, patientID)
   },
   registerVisit(wizyta) {
-    return axios.post(`${API.url}/wizyty`, wizyta)
+    return axios
+      .post(`${API.url}/wizyty`, wizyta)
+      .then(() => router.push({ path: '/success' }))
+      .catch(() => router.push({ path: '/error' }))
   },
   getRozliczenia() {
     return axios.get(`${API.url}/rozliczenia/medycyna-pracy`)

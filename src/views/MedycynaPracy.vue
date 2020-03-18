@@ -129,6 +129,18 @@
               }}</my-button
             >
           </div>
+          <v-dialog v-model="dialog" hide-overlay persistent width="300">
+            <v-card color="primary" dark>
+              <v-card-text>
+                Rejestruję wizytę
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -159,6 +171,7 @@ export default {
       editable: true,
       length: 5,
       zarejestrowano: false,
+      dialog: false,
       typWizytyConst: typWizytyConst,
       wizyta: {
         wizytaId: '',
@@ -192,12 +205,8 @@ export default {
   },
   methods: {
     zarejestrujWizyte(wizyta) {
-      apiService
-        .registerVisit(wizyta)
-        .then(() => {
-          this.$router.push({ path: '/' })
-        })
-        .catch(err => console.error(err))
+      this.dialog = true
+      apiService.registerVisit(wizyta)
     }
   },
   mounted() {
