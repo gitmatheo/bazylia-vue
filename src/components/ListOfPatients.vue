@@ -2,7 +2,8 @@
   <v-layout row justify-center>
     <v-flex xs12 class="search-form white" pt-5>
       <h2>Lista pacjentów</h2>
-      <v-expansion-panel my-2 class="patient elevation-0">
+      <Loader v-if="isLoading" />
+      <v-expansion-panel v-if="!isLoading" my-2 class="patient elevation-0">
         <v-expansion-panel-content>
           <template v-slot:header>
             <ul class="patient__header">
@@ -96,7 +97,7 @@ export default {
     RegistrationPopUp,
     DeletePatientPopUp
   },
-  props: ['patients', 'filteredPatients'],
+  props: ['patients', 'filteredPatients', 'isLoading'],
   data: () => ({}),
   methods: {
     deletePatient(i) {

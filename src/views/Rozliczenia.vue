@@ -2,7 +2,8 @@
   <v-container elevation-0 row justify-center>
     <div my-4 class="white component-wrapper">
       <h2>Rozliczenia</h2>
-      <v-card-text v-if="rozliczenia">
+      <Loader v-if="isLoading" />
+      <v-card-text v-if="rozliczenia && !isLoading">
         <v-expansion-panel my-2 class="patient elevation-0">
           <v-expansion-panel-content
             v-for="(rozliczenie, i) in rozliczenia"
@@ -152,6 +153,7 @@ import apiService from '@/services/apiService.js'
 
 export default {
   data: () => ({
+    isLoading: true,
     rozliczenia: false,
     brakDanychMessage: false,
     selected: [],
@@ -178,6 +180,7 @@ export default {
         if (response.data.length) {
           this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
           this.rozliczenia = this.$store.getters.getAllRozliczenia
+          this.isLoading = false
         } else {
           this.brakDanychMessage = 'Brak danych w bazie'
         }

@@ -49,6 +49,7 @@
     </v-layout>
     <ListOfPatients
       :patients="patients"
+      :isLoading="isLoading"
       :filteredPatients="filteredPatients"
       @onDeletePatient="deletePatient($event)"
     ></ListOfPatients>
@@ -65,31 +66,32 @@ export default {
     ListOfPatients
   },
   data: () => ({
+    isLoading: false,
     patients: [
-      {
-        pacjentId: 'ca798f3c-fd0c-4e59-a675-170de7a03290',
-        imie: 'Bogdan',
-        nazwisko: 'Brzęczyszczykiewicz',
-        pesel: '56121202345',
-        numerKarty: '12345',
-        ulica: 'Bogdanowa 234/4',
-        miasto: 'Warszawa',
-        kodPocztowy: '00.020',
-        numerTelefonu: '756345746',
-        nip: '723-34-567-65',
-        firma: {
-          firmaId: '9aba4d00-d551-4dfe-9df0-551e8312a7d3',
-          nazwa: "Mc Donald's",
-          ulica: 'Armii Krajowej 123',
-          miasto: 'Zgierz',
-          kodPocztowy: '95-100',
-          regon: '15002900',
-          umowa: true,
-          rabat: 0
-        },
-        stanowisko: 'pracownik biurowy',
-        dataOrzeczenia: null
-      }
+      // {
+      //   pacjentId: ,
+      //   imie: 'Bogdan',
+      //   nazwisko: 'Brzęczyszczykiewicz',
+      //   pesel: '56121202345',
+      //   numerKarty: '12345',
+      //   ulica: 'Bogdanowa 234/4',
+      //   miasto: 'Warszawa',
+      //   kodPocztowy: '00.020',
+      //   numerTelefonu: '756345746',
+      //   nip: '723-34-567-65',
+      //   firma: {
+      //     firmaId: '9aba4d00-d551-4dfe-9df0-551e8312a7d3',
+      //     nazwa: "Mc Donald's",
+      //     ulica: 'Armii Krajowej 123',
+      //     miasto: 'Zgierz',
+      //     kodPocztowy: '95-100',
+      //     regon: '15002900',
+      //     umowa: true,
+      //     rabat: 0
+      //   },
+      //   stanowisko: 'pracownik biurowy',
+      //   dataOrzeczenia: null
+      // }
     ],
     valid: false,
     name: '',
@@ -111,11 +113,13 @@ export default {
   methods: {
     ...mapMutations(['GET_ALL_PATIENTS_FROM_DB']),
     getPatients() {
+      this.isLoading = true
       apiService
         .getPatients()
         .then(response => {
           this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
           this.patients = this.$store.getters.getPatients
+          this.isLoading = false
         })
         .catch(function(error) {
           console.error(error)

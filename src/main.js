@@ -10,8 +10,10 @@ import './registerServiceWorker'
 import './style/style.styl'
 import './style/variables.scss'
 import MyButton from '@/components/MyButton'
+import Loader from '@/components/Loader'
 
 Vue.component('MyButton', MyButton)
+Vue.component('Loader', Loader)
 
 Vue.config.productionTip = false
 
