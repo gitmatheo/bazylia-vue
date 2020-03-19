@@ -137,6 +137,12 @@
             </v-card-text>
           </v-card>
         </v-dialog>
+
+        <PatientAddedPopup
+          :open="dialog2"
+          :patient="pacjent"
+          @onClose="dialog2 = false"
+        ></PatientAddedPopup>
       </v-card-actions>
     </div>
   </v-container>
@@ -145,11 +151,16 @@
 <script>
 import { mapMutations, mapActions } from 'vuex'
 import apiService from '@/services/apiService.js'
+import PatientAddedPopup from '@/components/PatientAddedPopup'
 
 export default {
+  components: {
+    PatientAddedPopup
+  },
   data: () => ({
     valid: false,
     dialog: false,
+    dialog2: false,
     pacjent: {
       pacjentId: '', //uuid
       imie: '',
@@ -178,15 +189,21 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['ADD_PATIENT']),
+    ...mapMutations(['ADD_PATIENT', 'UPDATE_PATIENT_FOR_REGISTRATION']),
     ...mapActions(['addPatient']),
     submitPatient(patient) {
       this.dialog = true
 
       apiService
         .submitPatient(patient)
-        .then(() => {
-          this.$router.push({ path: '/success' })
+        .then(res => {
+          this.dialog = false
+          const pacjentId = res.headers.location.match(
+            /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+          )[0]
+          patient.pacjentId = pacjentId
+          this.$store.commit('UPDATE_PATIENT_FOR_REGISTRATION', patient)
+          this.dialog2 = true
         })
         .catch(error => {
           console.error(error)
