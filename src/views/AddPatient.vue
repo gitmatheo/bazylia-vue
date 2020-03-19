@@ -124,6 +124,19 @@
           @click.native="submitPatient(pacjent)"
           >Dodaj Pacjenta</my-button
         >
+
+        <v-dialog v-model="dialog" hide-overlay persistent width="300">
+          <v-card color="primary" dark>
+            <v-card-text>
+              Dodaje pacjenta
+              <v-progress-linear
+                indeterminate
+                color="white"
+                class="mb-0"
+              ></v-progress-linear>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
       </v-card-actions>
     </div>
   </v-container>
@@ -136,6 +149,7 @@ import apiService from '@/services/apiService.js'
 export default {
   data: () => ({
     valid: false,
+    dialog: false,
     pacjent: {
       pacjentId: '', //uuid
       imie: '',
@@ -167,12 +181,14 @@ export default {
     ...mapMutations(['ADD_PATIENT']),
     ...mapActions(['addPatient']),
     submitPatient(patient) {
+      this.dialog = true
+
       apiService
         .submitPatient(patient)
-        .then(function(response) {
-          this.ADD_PATIENT(response)
+        .then(() => {
+          this.$router.push({ path: '/success' })
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error(error)
         })
     }

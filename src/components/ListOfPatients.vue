@@ -73,12 +73,12 @@
             </div>
 
             <div class="patient__btns">
-              <RegistrationPopUp :patient="patients[i]"
+              <RegistrationPopUp :patient="patient"
                 >Rejestruj wizytę</RegistrationPopUp
               >
               <DeletePatientPopUp
-                :patients="patients[i]"
-                @onDeletePatient="deletePatient(i)"
+                :patient="patient"
+                @onDeletePatient="deletePatient(patient)"
                 >Usuń Pacjenta</DeletePatientPopUp
               >
             </div>
@@ -100,8 +100,9 @@ export default {
   props: ['patients', 'filteredPatients', 'isLoading'],
   data: () => ({}),
   methods: {
-    deletePatient(i) {
-      this.$emit('onDeletePatient', i) //prop drilling. probably there is a better way
+    deletePatient(patient) {
+      console.log('step 2')
+      this.$emit('onDeletePatient', patient) //prop drilling. probably there is a better way
     }
   }
 }

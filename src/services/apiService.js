@@ -78,7 +78,7 @@ export default {
     return axios.post(`${API.url}/pacjenci`, patient)
   },
   deletePatient(patientID) {
-    return axios.delete(`${API.url}/pacjenci`, patientID)
+    return axios.delete(`${API.url}/pacjenci/${patientID}`)
   },
   registerVisit(wizyta) {
     return axios

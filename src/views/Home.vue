@@ -48,7 +48,6 @@
       </v-flex>
     </v-layout>
     <ListOfPatients
-      :patients="patients"
       :isLoading="isLoading"
       :filteredPatients="filteredPatients"
       @onDeletePatient="deletePatient($event)"
@@ -130,10 +129,11 @@ export default {
         return patient.name.match(this.name)
       })
     },
-    deletePatient(index) {
-      const pacjentId = this.patients[index].pacjentId
-      apiService.deletePatient(pacjentId)
-      return this.$delete(this.patients, index)
+    deletePatient(patient) {
+      apiService.deletePatient(patient.pacjentId).then(() => {
+        // console.log('siemanko z delete patient')
+      })
+      // return this.$delete(this.patients, index)
     }
   }
 }

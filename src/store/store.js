@@ -127,9 +127,6 @@ export default new Vuex.Store({
     },
     ADD_COMPANY: (state, company) => {
       state.companies.push(company)
-    },
-    ADD_PATIENT: (state, patient) => {
-      state.patients.push(patient)
     }
   },
   actions: {}

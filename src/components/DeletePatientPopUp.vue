@@ -19,11 +19,28 @@
           <my-button
             fontColor="white"
             color="#F44336"
-            @click.native="deletePatient"
+            @click.native="deletePatient(patient)"
             >Usuń Pacjenta</my-button
           >
-          <my-button fontColor="black" color="white">Anuluj</my-button>
+          <my-button
+            fontColor="black"
+            color="white"
+            @click.native="dialog = false"
+            >Anuluj</my-button
+          >
         </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="loaderDialog" hide-overlay persistent width="300">
+      <v-card color="primary" dark>
+        <v-card-text>
+          Usuwam pacjenta
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </div>
@@ -31,26 +48,29 @@
 
 <script>
 import { typWizytyConst } from '../constants/constants'
+import apiService from '@/services/apiService.js'
 
 export default {
-  props: ['patients', 'color'],
+  props: ['patient', 'color'],
   data() {
     return {
       dialog: false,
+      loaderDialog: false,
       typWizytyConst: typWizytyConst
     }
   },
   methods: {
-    deletePatient() {
-      this.$emit('onDeletePatient') //prop drilling. probably there is a better way
-    },
-    onClickButton(typWizyty) {
-      console.log('typWizyty inside dialog box')
-      console.log(typWizyty)
-      this.$emit('clicked', {
-        ...this.patients,
-        typWizyty
-      })
+    deletePatient(patient) {
+      this.loaderDialog = true
+      apiService
+        .deletePatient(patient.pacjentId)
+        .then(() => {
+          this.loaderDialog = false
+          this.dialog = false
+        })
+        .then(() => console.log('oopsie'))
+      //prop drilling. probably there is a better way
+      this.$emit('onDeletePatient', patient)
     }
   }
 }
