@@ -1,7 +1,7 @@
 image: node:8.12-alpine
 
 cache:
-  key: "$CI_PIPELINE_ID"
+  key: '$CI_PIPELINE_ID'
   paths:
     - node_modules/
 
@@ -18,7 +18,6 @@ test_job:
     - npm i
     - npm run test
 
-
 deploy_job:
   image: docker:19.03.0-dind
   stage: deploy
@@ -27,8 +26,8 @@ deploy_job:
   only:
     - master
   script:
+    - docker build -t bazylia-frontend:${CI_PIPELINE_ID} .
     - docker stop bazylia-frontend || true
     - docker rm bazylia-frontend || true
-    - docker build -t bazylia-frontend:${CI_PIPELINE_ID} .
     - docker run -d --name bazylia-frontend -p 4000:4000 bazylia-frontend:${CI_PIPELINE_ID}
     - docker ps
