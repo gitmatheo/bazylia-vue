@@ -55,12 +55,6 @@
               wizyta.pacjent.firma.ryczalt
             }}</span>
           </li>
-          <li>
-            Rabat:
-            <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.rabat
-            }}</span>
-          </li>
         </ul>
       </v-flex>
       <v-flex xs12>
@@ -72,7 +66,7 @@
             <h2 class="headline">Wybierz firmę z bazy</h2>
             <v-form v-model="valid" lazy-validation>
               <v-container>
-                <v-layout>
+                <v-layout row justify-space-between>
                   <v-flex xs3>
                     <v-text-field
                       v-model="nameSearch"
@@ -88,10 +82,14 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs3>
-                    <v-btn :disabled="!valid" @click="updateVisibleCompanies">
+                    <my-button
+                      :disabled="!valid"
+                      color="success"
+                      @click.native="updateVisibleCompanies"
+                    >
                       <span>Szukaj</span>
                       <v-icon right>search</v-icon>
-                    </v-btn>
+                    </my-button>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -116,11 +114,12 @@
                       <li>Miasto: {{ firma.miasto }}</li>
                       <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
                       <li>Regon: {{ firma.regon }}</li>
-                      <li>Rabat: {{ firma.rabat }}</li>
                       <li>Ryczałt: {{ firma.ryczalt }}</li>
                       <li>
-                        <v-btn class="customBtn" @click="selectCompany(i)"
-                          >Wybierz firmę</v-btn
+                        <my-button
+                          color="success"
+                          @click.native="selectCompany(i)"
+                          >Wybierz firmę</my-button
                         >
                       </li>
                     </ul>
@@ -128,13 +127,14 @@
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
-
-            <v-pagination
-              v-model="currentPage"
-              :page="currentPage + 1"
-              :length="companies.length / pageSize"
-              @click.native="updateVisibleCompanies"
-            ></v-pagination>
+            <div class="pagination">
+              <v-pagination
+                v-model="currentPage"
+                :page="currentPage + 1"
+                :length="companies.length / pageSize"
+                @click.native="updateVisibleCompanies"
+              ></v-pagination>
+            </div>
           </v-flex>
         </v-layout>
 
@@ -176,20 +176,17 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  label="rabat"
                   type="number"
-                  v-model="companyToAdd.rabat"
+                  label="Ryczałt"
+                  v-model="companyToAdd.ryczalt"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-select
-                  :items="[true, false]"
-                  label="Ryczałt"
-                  v-model="companyToAdd.ryczalt"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12>
-                <v-btn @click="addNewCompany(companyToAdd)">Dodaj Firmę</v-btn>
+                <my-button
+                  color="success"
+                  @click.native="addNewCompany(companyToAdd)"
+                  >Dodaj Firmę</my-button
+                >
               </v-flex>
             </v-layout>
           </v-container>
@@ -221,7 +218,7 @@ export default {
       kodPocztowy: '',
       regon: '',
       umowa: false,
-      ryczalt: false
+      ryczalt: 0
     },
     firma: {},
     selection: 1,
@@ -320,6 +317,9 @@ export default {
             .match(this.REGONSearch.toLowerCase())
         )
       })
+    },
+    ryczalt() {
+      return this.companyToAdd.ryczalt.toFixed(2)
     }
   }
 }

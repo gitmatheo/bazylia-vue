@@ -105,7 +105,6 @@ export default {
       //     kodPocztowy: '95-100',
       //     regon: '15002900',
       //     umowa: true,
-      //     rabat: 0
       //   },
       //   stanowisko: 'pracownik biurowy',
       //   dataOrzeczenia: null
@@ -236,18 +235,6 @@ export default {
       padding: 20px;
       outline: none;
     }
-  }
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  background: white;
-  padding: 20px 0 40px;
-  .v-pagination__navigation,
-  .v-pagination__item {
-    box-shadow: none;
-    outline: none;
   }
 }
 </style>

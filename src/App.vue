@@ -50,6 +50,22 @@ li {
   caret-color: #20CE99 !important;
 } */
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 20px 0 40px;
+  .v-pagination__navigation,
+  .v-pagination__item {
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+.theme--light.v-stepper .v-stepper__step__step .v-icon {
+  color: black;
+}
+
 // ==== custom v-text-field START ====
 
 .v-text-field {

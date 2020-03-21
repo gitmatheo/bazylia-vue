@@ -1,5 +1,10 @@
 <template>
-  <v-btn :to="to" :color="color" :style="{ color: fontColor }" class="btn"
+  <v-btn
+    :to="to"
+    :color="color"
+    :style="{ color: fontColor }"
+    :disabled="disabled"
+    class="btn"
     ><slot></slot
   ></v-btn>
 </template>
@@ -9,7 +14,8 @@ export default {
   props: {
     color: String,
     to: String,
-    fontColor: String
+    fontColor: String,
+    disabled: Boolean
   },
   data: () => ({
     // color: this.color,

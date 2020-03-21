@@ -22,5 +22,5 @@ export interface Firma {
   kodPocztowy: string
   regon: string
   umowa: boolean
-  rabat: number
+  ryczalt: number
 }

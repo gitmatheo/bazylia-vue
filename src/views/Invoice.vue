@@ -184,8 +184,7 @@ export default {
           kodPocztowy: '95-100',
           regon: '15002900',
           umowa: true,
-          rabat: 0,
-          ryczalt: null
+          ryczalt: 21
         },
         uslugi: [
           {
