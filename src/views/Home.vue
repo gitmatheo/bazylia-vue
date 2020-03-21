@@ -10,48 +10,64 @@
         </h2>
 
         <v-form class="form" v-model="valid" lazy-validation>
-          <v-layout>
+          <v-layout row justify-space-between>
             <!-- <v-flex xs12 md3>
               <v-text-field
                 v-model="name"
-                @change="getFilteredPatients"
+                @change="updatevisiblePatients"
                 label="Imię"
               ></v-text-field>
             </v-flex> -->
-            <div class="form__input-wrapper flex xs12 md4">
-              <input
+            <div class="form__input-wrapper flex  md4 xs12 pr-2">
+              <v-text-field
                 v-model="nazwisko"
-                @change="getFilteredPatients"
-                placeholder="Nazwisko"
+                @input="updatevisiblePatients"
                 label="Nazwisko"
               />
             </div>
-            <div class="form__input-wrapper flex xs12 md4">
-              <input
+            <v-spacer></v-spacer>
+            <div class="form__input-wrapper flex  md4 xs12 px-2">
+              <v-text-field
                 v-model="pesel"
-                @change="getFilteredPatients"
-                placeholder="Pesel"
+                @input="updatevisiblePatients"
                 label="PESEL"
               />
             </div>
-            <div class="form__input-wrapper flex xs12 md4">
+            <!-- <div class="form__input-wrapper flex xs12 md4">
               <button class="my-btn" :disabled="!valid">
                 <span>Szukaj</span>
                 <v-icon right>search</v-icon>
               </button>
+            </div> -->
+            <v-spacer></v-spacer>
+            <div class="form__input-wrapper flex xs12 md4 pl-2">
+              <my-button
+                color="success"
+                fontColor="white"
+                @click.native="getPatients"
+              >
+                Pokaż wszystkich pacjentów
+              </my-button>
             </div>
           </v-layout>
-          <button class="my-btn my-btn--black" @click.prevent="getPatients">
-            Pokaż wszystkich pacjentów
-          </button>
         </v-form>
       </v-flex>
     </v-layout>
     <ListOfPatients
       :isLoading="isLoading"
       :filteredPatients="filteredPatients"
+      :visiblePatients="visiblePatients"
       @onDeletePatient="deletePatient($event)"
     ></ListOfPatients>
+
+    <div class="pagination">
+      <v-pagination
+        v-model="currentPage"
+        :page="currentPage + 1"
+        :length="patients.length / pageSize"
+        @click.native="updatevisiblePatients"
+      ></v-pagination>
+    </div>
   </v-container>
 </template>
 
@@ -66,6 +82,9 @@ export default {
   },
   data: () => ({
     isLoading: false,
+    currentPage: 1,
+    pageSize: 10,
+    visiblePatients: [],
     patients: [
       // {
       //   pacjentId: ,
@@ -101,9 +120,24 @@ export default {
     filteredPatients: function() {
       return this.patients.filter(patient => {
         return (
-          patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
+          // patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
           patient.nazwisko.toLowerCase().match(this.nazwisko.toLowerCase()) &&
           patient.pesel.toLowerCase().match(this.pesel.toLowerCase())
+        )
+      })
+    },
+    filteredvisiblePatients: function() {
+      return this.visiblePatients.filter(patient => {
+        return (
+          // patient.imie.toLowerCase().match(this.imie.toLowerCase()) &&
+          patient.nazwisko
+            .toLowerCase()
+            .toString()
+            .match(this.nazwisko.toLowerCase()) &&
+          patient.pesel
+            .toLowerCase()
+            .toString()
+            .match(this.pesel.toLowerCase())
         )
       })
     }
@@ -118,11 +152,26 @@ export default {
         .then(response => {
           this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
           this.patients = this.$store.getters.getPatients
+          this.updatevisiblePatients()
           this.isLoading = false
         })
         .catch(function(error) {
           console.error(error)
         })
+    },
+
+    updatePage(pageNumber) {
+      this.currentPage = pageNumber
+      this.updatevisiblePatients()
+    },
+
+    updatevisiblePatients() {
+      let begin = this.currentPage * this.pageSize - this.pageSize
+      let end = begin + this.pageSize
+      this.visiblePatients = this.filteredPatients.slice(begin, end) //
+      if (this.visiblePatients.length == 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1)
+      }
     },
     getFilteredPatients() {
       this.patients = this.$store.getters.getPatients.filter(patient => {
@@ -158,7 +207,9 @@ export default {
   background-color: #20ce99;
   color: white;
   height: 48px;
-  width: 224px;
+  /* width: fit-content; */
+  width: 100%;
+  padding: 0 30px;
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -177,13 +228,6 @@ export default {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-
-    button {
-      align-self: flex-start;
-    }
-    /* &:nth-child(2) {
-    margin-left: 32px;
-  } */
     input {
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 50px;
@@ -192,6 +236,18 @@ export default {
       padding: 20px;
       outline: none;
     }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 20px 0 40px;
+  .v-pagination__navigation,
+  .v-pagination__item {
+    box-shadow: none;
+    outline: none;
   }
 }
 </style>

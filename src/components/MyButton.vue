@@ -27,7 +27,9 @@ export default {
   background-color: #20ce99;
   color: white;
   height: 48px;
-  width: 224px;
+  /* max-width: 224px; */
+  min-width: 200px;
+  width: fit-content;
   border-radius: 50px;
 
   i {

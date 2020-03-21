@@ -15,7 +15,7 @@
           </template>
         </v-expansion-panel-content>
         <v-expansion-panel-content
-          v-for="(patient, i) in filteredPatients"
+          v-for="(patient, i) in visiblePatients"
           :key="i"
         >
           <template v-slot:header>
@@ -97,12 +97,17 @@ export default {
     RegistrationPopUp,
     DeletePatientPopUp
   },
-  props: ['patients', 'filteredPatients', 'isLoading'],
+  props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading'],
   data: () => ({}),
   methods: {
     deletePatient(patient) {
       console.log('step 2')
       this.$emit('onDeletePatient', patient) //prop drilling. probably there is a better way
+    }
+  },
+  watch: {
+    visiblePatients() {
+      console.log('The visiblePatients have changed!')
     }
   }
 }
