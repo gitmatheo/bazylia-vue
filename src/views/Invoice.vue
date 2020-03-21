@@ -89,7 +89,7 @@
             class=""
           >
             <template v-slot:items="props">
-              <td>{{}}</td>
+              <td>{{ props.index + 1 }}</td>
               <!-- Lp -->
               <td>{{ props.item.nazwa }}</td>
               <!-- nazwa -->
