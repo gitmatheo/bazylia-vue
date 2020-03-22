@@ -5,6 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loader: false,
+    snackbar: false,
+    error: {
+      timestamp: 'a',
+      status: 'b',
+      error: 'c',
+      message: 'd',
+      path: 'e',
+      snackBarMessage: ''
+    },
     isAuthenticated: false,
     patients: [],
     wizyta: {
@@ -127,6 +137,40 @@ export default new Vuex.Store({
     },
     ADD_COMPANY: (state, company) => {
       state.companies.push(company)
+    },
+    SNACKBAR(state, payload) {
+      state.snackbar = payload
+    },
+    LOADER(state, payload) {
+      state.loader = payload
+    },
+    SAVE_ERROR_DATA(state, error) {
+      if (!error.status) {
+        state.error.snackBarMessage = 'Network Error'
+      }
+      if (error.response) {
+        switch (error.response.data.status) {
+          case 400:
+            state.error.snackBarMessage =
+              'Nie udało się wykonać tej czynności, sprawdź czy wszystkie dane zostały podane prawidłowo'
+            break
+          case 403:
+            state.error.snackBarMessage = 'Brak dostępu'
+            break
+          case 409:
+            state.error.snackBarMessage = 'Akcja niedozwolona'
+            break
+          case 410:
+            state.error.snackBarMessage =
+              'Nie znaleziono żądanego zasobu, odśwież stronę i spróbuj ponownie'
+            break
+          case 500:
+            state.error.snackBarMessage =
+              'Wystąpił nieoczekiwany błąd, spróbuj ponownie za chwilę'
+            break
+          default:
+        }
+      }
     }
   },
   actions: {}

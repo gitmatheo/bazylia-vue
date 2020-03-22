@@ -1,8 +1,9 @@
 <template>
-  <v-dialog v-model="dialog" hide-overlay persistent width="300">
+  <v-dialog v-model="$store.state.loader" hide-overlay persistent width="300">
     <v-card color="primary" dark>
       <v-card-text>
         <slot></slot>
+        Ładuje...
         <v-progress-linear
           indeterminate
           color="white"
@@ -13,4 +14,17 @@
   </v-dialog>
 </template>
 
-<script></script>
+<script lang="ts">
+export default {
+  data: () => ({
+    loader: false
+  }),
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'LOADER') {
+        this.loader = state.loader
+      }
+    })
+  }
+}
+</script>

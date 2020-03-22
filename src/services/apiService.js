@@ -1,56 +1,3 @@
-// import axios from 'axios'
-
-// const apiClient = axios.create({
-//   baseURL: 'http://85.89.178.154:8080',
-//   withCredentials: false,
-//   headers: {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json'
-//   }
-// })
-
-// export default {
-//   getCompanies() {
-//     return apiClient.get('/firmy')
-//   },
-//   getCompany(id) {
-//     return apiClient.get(`/firmy/${id}`)
-//   },
-//   addCompany(company) {
-//     return apiClient.post(`/firmy`, company)
-//   },
-//   submitPatient(patient) {
-//     return apiClient.post(`/pacjenci`, patient)
-//   },
-//   registerVisit(wizyta) {
-//     return apiClient.post(`/wizyty`, wizyta)
-//   },
-//   getRozliczenia() {
-//     return apiClient.get('/rozliczenia/medycyna-pracy')
-//   },
-//   submitforInvoice(doZafakturowania) {
-//     return apiClient.post(`/faktury`, doZafakturowania)
-//   },
-
-//   getUslugi() {
-//     console.log('eeeE???????')
-//     return apiClient.get('/uslugi')
-//   },
-//   login(login, pass) {
-//     var encodedBase64String = btoa(`${login}:${pass}`)
-//     const options = {
-//       headers: {
-//         Authorization: `Basic ${encodedBase64String}`
-//       },
-//       withCredentials: true
-//     }
-//     return apiClient.get(`/login`, options)
-//   },
-//   logout() {
-//     return apiClient.get(`/logout`)
-//   }
-// }
-
 import axios from 'axios'
 import API from '@/constants/api'
 import router from '../router'
@@ -75,7 +22,7 @@ export default {
     })
   },
   submitPatient(patient) {
-    return axios.post(`${API.url}/pacjenci`, patient)
+    return axios.post(`${API.url}/pacjendsci`, patient)
   },
   deletePatient(patientID) {
     return axios.delete(`${API.url}/pacjenci/${patientID}`)

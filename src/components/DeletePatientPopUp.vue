@@ -26,18 +26,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="loaderDialog" hide-overlay persistent width="300">
-      <v-card color="primary" dark>
-        <v-card-text>
-          Usuwam pacjenta
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -50,7 +38,6 @@ export default {
   data() {
     return {
       dialog: false,
-      loaderDialog: false,
       typWizytyConst: typWizytyConst
     }
   },

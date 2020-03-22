@@ -115,8 +115,6 @@
               >Anuluj</my-button
             >
             <my-button
-              :disabled="dialog2"
-              :loading="dialog2"
               color="#20CE99"
               fontColor="white"
               @click.native="submitForInvoice(doZafakturowania)"
@@ -127,18 +125,6 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialog2" hide-overlay persistent width="300">
-      <v-card color="primary" dark>
-        <v-card-text>
-          Przechodzę do faktury
-          <v-progress-linear
-            indeterminate
-            color="white"
-            class="mb-0"
-          ></v-progress-linear>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
     <pre><code> {{doZafakturowania}} </code></pre>
   </v-container>
 </template>
@@ -155,7 +141,6 @@ export default {
     selected: [],
     selectAll: false,
     dialog: false,
-    dialog2: false,
     terminPlatnosci: [7, 14, 30],
     terminPlatnosciGroup: '',
     sposobPlatnosci: ['GOTOWKA', 'PRZELEW'],
@@ -205,7 +190,6 @@ export default {
       }
     },
     submitForInvoice(doZafakturowania) {
-      this.dialog2 = true
       apiService
         .submitForInvoice(doZafakturowania)
         .then(response => {

@@ -124,19 +124,6 @@
           >Dodaj Pacjenta</my-button
         >
 
-        <v-dialog v-model="dialog" hide-overlay persistent width="300">
-          <v-card color="primary" dark>
-            <v-card-text>
-              Dodaje pacjenta
-              <v-progress-linear
-                indeterminate
-                color="white"
-                class="mb-0"
-              ></v-progress-linear>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-
         <PatientAddedPopup
           :open="dialog2"
           :patient="pacjent"
@@ -158,7 +145,6 @@ export default {
   },
   data: () => ({
     valid: false,
-    dialog: false,
     dialog2: false,
     pacjent: {
       pacjentId: '', //uuid
@@ -191,12 +177,9 @@ export default {
     ...mapMutations(['ADD_PATIENT', 'UPDATE_PATIENT_FOR_REGISTRATION']),
     ...mapActions(['addPatient']),
     submitPatient(patient) {
-      this.dialog = true
-
       apiService
         .submitPatient(patient)
         .then(res => {
-          this.dialog = false
           const pacjentId = res.headers.location.match(
             /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
           )[0]

@@ -6,16 +6,23 @@
         <router-view></router-view>
       </transition>
     </v-content>
+
+    <Snackbar></Snackbar>
+    <LoaderFloating></LoaderFloating>
   </v-app>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
+import Snackbar from '@/components/Snackbar'
+import LoaderFloating from '@/components/LoaderFloating'
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    Snackbar,
+    LoaderFloating
   },
   data() {
     return {
