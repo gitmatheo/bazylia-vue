@@ -154,6 +154,9 @@ export default new Vuex.Store({
             state.error.snackBarMessage =
               'Nie udało się wykonać tej czynności, sprawdź czy wszystkie dane zostały podane prawidłowo'
             break
+          case 401:
+            state.error.snackBarMessage = 'Niezautoryzowany 401'
+            break
           case 403:
             state.error.snackBarMessage = 'Brak dostępu'
             break
