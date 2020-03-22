@@ -22,7 +22,7 @@ export default {
     })
   },
   submitPatient(patient) {
-    return axios.post(`${API.url}/pacjendsci`, patient)
+    return axios.post(`${API.url}/pacjenci`, patient)
   },
   deletePatient(patientID) {
     return axios.delete(`${API.url}/pacjenci/${patientID}`)
