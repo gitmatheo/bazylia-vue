@@ -62,17 +62,10 @@ export default {
 </script>
 
 <style lang="scss">
-/* a {
-  text-decoration: none;
-  color: black;
-} */
 template nav {
   background: white;
 }
 
-/* .navbar {
-  box-shadow: none;
-} */
 .v-toolbar {
   background: #f4f4f4;
   box-shadow: none !important;

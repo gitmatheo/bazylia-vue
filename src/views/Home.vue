@@ -33,12 +33,6 @@
                 label="PESEL"
               />
             </div>
-            <!-- <div class="form__input-wrapper flex xs12 md4">
-              <button class="my-btn" :disabled="!valid">
-                <span>Szukaj</span>
-                <v-icon right>search</v-icon>
-              </button>
-            </div> -->
             <v-spacer></v-spacer>
             <div class="form__input-wrapper flex xs12 md4 pl-2">
               <my-button
@@ -199,25 +193,6 @@ export default {
       font-size: 14px;
       font-weight: normal;
     }
-  }
-}
-
-.my-btn {
-  background-color: #20ce99;
-  color: white;
-  height: 48px;
-  /* width: fit-content; */
-  width: 100%;
-  padding: 0 30px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  i {
-    color: white !important;
-  }
-
-  &--black {
-    background-color: black;
   }
 }
 

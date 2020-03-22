@@ -280,11 +280,6 @@ export default {
   background: yellowgreen !important;
 }
 
-/* #section-to-print {
-  width: 210mm;
-  height: 297mm;
-} */
-
 #section-to-print {
   width: calc(210px * 4);
   height: calc(297px * 4);
@@ -328,9 +323,6 @@ p {
   margin: 0px;
 }
 
-/* .container {
-  padding: 40px;
-} */
 .invoice-number {
   padding: 50px 0;
 }

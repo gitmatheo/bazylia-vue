@@ -237,31 +237,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* .v-stepper__step .v-stepper__step--active */
-
-.v-stepper__header {
-  width: 80%;
-  margin-top: 25px !important;
-  margin: 0 auto;
-  box-shadow: none;
-}
-
-.v-stepper__step.v-stepper__step--active {
-  .v-stepper__step__step.primary {
-    background: black !important;
-    border: 1px solid black !important;
-    color: white !important;
-  }
-}
-
-.v-stepper__step {
-  .v-stepper__step__step {
-    background: white !important;
-    border: 1px solid grey !important;
-    color: grey !important;
-  }
-}
-
 .btns {
   display: flex;
   justify-content: space-evenly;

@@ -4,6 +4,7 @@
     :color="color"
     :style="{ color: fontColor }"
     :disabled="disabled"
+    round
     class="btn"
     ><slot></slot
   ></v-btn>
@@ -33,20 +34,18 @@ export default {
   background-color: #20ce99;
   color: white;
   height: 48px;
-  /* max-width: 224px; */
   min-width: 200px;
   width: fit-content;
-  border-radius: 50px;
 
   i {
-    color: white !important; // dlaczego kurwa important ?;
+    color: white !important;
   }
 
   &--black {
     background-color: black;
   }
   &--red {
-    background-color: #f44336 !important; // dlaczego kurwa important ?;
+    background-color: #f44336 !important;
   }
 }
 </style>

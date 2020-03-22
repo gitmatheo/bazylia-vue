@@ -1,5 +1,5 @@
 <template>
-  <v-app class="app">
+  <v-app id="b-app" class="app">
     <Navbar></Navbar>
     <v-content>
       <transition name="slide-fade" mode="out-in">
@@ -62,9 +62,64 @@ li {
   }
 }
 
-.theme--light.v-stepper .v-stepper__step__step .v-icon {
+.v-expansion-panel__header {
+  padding: 12px 0px !important;
+}
+
+#b-app .theme--light.v-stepper .v-stepper__step__step .v-icon {
   color: black;
 }
+
+#b-app .v-stepper__header {
+  width: 80%;
+  margin-top: 25px !important;
+  margin: 0 auto;
+  box-shadow: none;
+}
+
+#b-app .v-stepper__step.v-stepper__step--active {
+  .v-stepper__step__step.primary {
+    background: black !important;
+    border: 1px solid black !important;
+    color: white !important;
+  }
+}
+
+#b-app .v-stepper__step {
+  .v-stepper__step__step {
+    background: white !important;
+    border: 1px solid grey !important;
+    color: grey !important;
+  }
+}
+
+.v-dialog.v-dialog--active {
+  border-radius: 10px;
+}
+.v-card__actions.actions {
+  padding: 22px;
+}
+
+// ==== custom RADIO BUTTONS START ====
+.radio-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+
+  .v-input__control {
+    display: block;
+    width: 70%;
+
+    .v-input__slot {
+      display: block;
+      .v-input--radio-group__input {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+// ==== custom RADIO BUTTONS END ====
 
 // ==== custom v-text-field START ====
 

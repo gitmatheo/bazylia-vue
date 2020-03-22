@@ -114,9 +114,6 @@ export default {
 </script>
 
 <style lang="scss">
-.v-expansion-panel__header {
-  padding: 12px 0px !important;
-}
 .patient {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 

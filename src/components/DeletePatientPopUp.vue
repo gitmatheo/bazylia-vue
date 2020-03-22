@@ -1,14 +1,9 @@
 <template>
   <div class="text-xs-center">
+    <my-button @click.native="dialog = true" color="error">
+      <slot></slot>
+    </my-button>
     <v-dialog v-model="dialog" width="500">
-      <template v-slot:activator="{ on }">
-        <!-- <my-button v-on="on">
-          Rejestruj wizytę
-        </my-button> -->
-        <v-btn class="btnDelete" color="#F44336" v-on="on">
-          <slot></slot>
-        </v-btn>
-      </template>
       <v-card>
         <v-card-title class="headline" primary-title
           >Czy napewno chcesz usunąć pacjenta?</v-card-title
@@ -76,34 +71,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.btnDelete {
-  display: flex !important ;
-  justify-content: center !important;
-  align-items: center !important;
-  background-color: #20ce99;
-  color: white !important;
-  height: 48px !important;
-  width: 224px !important;
-  border-radius: 50px !important;
-  margin: 20px 0px 20px !important;
-
-  i {
-    color: white !important; // dlaczego kurwa important ?;
-  }
-
-  &--black {
-    background-color: black !important;
-  }
-  &--red {
-    background-color: #f44336 !important; // dlaczego kurwa important ?;
-  }
-}
-
-.v-dialog.v-dialog--active {
-  border-radius: 10px;
-}
-.v-card__actions.actions {
-  padding: 22px;
-}
-</style>
+<style lang="scss"></style>

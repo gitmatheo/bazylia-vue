@@ -12,10 +12,10 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs3>
-            <v-btn :disabled="!valid">
+            <my-button color="success" :disabled="!valid">
               <span>Szukaj</span>
               <v-icon right>search</v-icon>
-            </v-btn>
+            </my-button>
           </v-flex>
         </v-layout>
       </v-container>
@@ -69,9 +69,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.usluga {
-  text-align: left;
-  cursor: pointer;
-}
-</style>
+<style lang="scss"></style>

@@ -94,7 +94,6 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   label="Data orzeczenia"
-                  prepend-icon="event"
                   readonly
                   :value="pacjent.dataOrzeczenia"
                   v-on="on"
@@ -221,20 +220,7 @@ export default {
     grid-column-gap: 5%;
   }
   &__input-wrapper {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     margin: 0px;
   }
 }
-
-/* .v-input__slot {
-  
-  height: 48px!important;
-
-  input{
-  height: 48px!important;
-  }
-
-} */
 </style>

@@ -17,15 +17,9 @@
             </template>
             <v-card>
               <div class="btns-wrapper">
-                <v-btn
-                  color="primary"
-                  dark
-                  rounded
-                  height="48px"
-                  @click.stop="dialog = true"
-                >
+                <my-button @click.native="dialog = true" color="success">
                   Wystaw fakturę
-                </v-btn>
+                </my-button>
                 <div class="select-all-checkbox">
                   <v-checkbox
                     v-model="selectAll"
@@ -48,16 +42,18 @@
 
                   <ul class="patient__service">
                     <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
-                      <div>
-                        <span>{{ wizyta.usluga.nazwa }}</span>
-                        <!-- <br />
-                        <span>{{wizyta.dataWizyty | moment("MM-DD-YYYY")}} </span> -->
+                      <div class="patient__service-desc">
+                        <span
+                          >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
+                        </span>
+                        &nbsp; - &nbsp;
+                        <span> {{ wizyta.usluga.nazwa }}</span>
                       </div>
                       <div class="patient__checkbox">
                         <v-checkbox
                           v-model="selected"
-                          :label="wizyta.dataWizyty"
                           :value="wizyta.wizytaId"
+                          :label="'Zaznacz'"
                           @change="updateWizytyDoZafakturowania"
                         ></v-checkbox>
                       </div>
@@ -76,7 +72,7 @@
     </div>
 
     <v-dialog v-model="dialog" width="500">
-      <v-card>
+      <v-card class="px-4 py-2">
         <v-card-title class="headline en-2" primary-title
           >Wystawianie faktury</v-card-title
         >
@@ -111,8 +107,7 @@
               :value="item"
             ></v-radio>
           </v-radio-group>
-          <v-card-actions>
-            <v-spacer></v-spacer>
+          <v-card-actions class="px-0 justify-space-between">
             <my-button
               color="white"
               fontColor="black"
@@ -150,6 +145,7 @@
 
 <script>
 import apiService from '@/services/apiService.js'
+// import moment from 'vue-moment'
 
 export default {
   data: () => ({
@@ -224,6 +220,13 @@ export default {
         })
         .catch(err => console.error(err))
     }
+  },
+  computed: {
+    // data() {
+    //   this.pacjent.wizyty.map(wizyta => {
+    //     return wizyta.dataWizyty.moment('MM-DD-YYYY')
+    //   })
+    // }
   }
 }
 </script>
@@ -294,6 +297,11 @@ export default {
         height: 40px;
       }
     }
+  }
+  &__service-desc {
+    /* width: 97%; */
+    display: flex;
+    justify-content: space-between;
   }
 
   &__details-element {

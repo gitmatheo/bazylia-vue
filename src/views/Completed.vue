@@ -7,10 +7,10 @@
 
     <v-layout row mt-5>
       <v-flex xs12 justify-center pb-4>
+        <my-button @click.native="dialog = true" color="success">
+          Wystaw fakturę
+        </my-button>
         <v-dialog v-model="dialog" width="500">
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on">Wystaw fakturę</v-btn>
-          </template>
           <v-card>
             <v-card-title class="headline grey lighten-2" primary-title
               >Wystawianie faktury</v-card-title
