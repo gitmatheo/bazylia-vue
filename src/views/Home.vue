@@ -51,7 +51,6 @@
       :isLoading="isLoading"
       :filteredPatients="filteredPatients"
       :visiblePatients="visiblePatients"
-      @onDeletePatient="deletePatient($event)"
     ></ListOfPatients>
 
     <div class="pagination">
@@ -165,12 +164,6 @@ export default {
       this.patients = this.$store.getters.getPatients.filter(patient => {
         return patient.name.match(this.name)
       })
-    },
-    deletePatient(patient) {
-      apiService.deletePatient(patient.pacjentId).then(() => {
-        // console.log('siemanko z delete patient')
-      })
-      // return this.$delete(this.patients, index)
     }
   }
 }

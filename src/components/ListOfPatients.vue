@@ -76,9 +76,7 @@
               <RegistrationPopUp :patient="patient"
                 >Rejestruj wizytę</RegistrationPopUp
               >
-              <DeletePatientPopUp
-                :patient="patient"
-                @onDeletePatient="deletePatient(patient)"
+              <DeletePatientPopUp :patient="patient"
                 >Usuń Pacjenta</DeletePatientPopUp
               >
             </div>
@@ -99,12 +97,6 @@ export default {
   },
   props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading'],
   data: () => ({}),
-  methods: {
-    deletePatient(patient) {
-      console.log('step 2')
-      this.$emit('onDeletePatient', patient) //prop drilling. probably there is a better way
-    }
-  },
   watch: {
     visiblePatients() {
       console.log('The visiblePatients have changed!')
