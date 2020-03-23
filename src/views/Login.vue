@@ -68,17 +68,12 @@ export default {
   methods: {
     ...mapMutations(['AUTHENTICATE_USER']),
     loginek(login, password) {
-      apiService
-        .login(login, password)
-        .then(res => {
-          localStorage.setItem('ROLE', `${res.data.roles[0]}`)
-          localStorage.setItem('isAuthenticated', true)
-          this.$router.push({ path: '/' })
-          this.$store.commit('AUTHENTICATE_USER', true)
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      apiService.login(login, password).then(res => {
+        localStorage.setItem('ROLE', `${res.data.roles[0]}`)
+        localStorage.setItem('isAuthenticated', true)
+        this.$router.push({ path: '/' })
+        this.$store.commit('AUTHENTICATE_USER', true)
+      })
     }
   }
 }

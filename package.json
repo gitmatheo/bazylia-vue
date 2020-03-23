@@ -18,7 +18,8 @@
     "vue-router": "^3.0.1",
     "vue-spinner": "^1.0.3",
     "vuetify": "^1.5.5",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",

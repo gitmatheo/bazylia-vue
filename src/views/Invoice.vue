@@ -230,29 +230,26 @@ export default {
   },
   mounted: function() {
     const fakturaId = this.$route.params.id
-    apiService
-      .getInvoice(fakturaId)
-      .then(response => {
-        this.$store.commit('GET_FAKTURA', response.data)
-        this.faktura = this.$store.getters.getFaktura
+    apiService.getInvoice(fakturaId).then(response => {
+      this.$store.commit('GET_FAKTURA', response.data)
+      this.faktura = this.$store.getters.getFaktura
 
-        this.faktura.uslugi.map(usluga => {
-          usluga.wartoscNetto = usluga.cenaNetto * usluga.ilosc
+      this.faktura.uslugi.map(usluga => {
+        usluga.wartoscNetto = usluga.cenaNetto * usluga.ilosc
 
-          usluga.wartoscVat =
-            usluga.stawkaVat == 0
-              ? 0
-              : parseFloat(
-                  ((usluga.wartoscNetto * usluga.stawkaVat) / 100).toFixed(2)
-                )
+        usluga.wartoscVat =
+          usluga.stawkaVat == 0
+            ? 0
+            : parseFloat(
+                ((usluga.wartoscNetto * usluga.stawkaVat) / 100).toFixed(2)
+              )
 
-          usluga.wartoscBrutto =
-            usluga.stawkaVat == 0
-              ? usluga.wartoscNetto
-              : parseFloat((usluga.wartoscNetto + usluga.wartoscVat).toFixed(2))
-        })
+        usluga.wartoscBrutto =
+          usluga.stawkaVat == 0
+            ? usluga.wartoscNetto
+            : parseFloat((usluga.wartoscNetto + usluga.wartoscVat).toFixed(2))
       })
-      .catch(err => console.error(err))
+    })
   },
   computed: {
     terminPlatnosci() {

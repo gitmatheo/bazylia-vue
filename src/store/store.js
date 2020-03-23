@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
 
 Vue.use(Vuex)
 
+const vuexLocalStorage = new VuexPersist({
+  key: 'vuex',
+  storage: window.localStorage
+})
+
 export default new Vuex.Store({
+  plugins: [vuexLocalStorage.plugin],
   state: {
     loader: false,
     snackbar: false,
@@ -153,9 +160,6 @@ export default new Vuex.Store({
           case 400:
             state.error.snackBarMessage =
               'Nie udało się wykonać tej czynności, sprawdź czy wszystkie dane zostały podane prawidłowo'
-            break
-          case 401:
-            state.error.snackBarMessage = 'Niezautoryzowany 401'
             break
           case 403:
             state.error.snackBarMessage = 'Brak dostępu'

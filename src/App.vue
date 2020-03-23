@@ -28,7 +28,6 @@ export default {
     return {
       sideNav: false,
       role: '',
-      isAuthenticated: false,
       menuItems: [
         { icon: 'home', title: 'Wyszukaj Pacjenta', link: '/' },
         { icon: 'done', title: 'Zrealizowane', link: '/completed' }

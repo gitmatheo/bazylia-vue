@@ -48,10 +48,7 @@ export default {
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg
-    apiService
-      .getUslugi()
-      .then(res => (this.uslugi = res.data))
-      .catch(err => console.error(err))
+    apiService.getUslugi().then(res => (this.uslugi = res.data))
   },
   computed: {
     filteredUslugi() {

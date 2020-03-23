@@ -35,13 +35,16 @@ axios.interceptors.response.use(
     return response
   },
   function(error) {
-    store.commit('LOADER', false)
-    store.commit('SAVE_ERROR_DATA', error)
-    store.commit('SNACKBAR', true)
+    console.log('Error interceptor')
+    console.log(error.response.status)
 
     if (error.response.status == 401) {
       router.push({ path: '/login' })
+    } else {
+      store.commit('SAVE_ERROR_DATA', error)
+      store.commit('SNACKBAR', true)
     }
+    store.commit('LOADER', false)
 
     return Promise.reject(error)
   }

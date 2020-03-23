@@ -99,7 +99,6 @@ export default {
           this.zarejestrowano = true
           this.$router.push({ path: '/' })
         })
-        .catch(err => console.error(err))
     }
   },
 

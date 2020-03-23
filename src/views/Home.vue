@@ -140,17 +140,12 @@ export default {
     ...mapMutations(['GET_ALL_PATIENTS_FROM_DB']),
     getPatients() {
       this.isLoading = true
-      apiService
-        .getPatients()
-        .then(response => {
-          this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
-          this.patients = this.$store.getters.getPatients
-          this.updatevisiblePatients()
-          this.isLoading = false
-        })
-        .catch(function(error) {
-          console.error(error)
-        })
+      apiService.getPatients().then(response => {
+        this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
+        this.patients = this.$store.getters.getPatients
+        this.updatevisiblePatients()
+        this.isLoading = false
+      })
     },
 
     updatePage(pageNumber) {

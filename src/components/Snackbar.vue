@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar class="snackbar" v-model="snackbar" top :timeout="0">
+  <v-snackbar class="snackbar" v-model="snackbar" top :timeout="5000">
     <p>{{ $store.state.error.snackBarMessage }}</p>
 
     <v-btn color="pink" text @click="snackbar = false">

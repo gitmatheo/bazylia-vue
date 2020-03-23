@@ -1,18 +1,10 @@
 <template>
   <v-toolbar id="navbar" class="navbar">
-    <v-tab :class="{ active: path == '/' }" @click="setPath('/')" to="/"
-      >Wyszukaj Pacjenta</v-tab
-    >
-    <v-tab
-      :class="{ active: path == '/add-patient' }"
-      @click="setPath('/add-patient')"
-      to="/add-patient"
+    <v-tab :class="{ active: path == '/' }" to="/">Wyszukaj Pacjenta</v-tab>
+    <v-tab :class="{ active: path == '/add-patient' }" to="/add-patient"
       >Dodaj Pacjenta</v-tab
     >
-    <v-tab
-      :class="{ active: path == '/rozliczenia' }"
-      @click="setPath('/rozliczenia')"
-      to="/rozliczenia"
+    <v-tab :class="{ active: path == '/rozliczenia' }" to="/rozliczenia"
       >Rozliczenia</v-tab
     >
     <v-spacer></v-spacer>
@@ -30,24 +22,20 @@ export default {
     path: '/',
     isAuthenticated: false
   }),
+  watch: {
+    $route(to, from) {
+      console.log(from)
+      this.path = to.path
+    }
+  },
   methods: {
     ...mapMutations(['AUTHENTICATE_USER']),
-    setPath(path) {
-      this.path = path
-    },
     logout() {
-      apiService
-        .logout()
-        .then(() => {
-          localStorage.clear()
-          this.$store.commit('AUTHENTICATE_USER', false)
-          this.isAuthenticated = false
-          this.$router.push({ path: '/login' })
-        })
-        .catch(err => {
-          console.log('logout error')
-          console.error(err)
-        })
+      apiService.logout().then(() => {
+        localStorage.clear()
+        this.$store.commit('AUTHENTICATE_USER', false)
+        this.$router.push({ path: '/login' })
+      })
     }
   },
   mounted() {

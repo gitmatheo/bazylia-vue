@@ -236,24 +236,18 @@ export default {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),
 
     getCompany(id) {
-      apiService
-        .getCompany(id)
-        .then(res => {
-          this.wizyta.pacjent.firma = res.data
-        })
-        .catch(err => console.error(err))
+      apiService.getCompany(id).then(res => {
+        this.wizyta.pacjent.firma = res.data
+      })
     },
 
     select(selection) {
       if (selection == 2) {
-        apiService
-          .getCompanies()
-          .then(response => {
-            this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
-            this.companies = this.$store.getters.getCompanies
-            this.updateVisibleCompanies()
-          })
-          .catch(err => console.error(err))
+        apiService.getCompanies().then(response => {
+          this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
+          this.companies = this.$store.getters.getCompanies
+          this.updateVisibleCompanies()
+        })
       }
       this.selectedCompany = selection
     },
@@ -277,17 +271,12 @@ export default {
     },
 
     addNewCompany(company) {
-      apiService
-        .addCompany(company)
-        .then(response => {
-          const firmaId = response.headers.location.match(
-            /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-          )[0]
-          this.getCompany(firmaId)
-        })
-        .catch(function(error) {
-          console.error(error)
-        })
+      apiService.addCompany(company).then(response => {
+        const firmaId = response.headers.location.match(
+          /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+        )[0]
+        this.getCompany(firmaId)
+      })
     }
   },
 

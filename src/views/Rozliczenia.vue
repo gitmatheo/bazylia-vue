@@ -155,18 +155,15 @@ export default {
     }
   }),
   mounted: function() {
-    apiService
-      .getRozliczenia()
-      .then(response => {
-        if (response.data.length) {
-          this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
-          this.rozliczenia = this.$store.getters.getAllRozliczenia
-          this.isLoading = false
-        } else {
-          this.brakDanychMessage = 'Brak danych w bazie'
-        }
-      })
-      .catch(err => console.error(err))
+    apiService.getRozliczenia().then(response => {
+      if (response.data.length) {
+        this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
+        this.rozliczenia = this.$store.getters.getAllRozliczenia
+        this.isLoading = false
+      } else {
+        this.brakDanychMessage = 'Brak danych w bazie'
+      }
+    })
   },
   updated: function() {
     this.doZafakturowania.terminPlatnosci = this.terminPlatnosciGroup
@@ -190,19 +187,16 @@ export default {
       }
     },
     submitForInvoice(doZafakturowania) {
-      apiService
-        .submitForInvoice(doZafakturowania)
-        .then(response => {
-          const fakturaId = response.headers.location.match(
-            /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-          )[0]
-          if (fakturaId) {
-            this.$router.push({ path: `/invoice/${fakturaId}` })
-          } else {
-            console.error('Cos nie tak z fakturami... przepraszamy.')
-          }
-        })
-        .catch(err => console.error(err))
+      apiService.submitForInvoice(doZafakturowania).then(response => {
+        const fakturaId = response.headers.location.match(
+          /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+        )[0]
+        if (fakturaId) {
+          this.$router.push({ path: `/invoice/${fakturaId}` })
+        } else {
+          console.error('Cos nie tak z fakturami... przepraszamy.')
+        }
+      })
     }
   },
   computed: {
