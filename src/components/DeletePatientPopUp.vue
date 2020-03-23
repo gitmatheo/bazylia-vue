@@ -51,8 +51,6 @@ export default {
           this.dialog = false
         })
         .then(() => console.log('oopsie'))
-      //prop drilling. probably there is a better way
-      this.$emit('onDeletePatient', patient)
     }
   }
 }
