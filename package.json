@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -28,7 +29,9 @@
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-plugin-pwa": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
+    "@vue/test-utils": "^1.0.0-beta.32",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^25.2.3",
     "babel-loader": "^8.0.6",
     "babel-preset-vue": "^2.0.2",
     "eslint": "^5.8.0",
@@ -36,14 +39,41 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^5.0.0",
     "fibers": "^3.1.1",
+    "jest": "^25.2.3",
     "sass": "^1.17.2",
     "sass-loader": "^7.1.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "vue-cli-plugin-storybook": "^1.2.1",
     "vue-cli-plugin-vuetify": "^0.5.0",
+    "vue-jest": "^3.0.5",
     "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.0.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "html",
+      "text-summary"
+    ]
   }
 }
