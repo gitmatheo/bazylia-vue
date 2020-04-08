@@ -5,13 +5,18 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "storybook": "start-storybook",
     "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "cypress-cucumber-preprocessor": "^2.2.0",
     "register-service-worker": "^1.6.2",
     "uuid": "^3.3.2",
     "vue": "^2.6.6",
@@ -26,16 +31,20 @@
     "@babel/core": "^7.8.7",
     "@storybook/vue": "^5.3.14",
     "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-e2e-cypress": "^4.2.3",
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-plugin-pwa": "^3.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.2.0",
     "@vue/cli-service": "^3.5.0",
     "@vue/test-utils": "^1.0.0-beta.32",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^25.2.3",
     "babel-loader": "^8.0.6",
     "babel-preset-vue": "^2.0.2",
+    "cypress": "^4.2.0",
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^5.0.0",
     "fibers": "^3.1.1",
@@ -58,13 +67,10 @@
       "vue"
     ],
     "transform": {
-      ".*\\.(vue)$": "vue-jest"
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -74,6 +80,15 @@
     "coverageReporters": [
       "html",
       "text-summary"
+    ],
+    "preset": "@vue/cli-plugin-unit-jest"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:cypress/recommended"
     ]
   }
 }

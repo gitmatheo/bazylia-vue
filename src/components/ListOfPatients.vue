@@ -17,6 +17,7 @@
         <v-expansion-panel-content
           v-for="(patient, i) in visiblePatients"
           :key="i"
+          :data-cy="`patient`"
         >
           <template v-slot:header>
             <ul class="patient__header patient__header--bold">
@@ -73,9 +74,7 @@
             </div>
 
             <div class="patient__btns">
-              <RegistrationPopUp :patient="patient"
-                >Rejestruj wizytę</RegistrationPopUp
-              >
+              <RegistrationPopUp :patient="patient"></RegistrationPopUp>
               <DeletePatientPopUp :patient="patient"
                 >Usuń Pacjenta</DeletePatientPopUp
               >
@@ -93,15 +92,15 @@ import DeletePatientPopUp from '../components/DeletePatientPopUp'
 export default {
   components: {
     RegistrationPopUp,
-    DeletePatientPopUp
+    DeletePatientPopUp,
   },
   props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading'],
   data: () => ({}),
   watch: {
     visiblePatients() {
       console.log('The visiblePatients have changed!')
-    }
-  }
+    },
+  },
 }
 </script>
 

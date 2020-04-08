@@ -11,9 +11,9 @@
           name="input-10-1"
           label="Login"
           hint="At least 8 characters"
-          counter
           outlined
           rounded
+          data-cy="username"
           @click:append="show1 = !show1"
         ></v-text-field>
       </div>
@@ -27,22 +27,17 @@
           name="input-10-1"
           label="Hasło"
           hint="At least 8 characters"
-          counter
           outlined
           rounded
+          data-cy="password"
           @click:append="show1 = !show1"
         ></v-text-field>
       </div>
 
-      <!-- <div class="form__input-wrapper">
-            <v-text-field v-model="mail" label="e-mail" required></v-text-field>
-        </div> -->
-      <!-- <div class="form__input-wrapper">
-            <v-text-field v-model="password" label="hasło" required></v-text-field>
-        </div> -->
       <my-button
         color="#20CE99"
         fontColor="white"
+        data-cy="submit"
         @click.native="loginek(login, password)"
         >Zaloguj</my-button
       >

@@ -1,0 +1,16 @@
+{
+  "pluginsFile": "cypress/e2e/plugins/index.js",
+  "baseUrl": "http://localhost:8080",
+  "watchForFileChanges": true,
+  "viewportWidth": 1080,
+  "viewportHeight": 720,
+  "waitForAnimations": true,
+  "animationDistanseTreshold": 20,
+  "defaultCommandTimeout": 5000,
+  "execTimeout": 60000,
+  "pageLoadTimeout": 60000,
+  "requestTimeout": 15000,
+  "responseTimeout": 15000,
+  "video": true,
+  "failOnStatusCode": false
+}

@@ -18,6 +18,7 @@
             <v-text-field
               v-model="date"
               label="Wybierz datę"
+              data-cy="date-picker"
               prepend-icon="event"
               readonly
               v-on="on"
@@ -45,6 +46,7 @@
             <v-text-field
               v-model="time"
               label="Wybierz godzinę"
+              data-cy="time-picker"
               prepend-icon="access_time"
               readonly
               v-on="on"
@@ -87,9 +89,9 @@ export default {
     modal2: false,
     landscape: true,
     reactive: false,
-    wizyta: {}
+    wizyta: {},
   }),
-  mounted: function() {
+  mounted: function () {
     let now = new Date()
     this.wizyta = this.$store.getters.getWizyta
     let minutes =
@@ -97,7 +99,7 @@ export default {
     // let minutes2 = now.getMinutes().padStart(2, 0);
     this.time = now.getHours() + ':' + minutes
   },
-  updated: function() {
+  updated: function () {
     let timeString = this.time + ':00'
     let dataWizyty = new Date(this.date + ' ' + timeString).toISOString()
     this.wizyta.dataWizyty = dataWizyty
@@ -108,8 +110,8 @@ export default {
     ...mapMutations(['UPDATE_DATE_AND_TIME']),
     addDateAndTime(dataWizyty) {
       this.UPDATE_DATE_AND_TIME(dataWizyty)
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -17,8 +17,8 @@ export default {
       params: {
         pageNumber: 1,
         pageSize: 50,
-        order: 'ASC'
-      }
+        order: 'ASC',
+      },
     })
   },
   submitPatient(patient) {
@@ -49,13 +49,13 @@ export default {
     var encodedBase64String = btoa(`${login}:${pass}`)
     const options = {
       headers: {
-        Authorization: `Basic ${encodedBase64String}`
+        Authorization: `Basic ${encodedBase64String}`,
       },
-      withCredentials: true
+      withCredentials: true,
     }
     return axios.get(`${API.url}/login`, options)
   },
   logout() {
     return axios.get(`${API.url}/logout`)
-  }
+  },
 }

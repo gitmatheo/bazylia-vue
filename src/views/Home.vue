@@ -18,17 +18,19 @@
                 label="Imię"
               ></v-text-field>
             </v-flex> -->
-            <div class="form__input-wrapper flex  md4 xs12 pr-2">
+            <div class="form__input-wrapper flex md4 xs12 pr-2">
               <v-text-field
                 v-model="nazwisko"
+                data-cy="surname"
                 @input="updatevisiblePatients"
                 label="Nazwisko"
               />
             </div>
             <v-spacer></v-spacer>
-            <div class="form__input-wrapper flex  md4 xs12 px-2">
+            <div class="form__input-wrapper flex md4 xs12 px-2">
               <v-text-field
                 v-model="pesel"
+                data-cy="pesel"
                 @input="updatevisiblePatients"
                 label="PESEL"
               />
@@ -38,6 +40,7 @@
               <my-button
                 color="success"
                 fontColor="white"
+                data-cy="get-patients-button"
                 @click.native="getPatients"
               >
                 Pokaż wszystkich pacjentów
@@ -57,7 +60,7 @@
       <v-pagination
         v-model="currentPage"
         :page="currentPage + 1"
-        :length="patients.length / pageSize"
+        :length="patients.length / pageSize + 1"
         @click.native="updatevisiblePatients"
       ></v-pagination>
     </div>
@@ -71,7 +74,7 @@ import apiService from '@/services/apiService.js'
 
 export default {
   components: {
-    ListOfPatients
+    ListOfPatients,
   },
   data: () => ({
     isLoading: false,
@@ -106,11 +109,11 @@ export default {
     valid: false,
     name: '',
     nazwisko: '',
-    pesel: ''
+    pesel: '',
   }),
   computed: {
-    filteredPatients: function() {
-      return this.patients.filter(patient => {
+    filteredPatients: function () {
+      return this.patients.filter((patient) => {
         return (
           // patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
           patient.nazwisko.toLowerCase().match(this.nazwisko.toLowerCase()) &&
@@ -118,28 +121,25 @@ export default {
         )
       })
     },
-    filteredvisiblePatients: function() {
-      return this.visiblePatients.filter(patient => {
+    filteredvisiblePatients: function () {
+      return this.visiblePatients.filter((patient) => {
         return (
           // patient.imie.toLowerCase().match(this.imie.toLowerCase()) &&
           patient.nazwisko
             .toLowerCase()
             .toString()
             .match(this.nazwisko.toLowerCase()) &&
-          patient.pesel
-            .toLowerCase()
-            .toString()
-            .match(this.pesel.toLowerCase())
+          patient.pesel.toLowerCase().toString().match(this.pesel.toLowerCase())
         )
       })
-    }
+    },
   },
 
   methods: {
     ...mapMutations(['GET_ALL_PATIENTS_FROM_DB']),
     getPatients() {
       this.isLoading = true
-      apiService.getPatients().then(response => {
+      apiService.getPatients().then((response) => {
         this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
         this.patients = this.$store.getters.getPatients
         this.updatevisiblePatients()
@@ -161,11 +161,11 @@ export default {
       }
     },
     getFilteredPatients() {
-      this.patients = this.$store.getters.getPatients.filter(patient => {
+      this.patients = this.$store.getters.getPatients.filter((patient) => {
         return patient.name.match(this.name)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

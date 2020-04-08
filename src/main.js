@@ -17,29 +17,31 @@ Vue.component('Loader', Loader)
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     config.withCredentials = true
     store.commit('LOADER', true)
     return config
   },
-  function(error) {
+  function (error) {
     store.commit('LOADER', false)
     return Promise.reject(error)
   }
 )
 
 axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     console.log('3')
     store.commit('LOADER', false)
     return response
   },
-  function(error) {
-    console.log('Error interceptor')
-    console.log(error.response.status)
-
+  function (error) {
     if (error.response.status == 401) {
-      router.push({ path: '/login' })
+      if (router.history.current.path == '/login') {
+        store.commit('SAVE_ERROR_DATA', error)
+        store.commit('SNACKBAR', true)
+      } else {
+        router.push({ path: '/login' })
+      }
     } else {
       store.commit('SAVE_ERROR_DATA', error)
       store.commit('SNACKBAR', true)
@@ -53,5 +55,5 @@ axios.interceptors.response.use(
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app')

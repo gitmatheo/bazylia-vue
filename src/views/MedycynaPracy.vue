@@ -32,12 +32,18 @@
         <v-stepper-content step="1">
           <FormTypeOfService />
           <div class="btns">
-            <my-button text fontColor="black" color="white" to="/"
+            <my-button
+              text
+              data-cy="back-button-step1"
+              fontColor="black"
+              color="white"
+              to="/"
               >Wróć</my-button
             >
             <my-button
               fontColor="white"
               color="#20CE99"
+              data-cy="next-button-step1"
               @click.native="currentStepNumber = 2"
               :disabled="wizyta.rodzajBadan.length == 0"
               >Dalej</my-button
@@ -52,12 +58,14 @@
               text
               fontColor="black"
               color="white"
+              data-cy="back-button-step2"
               @click.native="currentStepNumber = 1"
               >Wróć</my-button
             >
             <my-button
               fontColor="white"
               color="#20CE99"
+              data-cy="next-button-step2"
               @click.native="currentStepNumber = 3"
               :disabled="!wizyta.pacjent.firma"
               >{{
@@ -74,12 +82,14 @@
               text
               fontColor="black"
               color="white"
+              data-cy="back-button-step3"
               @click.native="currentStepNumber = 2"
               >Wróć</my-button
             >
             <my-button
               fontColor="white"
               color="#20CE99"
+              data-cy="next-button-step3"
               @click.native="currentStepNumber = 4"
               >Dalej</my-button
             >
@@ -93,12 +103,14 @@
               text
               fontColor="black"
               color="white"
+              data-cy="back-button-step4"
               @click.native="currentStepNumber = 3"
               >Wróć</my-button
             >
             <my-button
               fontColor="white"
               color="#20CE99"
+              data-cy="next-button-step4"
               @click.native="currentStepNumber = 5"
               :disabled="wizyta.usluga.nazwa.length == 0"
               >Dalej</my-button
@@ -116,12 +128,14 @@
               text
               fontColor="black"
               color="white"
+              data-cy="back-button-step5"
               @click.native="currentStepNumber = 4"
               >Wróć</my-button
             >
             <my-button
               fontColor="white"
               color="#20CE99"
+              data-cy="next-button-step5"
               @click.native="zarejestrujWizyte(wizyta)"
               :disabled="zarejestrowano"
               >{{
@@ -144,7 +158,7 @@
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
-    <pre><code>{{wizyta}}</code></pre>
+    <!-- <pre><code>{{wizyta}}</code></pre> -->
   </v-container>
 </template>
 
@@ -163,7 +177,7 @@ export default {
     FormCompany,
     FormDatePicker,
     FormSummary,
-    FormUsluga
+    FormUsluga,
   },
   data() {
     return {
@@ -187,7 +201,7 @@ export default {
           numerTelefonu: '',
           nip: '',
           stanowisko: '',
-          dataOrzeczenia: null
+          dataOrzeczenia: null,
         },
         typWizyty: 'MEDYCYNA_PRACY',
         rodzajBadan: '',
@@ -197,17 +211,17 @@ export default {
           nazwa: '',
           cenaZwykla: null,
           cenaUmowa: null,
-          cenaRabat: null
+          cenaRabat: null,
         },
-        faktura: ''
-      }
+        faktura: '',
+      },
     }
   },
   methods: {
     zarejestrujWizyte(wizyta) {
       this.dialog = true
       apiService.registerVisit(wizyta)
-    }
+    },
   },
   mounted() {
     this.$store.subscribe((mutation, state) => {
@@ -232,7 +246,7 @@ export default {
     })
 
     this.wizyta = this.$store.getters.getWizyta
-  }
+  },
 }
 </script>
 

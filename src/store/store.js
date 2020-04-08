@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
-  storage: window.localStorage
+  storage: window.localStorage,
 })
 
 export default new Vuex.Store({
@@ -20,7 +20,7 @@ export default new Vuex.Store({
       error: 'c',
       message: 'd',
       path: 'e',
-      snackBarMessage: ''
+      snackBarMessage: '',
     },
     isAuthenticated: false,
     patients: [],
@@ -37,7 +37,7 @@ export default new Vuex.Store({
         numerTelefonu: '',
         nip: '',
         stanowisko: '',
-        dataOrzeczenia: null
+        dataOrzeczenia: null,
       },
       typWizyty: '',
       rodzajBadan: null,
@@ -47,36 +47,36 @@ export default new Vuex.Store({
         nazwa: '',
         cenaZwykla: null,
         cenaUmowa: null,
-        cenaRabat: null
+        cenaRabat: null,
       },
-      faktura: ''
+      faktura: '',
     },
     rozliczenia: {},
     faktura: null,
-    companies: []
+    companies: [],
   },
   getters: {
-    getPatients: state => {
+    getPatients: (state) => {
       return state.patients
     },
-    getPatientForReg: state => {
+    getPatientForReg: (state) => {
       return state.patientForReg
     },
-    getCompanies: state => {
+    getCompanies: (state) => {
       return state.companies
     },
-    getWizyta: state => {
+    getWizyta: (state) => {
       return state.wizyta
     },
-    getAllRozliczenia: state => {
+    getAllRozliczenia: (state) => {
       return state.rozliczenia
     },
-    getFaktura: state => {
+    getFaktura: (state) => {
       return state.faktura
     },
-    getIsAuthenticated: state => {
+    getIsAuthenticated: (state) => {
       return state.isAuthenticated
-    }
+    },
   },
 
   mutations: {
@@ -155,6 +155,10 @@ export default new Vuex.Store({
       if (!error.status) {
         state.error.snackBarMessage = 'Network Error'
       }
+      if (error.response.status == 401) {
+        state.error.snackBarMessage =
+          'Nieprawidłowe dane - sprawdź swój login i hasło'
+      }
       if (error.response) {
         switch (error.response.data.status) {
           case 400:
@@ -178,7 +182,7 @@ export default new Vuex.Store({
           default:
         }
       }
-    }
+    },
   },
-  actions: {}
+  actions: {},
 })

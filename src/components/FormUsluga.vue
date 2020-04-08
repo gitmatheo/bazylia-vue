@@ -21,7 +21,7 @@
       </v-container>
     </v-form>
 
-    <v-radio-group v-model="radioGroup">
+    <v-radio-group data-cy="lista-uslug" v-model="radioGroup">
       <v-radio
         v-for="(usluga, i) in filteredUslugi"
         :key="i"
@@ -44,25 +44,25 @@ export default {
     patientForReg: {},
     uslugi: [],
     nazwaUslugi: '',
-    valid: false
+    valid: false,
   }),
-  mounted: function() {
+  mounted: function () {
     this.patientForReg = this.$store.getters.getPatientForReg
-    apiService.getUslugi().then(res => (this.uslugi = res.data))
+    apiService.getUslugi().then((res) => (this.uslugi = res.data))
   },
   computed: {
     filteredUslugi() {
-      return this.uslugi.filter(usluga =>
+      return this.uslugi.filter((usluga) =>
         usluga.nazwa.toLowerCase().match(this.nazwaUslugi.toLowerCase())
       )
-    }
+    },
   },
   methods: {
     ...mapMutations(['UPDATE_USLUGA']),
     wybierzUsluge(usluga) {
       this.UPDATE_USLUGA(usluga)
-    }
-  }
+    },
+  },
 }
 </script>
 
