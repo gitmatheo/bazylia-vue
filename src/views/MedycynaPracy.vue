@@ -177,7 +177,7 @@ export default {
     FormCompany,
     FormDatePicker,
     FormSummary,
-    FormUsluga,
+    FormUsluga
   },
   data() {
     return {
@@ -201,7 +201,7 @@ export default {
           numerTelefonu: '',
           nip: '',
           stanowisko: '',
-          dataOrzeczenia: null,
+          dataOrzeczenia: null
         },
         typWizyty: 'MEDYCYNA_PRACY',
         rodzajBadan: '',
@@ -211,17 +211,17 @@ export default {
           nazwa: '',
           cenaZwykla: null,
           cenaUmowa: null,
-          cenaRabat: null,
+          cenaRabat: null
         },
-        faktura: '',
-      },
+        faktura: ''
+      }
     }
   },
   methods: {
     zarejestrujWizyte(wizyta) {
       this.dialog = true
       apiService.registerVisit(wizyta)
-    },
+    }
   },
   mounted() {
     this.$store.subscribe((mutation, state) => {
@@ -246,7 +246,7 @@ export default {
     })
 
     this.wizyta = this.$store.getters.getWizyta
-  },
+  }
 }
 </script>
 

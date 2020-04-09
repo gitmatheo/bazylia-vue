@@ -24,7 +24,11 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+          <v-date-picker
+            v-model="date"
+            no-title
+            @input="menu2 = false"
+          ></v-date-picker>
         </v-menu>
       </v-flex>
 
@@ -89,9 +93,9 @@ export default {
     modal2: false,
     landscape: true,
     reactive: false,
-    wizyta: {},
+    wizyta: {}
   }),
-  mounted: function () {
+  mounted: function() {
     let now = new Date()
     this.wizyta = this.$store.getters.getWizyta
     let minutes =
@@ -99,7 +103,7 @@ export default {
     // let minutes2 = now.getMinutes().padStart(2, 0);
     this.time = now.getHours() + ':' + minutes
   },
-  updated: function () {
+  updated: function() {
     let timeString = this.time + ':00'
     let dataWizyty = new Date(this.date + ' ' + timeString).toISOString()
     this.wizyta.dataWizyty = dataWizyty
@@ -110,8 +114,8 @@ export default {
     ...mapMutations(['UPDATE_DATE_AND_TIME']),
     addDateAndTime(dataWizyty) {
       this.UPDATE_DATE_AND_TIME(dataWizyty)
-    },
-  },
+    }
+  }
 }
 </script>
 

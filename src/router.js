@@ -74,6 +74,12 @@ const router = new Router({
       name: 'MedycynaPracy',
       beforeEnter: guardMyroute,
       component: () => import('./views/MedycynaPracy.vue')
+    },
+    {
+      path: '/zarejestrowane-wizyty',
+      name: 'ZarejestrowaneWizyty',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/ZarejestrowaneWizyty.vue')
     }
   ]
 })

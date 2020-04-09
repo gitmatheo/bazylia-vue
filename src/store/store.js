@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
-  storage: window.localStorage,
+  storage: window.localStorage
 })
 
 export default new Vuex.Store({
@@ -20,7 +20,7 @@ export default new Vuex.Store({
       error: 'c',
       message: 'd',
       path: 'e',
-      snackBarMessage: '',
+      snackBarMessage: ''
     },
     isAuthenticated: false,
     patients: [],
@@ -37,7 +37,7 @@ export default new Vuex.Store({
         numerTelefonu: '',
         nip: '',
         stanowisko: '',
-        dataOrzeczenia: null,
+        dataOrzeczenia: null
       },
       typWizyty: '',
       rodzajBadan: null,
@@ -47,36 +47,40 @@ export default new Vuex.Store({
         nazwa: '',
         cenaZwykla: null,
         cenaUmowa: null,
-        cenaRabat: null,
+        cenaRabat: null
       },
-      faktura: '',
+      faktura: ''
     },
     rozliczenia: {},
     faktura: null,
     companies: [],
+    wizyty: []
   },
   getters: {
-    getPatients: (state) => {
+    getPatients: state => {
       return state.patients
     },
-    getPatientForReg: (state) => {
+    getPatientForReg: state => {
       return state.patientForReg
     },
-    getCompanies: (state) => {
+    getCompanies: state => {
       return state.companies
     },
-    getWizyta: (state) => {
+    getWizyta: state => {
       return state.wizyta
     },
-    getAllRozliczenia: (state) => {
+    getAllRozliczenia: state => {
       return state.rozliczenia
     },
-    getFaktura: (state) => {
+    getAllWizyty: state => {
+      return state.wizyty
+    },
+    getFaktura: state => {
       return state.faktura
     },
-    getIsAuthenticated: (state) => {
+    getIsAuthenticated: state => {
       return state.isAuthenticated
-    },
+    }
   },
 
   mutations: {
@@ -139,6 +143,9 @@ export default new Vuex.Store({
     GET_ALL_ROZLICZENIA_FROM_DB: (state, rozliczenia) => {
       state.rozliczenia = rozliczenia
     },
+    GET_ALL_WIZYTY_FROM_DB: (state, wizyty) => {
+      state.wizyty = wizyty
+    },
     GET_FAKTURA: (state, faktura) => {
       state.faktura = faktura
     },
@@ -182,7 +189,7 @@ export default new Vuex.Store({
           default:
         }
       }
-    },
+    }
   },
-  actions: {},
+  actions: {}
 })

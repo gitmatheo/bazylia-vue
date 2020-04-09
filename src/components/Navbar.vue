@@ -4,6 +4,11 @@
     <v-tab :class="{ active: path == '/add-patient' }" to="/add-patient"
       >Dodaj Pacjenta</v-tab
     >
+    <v-tab
+      :class="{ active: path == '/zarejestrowane-wizyty' }"
+      to="/zarejestrowane-wizyty"
+      >Zarejestrowane wizyty</v-tab
+    >
     <v-tab :class="{ active: path == '/rozliczenia' }" to="/rozliczenia"
       >Rozliczenia</v-tab
     >

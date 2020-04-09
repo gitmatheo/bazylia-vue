@@ -74,46 +74,22 @@ import apiService from '@/services/apiService.js'
 
 export default {
   components: {
-    ListOfPatients,
+    ListOfPatients
   },
   data: () => ({
     isLoading: false,
     currentPage: 1,
     pageSize: 10,
     visiblePatients: [],
-    patients: [
-      // {
-      //   pacjentId: ,
-      //   imie: 'Bogdan',
-      //   nazwisko: 'Brzęczyszczykiewicz',
-      //   pesel: '56121202345',
-      //   numerKarty: '12345',
-      //   ulica: 'Bogdanowa 234/4',
-      //   miasto: 'Warszawa',
-      //   kodPocztowy: '00.020',
-      //   numerTelefonu: '756345746',
-      //   nip: '723-34-567-65',
-      //   firma: {
-      //     firmaId: '9aba4d00-d551-4dfe-9df0-551e8312a7d3',
-      //     nazwa: "Mc Donald's",
-      //     ulica: 'Armii Krajowej 123',
-      //     miasto: 'Zgierz',
-      //     kodPocztowy: '95-100',
-      //     regon: '15002900',
-      //     umowa: true,
-      //   },
-      //   stanowisko: 'pracownik biurowy',
-      //   dataOrzeczenia: null
-      // }
-    ],
+    patients: [],
     valid: false,
     name: '',
     nazwisko: '',
-    pesel: '',
+    pesel: ''
   }),
   computed: {
-    filteredPatients: function () {
-      return this.patients.filter((patient) => {
+    filteredPatients: function() {
+      return this.patients.filter(patient => {
         return (
           // patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
           patient.nazwisko.toLowerCase().match(this.nazwisko.toLowerCase()) &&
@@ -121,25 +97,28 @@ export default {
         )
       })
     },
-    filteredvisiblePatients: function () {
-      return this.visiblePatients.filter((patient) => {
+    filteredvisiblePatients: function() {
+      return this.visiblePatients.filter(patient => {
         return (
           // patient.imie.toLowerCase().match(this.imie.toLowerCase()) &&
           patient.nazwisko
             .toLowerCase()
             .toString()
             .match(this.nazwisko.toLowerCase()) &&
-          patient.pesel.toLowerCase().toString().match(this.pesel.toLowerCase())
+          patient.pesel
+            .toLowerCase()
+            .toString()
+            .match(this.pesel.toLowerCase())
         )
       })
-    },
+    }
   },
 
   methods: {
     ...mapMutations(['GET_ALL_PATIENTS_FROM_DB']),
     getPatients() {
       this.isLoading = true
-      apiService.getPatients().then((response) => {
+      apiService.getPatients().then(response => {
         this.$store.commit('GET_ALL_PATIENTS_FROM_DB', response.data)
         this.patients = this.$store.getters.getPatients
         this.updatevisiblePatients()
@@ -155,17 +134,17 @@ export default {
     updatevisiblePatients() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
-      this.visiblePatients = this.filteredPatients.slice(begin, end) //
+      this.visiblePatients = this.filteredPatients.slice(begin, end)
       if (this.visiblePatients.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
       }
     },
     getFilteredPatients() {
-      this.patients = this.$store.getters.getPatients.filter((patient) => {
+      this.patients = this.$store.getters.getPatients.filter(patient => {
         return patient.name.match(this.name)
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

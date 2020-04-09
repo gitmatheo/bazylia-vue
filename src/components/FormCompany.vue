@@ -218,7 +218,7 @@ export default {
       kodPocztowy: '',
       regon: '',
       umowa: false,
-      ryczalt: 0,
+      ryczalt: 0
     },
     firma: {},
     selection: 1,
@@ -228,22 +228,22 @@ export default {
     valid: true,
     wizyta: {
       pacjent: {
-        firma: '',
-      },
-    },
+        firma: ''
+      }
+    }
   }),
   methods: {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),
 
     getCompany(id) {
-      apiService.getCompany(id).then((res) => {
+      apiService.getCompany(id).then(res => {
         this.wizyta.pacjent.firma = res.data
       })
     },
 
     select(selection) {
       if (selection == 2) {
-        apiService.getCompanies().then((response) => {
+        apiService.getCompanies().then(response => {
           this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
           this.companies = this.$store.getters.getCompanies
           this.updateVisibleCompanies()
@@ -271,22 +271,22 @@ export default {
     },
 
     addNewCompany(company) {
-      apiService.addCompany(company).then((response) => {
+      apiService.addCompany(company).then(response => {
         const firmaId = response.headers.location.match(
           /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
         )[0]
         this.getCompany(firmaId)
       })
-    },
+    }
   },
 
-  mounted: function () {
+  mounted: function() {
     this.companies = this.$store.getters.getCompanies
     this.wizyta = this.$store.getters.getWizyta
   },
   computed: {
-    filteredCompanies: function () {
-      return this.companies.filter((firma) => {
+    filteredCompanies: function() {
+      return this.companies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
           firma.regon
@@ -296,8 +296,8 @@ export default {
         )
       })
     },
-    filteredVisibleCompanies: function () {
-      return this.visibleCompanies.filter((firma) => {
+    filteredVisibleCompanies: function() {
+      return this.visibleCompanies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
           firma.regon
@@ -309,8 +309,8 @@ export default {
     },
     ryczalt() {
       return this.companyToAdd.ryczalt.toFixed(2)
-    },
-  },
+    }
+  }
 }
 </script>
 

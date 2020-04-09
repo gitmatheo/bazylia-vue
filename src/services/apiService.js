@@ -12,20 +12,40 @@ export default {
   addCompany(company) {
     return axios.post(`${API.url}/firmy`, company)
   },
+  // getPatients() {
+  //   return axios.get(`${API.url}/pacjenci`, {
+  //     params: {
+  //       pageNumber: 1,
+  //       pageSize: 50,
+  //       order: 'ASC'
+  //     }
+  //   })
+  // },
+
   getPatients() {
-    return axios.get(`${API.url}/pacjenci`, {
-      params: {
-        pageNumber: 1,
-        pageSize: 50,
-        order: 'ASC',
-      },
-    })
+    return axios.get(`${API.url}/pacjenci`)
   },
   submitPatient(patient) {
     return axios.post(`${API.url}/pacjenci`, patient)
   },
   deletePatient(patientID) {
     return axios.delete(`${API.url}/pacjenci/${patientID}`)
+  },
+  getWizyty() {
+    return axios.get(`${API.url}/wizyty`)
+  },
+
+  getWizytyByDate(startDate, endDate) {
+    return axios.get(`${API.url}/wizyty`, {
+      params: {
+        startDate: startDate,
+        endDate: endDate
+      }
+    })
+  },
+
+  deleteWizyta(id) {
+    return axios.delete(`${API.url}/wizyty/${id}`)
   },
   registerVisit(wizyta) {
     return axios
@@ -49,13 +69,13 @@ export default {
     var encodedBase64String = btoa(`${login}:${pass}`)
     const options = {
       headers: {
-        Authorization: `Basic ${encodedBase64String}`,
+        Authorization: `Basic ${encodedBase64String}`
       },
-      withCredentials: true,
+      withCredentials: true
     }
     return axios.get(`${API.url}/login`, options)
   },
   logout() {
     return axios.get(`${API.url}/logout`)
-  },
+  }
 }
