@@ -16,7 +16,7 @@
             <v-text-field
               v-model="startDate"
               class="date-input"
-              label="Data końcowa"
+              label="Data początkowa"
               prepend-icon="event"
               readonly
               v-on="on"
@@ -43,7 +43,7 @@
             <v-text-field
               v-model="endDate"
               class="date-input"
-              label="Data początkowa"
+              label="Data końcowa"
               prepend-icon="event"
               readonly
               v-on="on"
@@ -264,7 +264,7 @@ export default {
     },
 
     sortVisitsByDate(type) {
-      this.visibleVisits.sort((a, b) => {
+      this.wizyty.sort((a, b) => {
         if (type == 'ascending') {
           return new Date(a.dataWizyty) - new Date(b.dataWizyty)
         } else {

@@ -11,13 +11,15 @@
 
         <v-form class="form" v-model="valid" lazy-validation>
           <v-layout row justify-space-between>
-            <!-- <v-flex xs12 md3>
+            <div class="form__input-wrapper flex md4 xs12 pr-2">
               <v-text-field
                 v-model="name"
-                @change="updatevisiblePatients"
+                data-cy="name"
+                @input="updatevisiblePatients"
                 label="Imię"
               ></v-text-field>
-            </v-flex> -->
+            </div>
+            <v-spacer></v-spacer>
             <div class="form__input-wrapper flex md4 xs12 pr-2">
               <v-text-field
                 v-model="nazwisko"
@@ -35,8 +37,8 @@
                 label="PESEL"
               />
             </div>
-            <v-spacer></v-spacer>
-            <div class="form__input-wrapper flex xs12 md4 pl-2">
+            <!-- <v-spacer></v-spacer> -->
+            <!-- <div class="form__input-wrapper flex xs12 md4 pl-2">
               <my-button
                 color="success"
                 fontColor="white"
@@ -45,7 +47,7 @@
               >
                 Pokaż wszystkich pacjentów
               </my-button>
-            </div>
+            </div> -->
           </v-layout>
         </v-form>
       </v-flex>
@@ -91,7 +93,7 @@ export default {
     filteredPatients: function() {
       return this.patients.filter(patient => {
         return (
-          // patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
+          patient.imie.toLowerCase().match(this.name.toLowerCase()) &&
           patient.nazwisko.toLowerCase().match(this.nazwisko.toLowerCase()) &&
           patient.pesel.toLowerCase().match(this.pesel.toLowerCase())
         )
@@ -100,7 +102,10 @@ export default {
     filteredvisiblePatients: function() {
       return this.visiblePatients.filter(patient => {
         return (
-          // patient.imie.toLowerCase().match(this.imie.toLowerCase()) &&
+          patient.imie
+            .toLowerCase()
+            .toString()
+            .match(this.imie.toLowerCase()) &&
           patient.nazwisko
             .toLowerCase()
             .toString()
@@ -144,6 +149,9 @@ export default {
         return patient.name.match(this.name)
       })
     }
+  },
+  created() {
+    this.getPatients()
   }
 }
 </script>
