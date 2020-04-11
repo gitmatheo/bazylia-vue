@@ -103,7 +103,12 @@ li {
   border-radius: 10px;
 }
 .v-card__actions.actions {
-  padding: 22px;
+  padding: 22px 10px;
+}
+
+.accent--text {
+  color: #20ce99 !important;
+  caret-color: #20ce99 !important;
 }
 
 // ==== custom RADIO BUTTONS START ====

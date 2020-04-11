@@ -125,7 +125,7 @@
           />
           <div class="btns">
             <my-button
-              text
+              class="btns__button"
               fontColor="black"
               color="white"
               data-cy="back-button-step5"
@@ -134,6 +134,7 @@
             >
             <my-button
               fontColor="white"
+              class="btns__button"
               color="#20CE99"
               data-cy="next-button-step5"
               @click.native="zarejestrujWizyte(wizyta)"
@@ -253,7 +254,7 @@ export default {
 <style lang="scss">
 .btns {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 50%;
   margin: 0 auto;
 }

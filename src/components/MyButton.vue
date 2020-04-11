@@ -46,7 +46,7 @@ export default {
   background-color: #20ce99;
   color: white;
   /* height: 48px; */
-  /* min-width: 200px; */
+  min-width: 150px;
   padding: 0 20px;
   /* width: fit-content; */
 

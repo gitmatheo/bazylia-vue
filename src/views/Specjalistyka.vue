@@ -22,15 +22,45 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <FormDatePicker title="Specjalistyka" />
-          <v-btn text to="/registration">Wróć</v-btn>
-          <v-btn @click="e1 = 2">Dalej</v-btn>
+          <div class="btns">
+            <my-button
+              text
+              data-cy="back-button-step1"
+              fontColor="black"
+              color="white"
+              to="/"
+              >Wróć</my-button
+            >
+            <my-button
+              fontColor="white"
+              color="#20CE99"
+              data-cy="next-button-step1"
+              @click.native="e1 = 2"
+              >Dalej</my-button
+            >
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <FormUsluga title="Specjalistyka" />
 
-          <v-btn text @click="e1 = 1">Wróć</v-btn>
-          <v-btn @click="e1 = 3">Dalej</v-btn>
+          <div class="btns">
+            <my-button
+              text
+              data-cy="back-button-step1"
+              fontColor="black"
+              color="white"
+              @click.native="e1 = 1"
+              >Wróć</my-button
+            >
+            <my-button
+              fontColor="white"
+              color="#20CE99"
+              data-cy="next-button-step1"
+              @click.native="e1 = 3"
+              >Dalej</my-button
+            >
+          </div>
         </v-stepper-content>
 
         <v-stepper-content step="3">
@@ -38,15 +68,26 @@
             :typeOfSummary="typWizytyConst.SPECJALISTYKA"
             title="Specjalistyka"
           />
-
-          <v-btn text @click="e1 = 2">Wróć</v-btn>
-          <v-btn
-            @click.native="zarejestrujWizyte(wizyta)"
-            :disabled="zarejestrowano"
-            >{{
-              zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
-            }}</v-btn
-          >
+          <div class="btns">
+            <my-button
+              text
+              data-cy="back-button-step1"
+              fontColor="black"
+              color="white"
+              @click.native="e1 = 2"
+              >Wróć</my-button
+            >
+            <my-button
+              fontColor="white"
+              color="#20CE99"
+              data-cy="next-button-step1"
+              @click.native="zarejestrujWizyte(wizyta)"
+              :disabled="zarejestrowano"
+              >{{
+                zarejestrowano ? 'Zarejestrowano wizytę' : 'Zarejestruj wizytę'
+              }}</my-button
+            >
+          </div>
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
@@ -95,10 +136,6 @@ export default {
     zarejestrujWizyte(wizyta) {
       apiService
         .registerVisit(wizyta)
-        .then(() => {
-          this.zarejestrowano = true
-          this.$router.push({ path: '/' })
-        })
     }
   },
 

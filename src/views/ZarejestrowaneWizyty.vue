@@ -164,17 +164,23 @@
                 </div>
                 <div class="wizyta__details-col">
                   <h3>Usługa</h3>
-                  <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
-                  <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
-                  <li>Typ badań: {{ wizyta.rodzajBadan }}</li>
+                  <ul>
+                    <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
+                    <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
+                    <li>Typ badań: {{ wizyta.rodzajBadan }}</li>
+                  </ul>
                 </div>
                 <div class="wizyta__details-col" v-if="wizyta.pacjent.firma">
                   <h3>Firma</h3>
-                  <li>Nazwa: {{ wizyta.pacjent.firma.nazwa }}</li>
-                  <li>Ulica: {{ wizyta.pacjent.firma.ulica }}</li>
-                  <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
-                  <li>Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}</li>
-                  <li>REGON: {{ wizyta.regon }}</li>
+                  <ul>
+                    <li>Nazwa: {{ wizyta.pacjent.firma.nazwa }}</li>
+                    <li>Ulica: {{ wizyta.pacjent.firma.ulica }}</li>
+                    <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
+                    <li>
+                      Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}
+                    </li>
+                    <li>REGON: {{ wizyta.regon }}</li>
+                  </ul>
                 </div>
               </div>
               <my-button

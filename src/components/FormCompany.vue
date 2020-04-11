@@ -58,41 +58,36 @@
         </ul>
       </v-flex>
       <v-flex xs12>
-        <h2 v-if="selection == 1" class="headline">
-          option 1: uzyj firmy domyslnej
-        </h2>
         <v-layout v-if="selection == 2" row justify-center>
           <v-flex xs12>
             <h2 class="headline">Wybierz firmę z bazy</h2>
             <v-form v-model="valid" lazy-validation>
-              <v-container>
-                <v-layout row justify-space-between>
-                  <v-flex xs3>
-                    <v-text-field
-                      v-model="nameSearch"
-                      @input="updateVisibleCompanies"
-                      label="Nazwa Firmy"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs3>
-                    <v-text-field
-                      v-model="REGONSearch"
-                      @input="updateVisibleCompanies"
-                      label="regon"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs3>
-                    <my-button
-                      :disabled="!valid"
-                      color="success"
-                      @click.native="updateVisibleCompanies"
-                    >
-                      <span>Szukaj</span>
-                      <v-icon right>search</v-icon>
-                    </my-button>
-                  </v-flex>
-                </v-layout>
-              </v-container>
+              <div class="company__search-wrapper">
+                <div class="form__input-wrapper">
+                  <v-text-field
+                    v-model="nameSearch"
+                    @input="updateVisibleCompanies"
+                    label="Nazwa Firmy"
+                  ></v-text-field>
+                </div>
+                <div class="form__input-wrapper">
+                  <v-text-field
+                    v-model="REGONSearch"
+                    @input="updateVisibleCompanies"
+                    label="regon"
+                  ></v-text-field>
+                </div>
+                <v-flex xs3>
+                  <my-button
+                    :disabled="!valid"
+                    color="success"
+                    @click.native="updateVisibleCompanies"
+                  >
+                    <span>Szukaj</span>
+                    <v-icon right>search</v-icon>
+                  </my-button>
+                </v-flex>
+              </div>
             </v-form>
             <v-expansion-panels flat>
               <v-expansion-panel flat v-if="visibleCompanies" my-2>
@@ -101,28 +96,25 @@
                   :key="i"
                 >
                   <template v-slot:header>
-                    <ul class="patient__header">
-                      <li>{{ firma.nazwa }}</li>
-                      <li>{{ firma.ulica }}</li>
-                      <li>regon: {{ firma.regon }}</li>
-                    </ul>
+                    <div class="company__header">
+                      <div>{{ firma.nazwa }}</div>
+                      <div>{{ firma.ulica }}</div>
+                      <div>regon: {{ firma.regon }}</div>
+                    </div>
+                    Szczegóły
                   </template>
                   <v-card>
-                    <ul ref="patient" class="patient__desc">
+                    <ul ref="patient" class="company__desc">
                       <li>Nazwa: {{ firma.nazwa }}</li>
                       <li>Ulica: {{ firma.ulica }}</li>
                       <li>Miasto: {{ firma.miasto }}</li>
                       <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
                       <li>Regon: {{ firma.regon }}</li>
                       <li>Ryczałt: {{ firma.ryczalt }}</li>
-                      <li>
-                        <my-button
-                          color="success"
-                          @click.native="selectCompany(i)"
-                          >Wybierz firmę</my-button
-                        >
-                      </li>
                     </ul>
+                    <my-button color="success" @click.native="selectCompany(i)"
+                      >Wybierz firmę</my-button
+                    >
                   </v-card>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -139,57 +131,56 @@
         </v-layout>
 
         <v-form v-if="selection == 3" v-model="valid">
-          <v-container grid-list-md>
-            <h2 class="headline">Dodaj Firmę</h2>
-            <v-layout wrap flex>
-              <v-flex xs12 md6>
-                <v-text-field
-                  label="Nazwa Firmy"
-                  v-model="companyToAdd.nazwa"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 md6>
-                <v-text-field
-                  label="Ulica"
-                  v-model="companyToAdd.ulica"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 md6>
-                <v-text-field
-                  label="Miasto"
-                  v-model="companyToAdd.miasto"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 md6>
-                <v-text-field
-                  label="Kod-Pocztowy"
-                  v-model="companyToAdd.kodPocztowy"
-                ></v-text-field>
-              </v-flex>
+          <h2 class="headline">Dodaj Firmę</h2>
+          <v-layout class="form__container">
+            <div class="form__input-wrapper">
+              <v-text-field
+                label="Nazwa Firmy"
+                v-model="companyToAdd.nazwa"
+              ></v-text-field>
+            </div>
+            <div class="form__input-wrapper">
+              <v-text-field
+                label="Ulica"
+                v-model="companyToAdd.ulica"
+              ></v-text-field>
+            </div>
+            <div class="form__input-wrapper">
+              <v-text-field
+                label="Miasto"
+                v-model="companyToAdd.miasto"
+              ></v-text-field>
+            </div>
+            <div class="form__input-wrapper">
+              <v-text-field
+                label="Kod-Pocztowy"
+                v-model="companyToAdd.kodPocztowy"
+              ></v-text-field>
+            </div>
 
-              <v-flex xs12 md6>
-                <v-text-field
-                  label="regon"
-                  type="number"
-                  v-model="companyToAdd.regon"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  type="number"
-                  label="Ryczałt"
-                  v-model="companyToAdd.ryczalt"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <my-button
-                  color="success"
-                  @click.native="addNewCompany(companyToAdd)"
-                  >Dodaj Firmę</my-button
-                >
-              </v-flex>
-            </v-layout>
-          </v-container>
+            <div class="form__input-wrapper">
+              <v-text-field
+                label="regon"
+                type="number"
+                v-model="companyToAdd.regon"
+              ></v-text-field>
+            </div>
+            <div class="form__input-wrapper">
+              <v-text-field
+                type="number"
+                label="Ryczałt"
+                v-model="companyToAdd.ryczalt"
+              ></v-text-field>
+            </div>
+            <v-flex xs12>
+              <my-button
+                color="success"
+                @click.native="addNewCompany(companyToAdd)"
+                >Dodaj Firmę</my-button
+              >
+            </v-flex>
+          </v-layout>
+
           <!-- <h2>companyToAdd</h2>
           <pre><code>{{companyToAdd}}</code></pre>
           <h2>firma</h2>
@@ -314,8 +305,40 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .company-desc {
   text-align: left;
+}
+
+.company {
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  &__search-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-gap: 25px;
+    width: 65%;
+  }
+
+  &__desc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+.form {
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5%;
+  }
+  &__input-wrapper {
+    margin: 0px;
+  }
 }
 </style>

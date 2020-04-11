@@ -1,24 +1,26 @@
 <template>
-  <v-container grid-list-md text-xs-center class="white">
+  <v-container grid-list-md text-xs-center class="white usluga">
     <h2>Rejestracja - {{ title }}</h2>
     <h3>Wybierz usługę</h3>
     <v-form v-model="valid" lazy-validation>
-      <v-container>
-        <v-layout>
-          <v-flex xs3>
-            <v-text-field
-              v-model="nazwaUslugi"
-              label="Nazwa uslugi"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs3>
-            <my-button color="success" :disabled="!valid">
-              <span>Szukaj</span>
-              <v-icon right>search</v-icon>
-            </my-button>
-          </v-flex>
-        </v-layout>
-      </v-container>
+      <div class="usluga__search-wrapper">
+        <div class="form__input-wrapper">
+          <v-text-field
+            v-model="nazwaUslugi"
+            label="Nazwa uslugi"
+          ></v-text-field>
+        </div>
+
+        <my-button
+          class="usluga__button"
+          color="success"
+          :width="'90%'"
+          :disabled="!valid"
+        >
+          <span>Szukaj</span>
+          <v-icon right>search</v-icon>
+        </my-button>
+      </div>
     </v-form>
 
     <v-radio-group data-cy="lista-uslug" v-model="radioGroup">
@@ -44,26 +46,38 @@ export default {
     patientForReg: {},
     uslugi: [],
     nazwaUslugi: '',
-    valid: false,
+    valid: false
   }),
-  mounted: function () {
+  mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg
-    apiService.getUslugi().then((res) => (this.uslugi = res.data))
+    apiService.getUslugi().then(res => (this.uslugi = res.data))
   },
   computed: {
     filteredUslugi() {
-      return this.uslugi.filter((usluga) =>
+      return this.uslugi.filter(usluga =>
         usluga.nazwa.toLowerCase().match(this.nazwaUslugi.toLowerCase())
       )
-    },
+    }
   },
   methods: {
     ...mapMutations(['UPDATE_USLUGA']),
     wybierzUsluge(usluga) {
       this.UPDATE_USLUGA(usluga)
-    },
-  },
+    }
+  }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.usluga {
+  padding: 24px 60px;
+  &__search-wrapper {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  &__button {
+    margin-top: 14px;
+  }
+}
+</style>

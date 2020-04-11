@@ -76,7 +76,10 @@
             <div class="patient__btns">
               <RegistrationPopUp :patient="patient"></RegistrationPopUp>
               <DeletePatientPopUp :patient="patient"
-                >Usuń Pacjenta</DeletePatientPopUp
+                >Usuń Pacjenta
+                <v-icon class="icon-close" right @click="dialog = false"
+                  >delete</v-icon
+                ></DeletePatientPopUp
               >
             </div>
           </v-card>
@@ -92,15 +95,15 @@ import DeletePatientPopUp from '../components/DeletePatientPopUp'
 export default {
   components: {
     RegistrationPopUp,
-    DeletePatientPopUp,
+    DeletePatientPopUp
   },
   props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading'],
   data: () => ({}),
   watch: {
     visiblePatients() {
       console.log('The visiblePatients have changed!')
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -154,11 +157,6 @@ export default {
   &__btns {
     display: flex;
     padding: 10px 0px;
-    width: 50%;
-
-    div {
-      width: 50%;
-    }
   }
 
   &__details-element {

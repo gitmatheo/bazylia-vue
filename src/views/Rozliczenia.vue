@@ -72,8 +72,8 @@
     </div>
 
     <v-dialog v-model="dialog" width="500">
-      <v-card class="px-4 py-2">
-        <v-card-title class="headline en-2" primary-title
+      <v-card>
+        <v-card-title class="headline grey lighten-3" primary-title
           >Wystawianie faktury</v-card-title
         >
 
@@ -107,7 +107,7 @@
               :value="item"
             ></v-radio>
           </v-radio-group>
-          <v-card-actions class="px-0 justify-space-between">
+          <v-card-actions class="px-0 justify-center">
             <my-button
               color="white"
               fontColor="black"
@@ -214,11 +214,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.accent--text {
-  color: #20ce99 !important;
-  caret-color: #20ce99 !important;
 }
 
 .patient {

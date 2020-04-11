@@ -3,7 +3,7 @@
     <h2>Rejestracja - {{ title }}</h2>
     <h3>Wybierz datę i godzinę</h3>
     <v-layout row wrap justify-center>
-      <v-flex xs6>
+      <v-flex xs3>
         <v-menu
           v-model="menu2"
           :close-on-content-click="false"
@@ -15,14 +15,16 @@
           min-width="290px"
         >
           <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="Wybierz datę"
-              data-cy="date-picker"
-              prepend-icon="event"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <div class="form__input-wrapper">
+              <v-text-field
+                v-model="date"
+                label="Wybierz datę"
+                data-cy="date-picker"
+                prepend-icon="event"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </div>
           </template>
           <v-date-picker
             v-model="date"
@@ -32,7 +34,7 @@
         </v-menu>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex xs3>
         <v-menu
           ref="menu"
           v-model="menu3"
@@ -47,14 +49,16 @@
           min-width="290px"
         >
           <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="time"
-              label="Wybierz godzinę"
-              data-cy="time-picker"
-              prepend-icon="access_time"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <div class="form__input-wrapper">
+              <v-text-field
+                v-model="time"
+                label="Wybierz godzinę"
+                data-cy="time-picker"
+                prepend-icon="access_time"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </div>
           </template>
           <v-time-picker
             v-if="menu3"
@@ -66,15 +70,16 @@
 
         <!-- <v-time-picker v-model="timePicker"></v-time-picker> -->
       </v-flex>
-
-      <p>
-        Wybrano datę:
-        <span>{{ date }}</span>
-      </p>
-      <p>
-        &nbsp; i godzinę:
-        <span>{{ time }}</span>
-      </p>
+      <!-- <div>
+        <p>
+          Wybrano datę:
+          <span>{{ date }}</span>
+        </p>
+        <p>
+          &nbsp; i godzinę:
+          <span>{{ time }}</span>
+        </p>
+      </div> -->
     </v-layout>
   </v-container>
 </template>
