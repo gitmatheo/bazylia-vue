@@ -61,34 +61,22 @@
         <v-layout v-if="selection == 2" row justify-center>
           <v-flex xs12>
             <h2 class="headline">Wybierz firmę z bazy</h2>
-            <v-form v-model="valid" lazy-validation>
-              <div class="company__search-wrapper">
-                <div class="form__input-wrapper">
-                  <v-text-field
-                    v-model="nameSearch"
-                    @input="updateVisibleCompanies"
-                    label="Nazwa Firmy"
-                  ></v-text-field>
-                </div>
-                <div class="form__input-wrapper">
-                  <v-text-field
-                    v-model="NIPSearch"
-                    @input="updateVisibleCompanies"
-                    label="nip"
-                  ></v-text-field>
-                </div>
-                <v-flex xs3>
-                  <my-button
-                    :disabled="!valid"
-                    color="success"
-                    @click.native="updateVisibleCompanies"
-                  >
-                    <span>Szukaj</span>
-                    <v-icon right>search</v-icon>
-                  </my-button>
-                </v-flex>
+            <div class="company__search-wrapper">
+              <div class="form__input-wrapper">
+                <v-text-field
+                  v-model="nameSearch"
+                  @input="updateVisibleCompanies"
+                  label="Nazwa Firmy"
+                ></v-text-field>
               </div>
-            </v-form>
+              <div class="form__input-wrapper">
+                <v-text-field
+                  v-model="NIPSearch"
+                  @input="updateVisibleCompanies"
+                  label="nip"
+                ></v-text-field>
+              </div>
+            </div>
             <v-expansion-panels flat>
               <v-expansion-panel flat v-if="visibleCompanies" my-2>
                 <v-expansion-panel-content
@@ -130,7 +118,7 @@
           </v-flex>
         </v-layout>
 
-        <v-form v-if="selection == 3" v-model="valid">
+        <v-form v-if="selection == 3" v-model="isFormValid">
           <h2 class="headline">Dodaj Firmę</h2>
           <v-layout class="form__container">
             <div class="form__input-wrapper">
@@ -181,6 +169,7 @@
             <v-flex xs12>
               <my-button
                 color="success"
+                :disabled="!isFormValid"
                 @click.native="addNewCompany(companyToAdd)"
                 >Dodaj Firmę</my-button
               >
@@ -222,7 +211,7 @@ export default {
     selectedCompany: null,
     nameSearch: '',
     NIPSearch: '',
-    valid: true,
+    isFormValid: true,
     wizyta: {
       pacjent: {
         firma: ''

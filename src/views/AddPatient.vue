@@ -3,7 +3,7 @@
     <div my-4 class="white component-wrapper">
       <h2 class="headline">Dodaj Pacjenta</h2>
 
-      <v-form v-model="valid">
+      <v-form v-model="isFormValid">
         <v-layout class="form__container">
           <div class="form__input-wrapper">
             <v-text-field
@@ -87,6 +87,7 @@
         <my-button
           fontColor="white"
           color="#20CE99"
+          :disabled="!isFormValid"
           @click.native="submitPatient(pacjent)"
           >Dodaj Pacjenta</my-button
         >
@@ -111,7 +112,7 @@ export default {
     PatientAddedPopup
   },
   data: () => ({
-    valid: false,
+    isFormValid: false,
     dialog2: false,
     pacjent: {
       pacjentId: '', //uuid
