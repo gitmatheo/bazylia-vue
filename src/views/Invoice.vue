@@ -74,8 +74,8 @@
             <br />
             {{ faktura.firma.kodPocztowy }}, {{ faktura.firma.miasto }}
             <br />
-            <span>REGON:</span>
-            {{ faktura.firma.regon }}
+            <span>NIP:</span>
+            {{ faktura.firma.nip }}
           </p>
         </v-flex>
       </v-layout>
@@ -182,8 +182,7 @@ export default {
           ulica: 'Armii Krajowej 123',
           miasto: 'Zgierz',
           kodPocztowy: '95-100',
-          regon: '15002900',
-          umowa: true,
+          nip: '15002900',
           ryczalt: 21
         },
         uslugi: [

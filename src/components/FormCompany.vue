@@ -44,9 +44,9 @@
             }}</span>
           </li>
           <li>
-            Regon:
+            NIP:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.regon
+              wizyta.pacjent.firma.nip
             }}</span>
           </li>
           <li>
@@ -72,9 +72,9 @@
                 </div>
                 <div class="form__input-wrapper">
                   <v-text-field
-                    v-model="REGONSearch"
+                    v-model="NIPSearch"
                     @input="updateVisibleCompanies"
-                    label="regon"
+                    label="nip"
                   ></v-text-field>
                 </div>
                 <v-flex xs3>
@@ -99,7 +99,7 @@
                     <div class="company__header">
                       <div>{{ firma.nazwa }}</div>
                       <div>{{ firma.ulica }}</div>
-                      <div>regon: {{ firma.regon }}</div>
+                      <div>NIP: {{ firma.nip }}</div>
                     </div>
                     Szczegóły
                   </template>
@@ -109,7 +109,7 @@
                       <li>Ulica: {{ firma.ulica }}</li>
                       <li>Miasto: {{ firma.miasto }}</li>
                       <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
-                      <li>Regon: {{ firma.regon }}</li>
+                      <li>NIP: {{ firma.nip }}</li>
                       <li>Ryczałt: {{ firma.ryczalt }}</li>
                     </ul>
                     <my-button color="success" @click.native="selectCompany(i)"
@@ -136,33 +136,39 @@
             <div class="form__input-wrapper">
               <v-text-field
                 label="Nazwa Firmy"
+                :rules="nameRules"
                 v-model="companyToAdd.nazwa"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Ulica"
+                :rules="streetRules"
                 v-model="companyToAdd.ulica"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Miasto"
+                :rules="cityRules"
                 v-model="companyToAdd.miasto"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Kod-Pocztowy"
+                :rules="zipCodeRules"
                 v-model="companyToAdd.kodPocztowy"
               ></v-text-field>
             </div>
 
             <div class="form__input-wrapper">
               <v-text-field
-                label="regon"
-                type="number"
-                v-model="companyToAdd.regon"
+                v-model="companyToAdd.nip"
+                label="NIP"
+                :rules="nipRules"
+                placeholder="xxx-xxx-xx-xx"
+                required
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
@@ -207,7 +213,7 @@ export default {
       ulica: '',
       miasto: '',
       kodPocztowy: '',
-      regon: '',
+      nip: '',
       umowa: false,
       ryczalt: 0
     },
@@ -215,13 +221,18 @@ export default {
     selection: 1,
     selectedCompany: null,
     nameSearch: '',
-    REGONSearch: '',
+    NIPSearch: '',
     valid: true,
     wizyta: {
       pacjent: {
         firma: ''
       }
-    }
+    },
+    nameRules: [v => !!v || 'Nazwa firmy jest wymagana'],
+    streetRules: [v => !!v || 'Ulica jest wymagana'],
+    cityRules: [v => !!v || 'Miasto jest wymagane'],
+    zipCodeRules: [v => !!v || 'Kod-pocztowy jest wymagany'],
+    nipRules: [v => !!v || 'NIP jest wymagany']
   }),
   methods: {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),
@@ -280,10 +291,10 @@ export default {
       return this.companies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
-          firma.regon
+          firma.nip
             .toLowerCase()
             .toString()
-            .match(this.REGONSearch.toLowerCase())
+            .match(this.NIPSearch.toLowerCase())
         )
       })
     },
@@ -291,10 +302,10 @@ export default {
       return this.visibleCompanies.filter(firma => {
         return (
           firma.nazwa.toLowerCase().match(this.nameSearch.toLowerCase()) &&
-          firma.regon
+          firma.nip
             .toLowerCase()
             .toString()
-            .match(this.REGONSearch.toLowerCase())
+            .match(this.NIPSearch.toLowerCase())
         )
       })
     },

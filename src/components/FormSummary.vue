@@ -26,7 +26,7 @@
           <li>Ulica: {{ wizyta.pacjent.firma.ulica }}</li>
           <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
           <li>Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}</li>
-          <li>REGON: {{ wizyta.pacjent.firma.regon }}</li>
+          <li>NIP: {{ wizyta.pacjent.firma.nip }}</li>
           <li>Ryczałt: {{ wizyta.pacjent.firma.ryczalt }}</li>
         </ul>
       </v-flex>

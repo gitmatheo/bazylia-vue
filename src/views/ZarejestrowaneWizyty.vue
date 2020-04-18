@@ -93,7 +93,11 @@
           </v-chip>
         </div>
 
-        <div v-if="wizyty && !isLoading" class="orzeczenia">
+        <div
+          v-if="wizyty && !isLoading"
+          @click="getVisitsWithMissingDate"
+          getclass="orzeczenia"
+        >
           Brak daty orzeczenia
           <span class="counter-badge" :style="badgeStyles">
             {{ brakOrzeczenia }}</span
@@ -179,7 +183,7 @@
                     <li>
                       Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}
                     </li>
-                    <li>REGON: {{ wizyta.regon }}</li>
+                    <li>NIP: {{ wizyta.nip }}</li>
                   </ul>
                 </div>
               </div>
@@ -232,6 +236,7 @@ export default {
   }),
   mounted: function() {
     this.getAllWizyty()
+    this.getCounter()
     console.log('Siema z mounded1')
     // this.updatevisibleVisits()
     // console.log('Siema z mounted2')
@@ -254,6 +259,34 @@ export default {
       if (this.visibleVisits.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
       }
+    },
+
+    getCounter() {
+      console.log('getCounter step 1 ')
+      apiService
+        .getCounter()
+        .then(response => {
+          console.log('Siema counter')
+          console.log(response)
+        })
+        .catch(err => {
+          console.log('Errorrrr')
+          console.log(err)
+        })
+    },
+
+    getVisitsWithMissingDate() {
+      console.log('getVisitsWithMissingDate step 1 ')
+      apiService
+        .getVisitsWithMissingDate()
+        .then(response => {
+          console.log('Siema getVisitsWithMissingDate')
+          console.log(response)
+        })
+        .catch(err => {
+          console.log('Errorrrr getVisitsWithMissingDate')
+          console.log(err)
+        })
     },
 
     getWizytyByDate(startDate, endDate) {

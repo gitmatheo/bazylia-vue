@@ -20,7 +20,6 @@ export interface Firma {
   ulica: string
   miasto: string
   kodPocztowy: string
-  regon: string
-  umowa: boolean
+  nip: string
   ryczalt: number
 }

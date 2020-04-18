@@ -18,13 +18,15 @@
             <v-text-field
               v-model="pacjent.nazwisko"
               label="Nazwisko"
+              :rules="secondNameRules"
               required
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.pesel"
-              label="Pesel"
+              label="PESEL"
+              :rules="peselRules"
               required
             ></v-text-field>
           </div>
@@ -78,45 +80,10 @@
               required
             ></v-text-field>
           </div>
-          <!-- Input with datepicker -->
-          <div class="form__input-wrapper">
-            <v-menu
-              v-model="fromDateMenu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              max-width="290px"
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  label="Data orzeczenia"
-                  readonly
-                  :value="pacjent.dataOrzeczenia"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                locale="en-in"
-                v-model="pacjent.dataOrzeczenia"
-                no-title
-                @input="fromDateMenu = false"
-              ></v-date-picker>
-            </v-menu>
-          </div>
         </v-layout>
       </v-form>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <!-- <pre><code>{{pacjent}}</code></pre>
-        <h2>nipFormatted</h2>
-        <pre><code>{{nipFormatted}}</code></pre>
-        <h2>nip</h2>
-        <pre><code>{{pacjent.nip}}</code></pre>-->
-        <!-- <v-btn color="success" @click.native="dialog = false">Dodaj Pacjenta</v-btn> -->
         <my-button
           fontColor="white"
           color="#20CE99"
@@ -161,7 +128,9 @@ export default {
       dataOrzeczenia: null
     },
     fromDateMenu: false,
-    nameRules: [v => !!v || 'Imię jest wymagane']
+    nameRules: [v => !!v || 'Imię jest wymagane'],
+    secondNameRules: [v => !!v || 'Nazwisko jest wymagane'],
+    peselRules: [v => !!v || 'PESEL jest wymagany']
   }),
   computed: {
     fromDateDisp() {

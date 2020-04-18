@@ -56,6 +56,17 @@ export default {
   getRozliczenia() {
     return axios.get(`${API.url}/rozliczenia/medycyna-pracy`)
   },
+  getCounter() {
+    //TODO
+    console.log('getCounter step 2 ')
+    return axios.get(`${API.url}/wizyty/missing-date/counter`)
+  },
+  getVisitsWithMissingDate() {
+    //TODO
+    console.log(' getVisitsWithMissingDate step 2 ')
+    return axios.get(`${API.url}/wizyty/missing-date`)
+  },
+
   submitForInvoice(doZafakturowania) {
     return axios.post(`${API.url}/faktury`, doZafakturowania)
   },

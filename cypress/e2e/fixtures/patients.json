@@ -16,7 +16,7 @@
       "ulica": "dsadasd",
       "miasto": "dsasd",
       "kodPocztowy": "dasd",
-      "regon": "31231",
+      "nip": "31231",
       "umowa": false,
       "ryczalt": 9999.99
     },
@@ -40,7 +40,7 @@
       "ulica": "Armii Krajowej 123",
       "miasto": "Zgierz",
       "kodPocztowy": "95-100",
-      "regon": "15002900",
+      "nip": "15002900",
       "umowa": true,
       "ryczalt": null
     },
@@ -139,7 +139,7 @@
       "ulica": "Cebulowa 55",
       "miasto": "Radom",
       "kodPocztowy": "01-234",
-      "regon": "765328746",
+      "nip": "765328746",
       "umowa": false,
       "ryczalt": null
     },
@@ -163,7 +163,7 @@
       "ulica": "Długa 13",
       "miasto": "Pabianice",
       "kodPocztowy": "95-999",
-      "regon": "87654345678",
+      "nip": "87654345678",
       "umowa": false,
       "ryczalt": null
     },
@@ -187,7 +187,7 @@
       "ulica": "da",
       "miasto": "aaaaaaaaaaaa",
       "kodPocztowy": "111111",
-      "regon": "233",
+      "nip": "233",
       "umowa": false,
       "ryczalt": null
     },
@@ -211,7 +211,7 @@
       "ulica": "aaa",
       "miasto": "a",
       "kodPocztowy": "32",
-      "regon": "1",
+      "nip": "1",
       "umowa": false,
       "ryczalt": 7000.0
     },
@@ -235,7 +235,7 @@
       "ulica": "231231",
       "miasto": "23321331",
       "kodPocztowy": "23123",
-      "regon": "4233",
+      "nip": "4233",
       "umowa": false,
       "ryczalt": null
     },
@@ -259,8 +259,7 @@
       "ulica": "Długa 13",
       "miasto": "Pabianice",
       "kodPocztowy": "95-999",
-      "regon": "87654345678",
-      "umowa": false,
+      "nip": "87654345678",
       "ryczalt": null
     },
     "stanowisko": "",
@@ -283,7 +282,7 @@
       "ulica": "SD",
       "miasto": "DD",
       "kodPocztowy": "DDD",
-      "regon": "12",
+      "nip": "12",
       "umowa": false,
       "ryczalt": null
     },
@@ -307,7 +306,7 @@
       "ulica": "Cebulowa 55",
       "miasto": "Radom",
       "kodPocztowy": "01-234",
-      "regon": "765328746",
+      "nip": "765328746",
       "umowa": false,
       "ryczalt": null
     },
@@ -346,7 +345,7 @@
       "ulica": "Armii Krajowej 123",
       "miasto": "Zgierz",
       "kodPocztowy": "95-100",
-      "regon": "15002900",
+      "nip": "15002900",
       "umowa": true,
       "ryczalt": null
     },
@@ -370,7 +369,7 @@
       "ulica": "Długa 13",
       "miasto": "Pabianice",
       "kodPocztowy": "95-999",
-      "regon": "87654345678",
+      "nip": "87654345678",
       "umowa": false,
       "ryczalt": null
     },
@@ -409,7 +408,7 @@
       "ulica": "Cebulowa 55",
       "miasto": "Radom",
       "kodPocztowy": "01-234",
-      "regon": "765328746",
+      "nip": "765328746",
       "umowa": false,
       "ryczalt": null
     },
@@ -478,7 +477,7 @@
       "ulica": "11111",
       "miasto": "33123",
       "kodPocztowy": "21-123",
-      "regon": "32",
+      "nip": "32",
       "umowa": false,
       "ryczalt": null
     },
