@@ -12,13 +12,13 @@
     <v-tab
       :class="{ active: path == '/rozliczenia/medycyna-pracy' }"
       to="/rozliczenia/medycyna-pracy"
-      >Rozliczenia Specjalistyka</v-tab
-    >
+      >Rozliczenia Medycyna Pracy
+    </v-tab>
 
     <v-tab
       :class="{ active: path == '/rozliczenia/specjalistyka' }"
       to="/rozliczenia/specjalistyka"
-      >Rozliczenia Medycyna Pracy</v-tab
+      >Rozliczenia Specjalistyka</v-tab
     >
     <v-spacer></v-spacer>
     <v-tab v-if="isAuthenticated" @click="logout">Wyloguj</v-tab>

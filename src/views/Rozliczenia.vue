@@ -70,6 +70,7 @@
       }}</v-card-text>
     </div>
 
+    <!-- v-dialog ten sam co w RozliczeniaSpecjalistyka. wyrzucic do osobnego komponntu-->
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="headline grey lighten-3" primary-title

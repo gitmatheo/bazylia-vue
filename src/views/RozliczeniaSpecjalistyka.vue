@@ -11,7 +11,8 @@
           >
             <template v-slot:header>
               <ul class="patient__header">
-                <li>{{ rozliczenie.firma.nazwa }}</li>
+                <li>{{ rozliczenie.pacjent.imie }}</li>
+                <li>{{ rozliczenie.pacjent.nazwisko }}</li>
                 <li class="patient__details-element">Szczegóły</li>
               </ul>
             </template>
@@ -29,36 +30,21 @@
                 </div>
               </div>
 
-              <ul>
-                <li
-                  class="patient__list-element"
-                  v-for="(pacjent, i) in rozliczenie.pacjenci"
-                  :key="i"
-                >
-                  <div>
-                    {{ pacjent.pacjent.imie }}
-                    {{ pacjent.pacjent.nazwisko }}
+              <ul class="patient__service">
+                <li v-for="(wizyta, i) in rozliczenie.wizyty" :key="i">
+                  <div class="patient__service-desc">
+                    <span>{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }} </span>
+                    &nbsp; - &nbsp;
+                    <span> {{ wizyta.usluga.nazwa }}</span>
                   </div>
-
-                  <ul class="patient__service">
-                    <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
-                      <div class="patient__service-desc">
-                        <span
-                          >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
-                        </span>
-                        &nbsp; - &nbsp;
-                        <span> {{ wizyta.usluga.nazwa }}</span>
-                      </div>
-                      <div class="patient__checkbox">
-                        <v-checkbox
-                          v-model="selected"
-                          :value="wizyta.wizytaId"
-                          :label="'Zaznacz'"
-                          @change="updateWizytyDoZafakturowania"
-                        ></v-checkbox>
-                      </div>
-                    </li>
-                  </ul>
+                  <div class="patient__checkbox">
+                    <v-checkbox
+                      v-model="selected"
+                      :value="wizyta.wizytaId"
+                      :label="'Zaznacz'"
+                      @change="updateWizytyDoZafakturowania"
+                    ></v-checkbox>
+                  </div>
                 </li>
               </ul>
             </v-card>
@@ -69,6 +55,122 @@
         brakDanychMessage
       }}</v-card-text>
     </div>
+
+    <!-- v-dialog ten sam co w Rozliczenia. wyrzucic do osobnego komponntu-->
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-title class="headline grey lighten-3" primary-title
+          >Wystawianie faktury</v-card-title
+        >
+
+        <v-container>
+          <h3>Sposób płatności</h3>
+          <v-radio-group v-model="sposobPlatnosciGroup">
+            <v-radio
+              v-for="item in sposobPlatnosci"
+              :key="item"
+              :label="`${item}`"
+              :value="item"
+            ></v-radio>
+          </v-radio-group>
+          <h3>Data wystawienia faktury</h3>
+          <v-flex xs6>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <div class="form__input-wrapper">
+                  <v-text-field
+                    v-model="doZafakturowania.dataFaktury"
+                    label="Wybierz datę"
+                    data-cy="date-picker"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </div>
+              </template>
+              <v-date-picker
+                v-model="doZafakturowania.dataFaktury"
+                no-title
+                @input="menu = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-flex>
+
+          <h3>Data wykonania usługi:</h3>
+
+          <div class="select-date">
+            <v-flex xs6>
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <div class="form__input-wrapper">
+                    <v-text-field
+                      v-model="doZafakturowania.dataSprzedazy"
+                      label="Wybierz datę"
+                      data-cy="date-picker"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </div>
+                </template>
+                <v-date-picker
+                  v-model="doZafakturowania.dataSprzedazy"
+                  no-title
+                  @input="menu2 = false"
+                ></v-date-picker>
+              </v-menu>
+            </v-flex>
+            <v-checkbox
+              class="only-month-checkbox"
+              v-model="doZafakturowania.tylkoMiesiac"
+              label="Tylko miesiąc"
+            ></v-checkbox>
+          </div>
+
+          <h3>Termin płatności:</h3>
+          <v-radio-group v-model="terminPlatnosciGroup">
+            <v-radio
+              v-for="item in terminPlatnosci"
+              :key="item"
+              :label="`${item}`"
+              :value="item"
+            ></v-radio>
+          </v-radio-group>
+          <v-card-actions class="px-0 justify-center">
+            <my-button
+              color="white"
+              fontColor="black"
+              @click.native="dialog = false"
+              >Anuluj</my-button
+            >
+            <my-button
+              color="#20CE99"
+              fontColor="white"
+              @click.native="submitForInvoice(doZafakturowania)"
+              >Wystaw Fakturę</my-button
+            >
+          </v-card-actions>
+        </v-container>
+      </v-card>
+    </v-dialog>
+
+    <pre><code> {{doZafakturowania}} </code></pre>
   </v-container>
 </template>
 
@@ -122,11 +224,9 @@ export default {
       this.selected = []
       this.doZafakturowania.wizyty = []
       if (this.selectAll) {
-        rozliczenie.pacjenci.map(pacjent => {
-          pacjent.wizyty.map(wizyta => {
-            this.selected.push(wizyta.wizytaId)
-            this.doZafakturowania.wizyty = this.selected
-          })
+        rozliczenie.wizyty.map(wizyta => {
+          this.selected.push(wizyta.wizytaId)
+          this.doZafakturowania.wizyty = this.selected
         })
       }
     },
