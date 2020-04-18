@@ -49,7 +49,7 @@
               wizyta.pacjent.firma.nip
             }}</span>
           </li>
-          <li>
+          <li v-if="wizyta.pacjent.firma.ryczalt">
             Ryczałt:
             <span class="font-weight-medium font-italic">{{
               wizyta.pacjent.firma.ryczalt
@@ -124,28 +124,28 @@
             <div class="form__input-wrapper">
               <v-text-field
                 label="Nazwa Firmy"
-                :rules="nameRules"
+                :rules="rules.name"
                 v-model="companyToAdd.nazwa"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Ulica"
-                :rules="streetRules"
+                :rules="rules.street"
                 v-model="companyToAdd.ulica"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Miasto"
-                :rules="cityRules"
+                :rules="rules.city"
                 v-model="companyToAdd.miasto"
               ></v-text-field>
             </div>
             <div class="form__input-wrapper">
               <v-text-field
                 label="Kod-Pocztowy"
-                :rules="zipCodeRules"
+                :rules="rules.zipCode"
                 v-model="companyToAdd.kodPocztowy"
               ></v-text-field>
             </div>
@@ -154,11 +154,20 @@
               <v-text-field
                 v-model="companyToAdd.nip"
                 label="NIP"
-                :rules="nipRules"
+                :rules="rules.nip"
                 placeholder="xxx-xxx-xx-xx"
                 required
               ></v-text-field>
             </div>
+
+            <div class="form__input-wrapper">
+              <v-text-field
+                v-model="companyToAdd.email"
+                :rules="rules.email"
+                label="E-mail"
+              ></v-text-field>
+            </div>
+
             <div class="form__input-wrapper">
               <v-text-field
                 type="number"
@@ -203,7 +212,7 @@ export default {
       miasto: '',
       kodPocztowy: '',
       nip: '',
-      umowa: false,
+      email: '',
       ryczalt: 0
     },
     firma: {},
@@ -217,11 +226,17 @@ export default {
         firma: ''
       }
     },
-    nameRules: [v => !!v || 'Nazwa firmy jest wymagana'],
-    streetRules: [v => !!v || 'Ulica jest wymagana'],
-    cityRules: [v => !!v || 'Miasto jest wymagane'],
-    zipCodeRules: [v => !!v || 'Kod-pocztowy jest wymagany'],
-    nipRules: [v => !!v || 'NIP jest wymagany']
+    rules: {
+      name: [v => !!v || 'Nazwa firmy jest wymagana'],
+      street: [v => !!v || 'Ulica jest wymagana'],
+      city: [v => !!v || 'Miasto jest wymagane'],
+      zipCode: [v => !!v || 'Kod-pocztowy jest wymagany'],
+      nip: [v => !!v || 'NIP jest wymagany'],
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Niepoprawny e-mail'
+      }
+    }
   }),
   methods: {
     ...mapMutations(['ADD_COMPANY', 'UPDATE_PATIENT_COMPANY']),

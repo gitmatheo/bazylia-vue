@@ -27,7 +27,9 @@
           <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
           <li>Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}</li>
           <li>NIP: {{ wizyta.pacjent.firma.nip }}</li>
-          <li>Ryczałt: {{ wizyta.pacjent.firma.ryczalt }}</li>
+          <li v-if="wizyta.pacjent.firma.ryczalt">
+            Ryczałt: {{ wizyta.pacjent.firma.ryczalt }}
+          </li>
         </ul>
       </v-flex>
       <v-flex xs12>
