@@ -82,6 +82,9 @@ export default {
   getInvoice(invoiceID) {
     return axios.get(`${API.url}/faktury/${invoiceID}`)
   },
+  getSpecification(invoiceID) {
+    return axios.get(`${API.url}/faktury/${invoiceID}/specyfikacja`)
+  },
   getUslugi() {
     return axios.get(`${API.url}/uslugi`)
   },

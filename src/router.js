@@ -76,6 +76,12 @@ const router = new Router({
       component: () => import('./views/Specjalistyka.vue')
     },
     {
+      path: '/specyfikacja/:id',
+      name: 'Specyfikacja',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/Specyfikacja.vue')
+    },
+    {
       path: '/medycyna-pracy',
       name: 'MedycynaPracy',
       beforeEnter: guardMyroute,

@@ -140,7 +140,12 @@
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
         <!-- <my-button fontColor="white" color="#20CE99">Wyślij fakture</my-button> -->
-        <my-button fontColor="white" color="black">Specyfikacja</my-button>
+        <my-button
+          @click.native="openSpecification(faktura.fakturaId)"
+          fontColor="white"
+          color="black"
+          >Specyfikacja</my-button
+        >
       </v-layout>
     </v-container>
   </v-app>
@@ -227,15 +232,6 @@ export default {
       }
     }
   },
-  methods: {
-    // printInvoice(divName) {
-    //   const printContents = document.getElementById(divName).innerHTML;
-    //   const originalContents = document.body.innerHTML;
-    //   document.body.innerHTML = printContents;
-    //   window.print();
-    //   document.body.innerHTML = originalContents;
-    // }
-  },
   mounted: function() {
     const fakturaId = this.$route.params.id
     apiService.getInvoice(fakturaId).then(response => {
@@ -258,6 +254,20 @@ export default {
             : parseFloat((usluga.wartoscNetto + usluga.wartoscVat).toFixed(2))
       })
     })
+  },
+  methods: {
+    // printInvoice(divName) {
+    //   const printContents = document.getElementById(divName).innerHTML;
+    //   const originalContents = document.body.innerHTML;
+    //   document.body.innerHTML = printContents;
+    //   window.print();
+    //   document.body.innerHTML = originalContents;
+    // }
+    openSpecification(fakturaId) {
+      console.log('Hello openSpecification')
+      console.log(fakturaId)
+      this.$router.push({ path: `/specyfikacja/${fakturaId}` })
+    }
   },
   computed: {
     terminPlatnosci() {
