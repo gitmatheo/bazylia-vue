@@ -11,6 +11,9 @@ export interface Pacjent {
   nip: string
   stanowisko: string
   dataOrzeczenia: string
+  decyzja: DecyzjaEnum
+  dataOrzeczeniaUpdated: boolean
+  decyzjaUpdated: boolean
   firma?: Firma
 }
 

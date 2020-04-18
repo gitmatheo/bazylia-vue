@@ -21,13 +21,23 @@
       ></v-radio>
       <v-radio
         color="#20CE99"
-        label="Sanitarno-epidemiologiczne"
-        :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
+        label="Kontrolne"
+        :value="rodzajBadanConst.KONTROLNE"
       ></v-radio>
       <v-radio
         color="#20CE99"
-        label="Kontrolne"
-        :value="rodzajBadanConst.KONTROLNE"
+        label="Celowe"
+        :value="rodzajBadanConst.CELOWE"
+      ></v-radio>
+      <v-radio
+        color="#20CE99"
+        label="Końcowe"
+        :value="rodzajBadanConst.KONCOWE"
+      ></v-radio>
+      <v-radio
+        color="#20CE99"
+        label="Sanitarno-epidemiologiczne"
+        :value="rodzajBadanConst.SANITARNO_EPIDEMIOLOGICZNE"
       ></v-radio>
     </v-radio-group>
   </v-container>

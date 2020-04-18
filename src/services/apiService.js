@@ -2,6 +2,8 @@ import axios from 'axios'
 import API from '@/constants/api'
 import router from '../router'
 
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
 export default {
   getCompanies() {
     return axios.get(`${API.url}/firmy`)
@@ -65,6 +67,17 @@ export default {
     //TODO
     console.log(' getVisitsWithMissingDate step 2 ')
     return axios.get(`${API.url}/wizyty/missing-date`)
+  },
+
+  submitDecyzja(pacjentID, decyzja) {
+    return axios.post(`${API.url}/pacjenci/${pacjentID}/decyzja`, {
+      decyzja: decyzja
+    })
+  },
+  submitDataOrzeczenia(pacjentID, dataOrzeczenia) {
+    return axios.post(`${API.url}/pacjenci/${pacjentID}/data-orzeczenia`, {
+      dataOrzeczenia: dataOrzeczenia
+    })
   },
 
   submitForInvoice(doZafakturowania) {

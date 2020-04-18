@@ -131,13 +131,21 @@
 
                 <div class="col2">
                   <v-icon
-                    v-if="wizyta.pacjent.dataOrzeczenia"
+                    v-if="
+                      wizyta.pacjent.decyzjaUpdated &&
+                        wizyta.pacjent.dataOrzeczeniaUpdated
+                    "
                     size="35px"
                     color="success"
                     >check</v-icon
                   >
                   <v-icon
-                    v-if="!wizyta.pacjent.dataOrzeczenia"
+                    v-if="
+                      !(
+                        wizyta.pacjent.decyzjaUpdated &&
+                        wizyta.pacjent.dataOrzeczeniaUpdated
+                      )
+                    "
                     size="35px"
                     color="error"
                     >error_outline</v-icon
@@ -163,6 +171,57 @@
                     <li>
                       Data orzeczenia:
                       {{ wizyta.pacjent.dataOrzeczenia || `BRAK` }}
+
+                      <v-menu
+                        v-model="wizyta.pacjent.dataOrzeczeniaMenu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        lazy
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        min-width="290px"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="wizyta.pacjent.dataOrzeczenia"
+                            class="date-input"
+                            label="Data orzeczenia"
+                            prepend-icon="event"
+                            readonly
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="wizyta.pacjent.dataOrzeczenia"
+                          no-title
+                          @input="
+                            wizyta.pacjent.dataOrzeczeniaMenu = false
+                            submitDataOrzeczenia(
+                              wizyta.pacjent.pacjentId,
+                              wizyta.pacjent.dataOrzeczenia
+                            )
+                          "
+                        ></v-date-picker>
+                      </v-menu>
+                    </li>
+
+                    <li>
+                      Decyzja:
+                      <v-select
+                        v-model="wizyta.pacjent.decyzja"
+                        :items="decyzje"
+                        menu-props="auto"
+                        label="Wybierz decyzje"
+                        prepend-icon="map"
+                        return-object
+                        @change="
+                          submitDecyzja(
+                            wizyta.pacjent.pacjentId,
+                            wizyta.pacjent.decyzja.label
+                          )
+                        "
+                      ></v-select>
                     </li>
                   </ul>
                 </div>
@@ -215,19 +274,23 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import apiService from '@/services/apiService.js'
-// import moment from 'vue-moment'
+// import { DecyzjaEnum } from '@/enums/Decyzja.ts'
+import { decyzje } from '@/constants/constants'
 
 export default {
   data: () => ({
     isLoading: true,
     wizyty: null,
+    decyzja: '',
+    decyzje: [],
     selectedTypWizyty: '',
     startDate: '',
     endDate: '',
     dateMenu1: false,
     dateMenu2: false,
+    dataOrzeczeniaMenu: false,
     dataOrzeczenia: null,
     brakDanychMessage: null,
     currentPage: 1,
@@ -236,10 +299,13 @@ export default {
   }),
   mounted: function() {
     this.getAllWizyty()
-    this.getCounter()
+    // this.getCounter()
     console.log('Siema z mounded1')
     // this.updatevisibleVisits()
     // console.log('Siema z mounted2')
+    this.decyzje = decyzje
+    console.log('DECYZJA')
+    console.log(this.decyzje)
   },
   methods: {
     deleteWizyta(id) {
@@ -259,6 +325,16 @@ export default {
       if (this.visibleVisits.length == 0 && this.currentPage > 0) {
         this.updatePage(this.currentPage - 1)
       }
+    },
+
+    submitDecyzja(pacjentID, decyzja) {
+      apiService.submitDecyzja(pacjentID, decyzja)
+    },
+    submitDataOrzeczenia(pacjentID, dataOrzeczenia) {
+      console.log('siema submitDataOrzeczenia')
+      console.log(dataOrzeczenia)
+      console.log(pacjentID)
+      apiService.submitDataOrzeczenia(pacjentID, dataOrzeczenia)
     },
 
     getCounter() {
