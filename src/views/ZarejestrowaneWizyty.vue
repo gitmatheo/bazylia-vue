@@ -95,12 +95,12 @@
 
         <div
           v-if="wizyty && !isLoading"
-          @click="getVisitsWithMissingDate"
+          @click="getIncompleteVisits"
           getclass="orzeczenia"
         >
-          Brak daty orzeczenia
+          Niezakończone
           <span class="counter-badge" :style="badgeStyles">
-            {{ brakOrzeczenia }}</span
+            {{ incompleteCounter }}</span
           >
         </div>
       </div>
@@ -150,9 +150,6 @@
                     color="error"
                     >error_outline</v-icon
                   >
-
-                  <!-- <v-icon size="35px" color="success">check</v-icon>
-                  <v-icon size="35px" color="error">error_outline</v-icon> -->
 
                   <span>Szczegóły</span>
                 </div>
@@ -205,24 +202,6 @@
                         ></v-date-picker>
                       </v-menu>
                     </li>
-
-                    <li>
-                      Decyzja:
-                      <v-select
-                        v-model="wizyta.pacjent.decyzja"
-                        :items="decyzje"
-                        menu-props="auto"
-                        label="Wybierz decyzje"
-                        prepend-icon="map"
-                        return-object
-                        @change="
-                          submitDecyzja(
-                            wizyta.pacjent.pacjentId,
-                            wizyta.pacjent.decyzja.label
-                          )
-                        "
-                      ></v-select>
-                    </li>
                   </ul>
                 </div>
                 <div class="wizyta__details-col">
@@ -246,6 +225,24 @@
                   </ul>
                 </div>
               </div>
+              <div>
+                Decyzja:
+                {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
+                <v-select
+                  v-model="wizyta.pacjent.decyzja"
+                  :items="decyzje"
+                  menu-props="auto"
+                  label="Wybierz decyzje"
+                  prepend-icon="map"
+                  return-object
+                  @change="
+                    submitDecyzja(
+                      wizyta.pacjent.pacjentId,
+                      wizyta.pacjent.decyzja.label
+                    )
+                  "
+                ></v-select>
+              </div>
               <my-button
                 v-if="!wizyta.faktura"
                 color="error"
@@ -257,7 +254,6 @@
             </v-card>
           </v-expansion-panel-content>
         </v-expansion-panel>
-        <!-- <pre><code> {{selected}} </code></pre> -->
       </v-card-text>
       <div class="pagination">
         <v-pagination
@@ -276,13 +272,13 @@
 
 <script lang="ts">
 import apiService from '@/services/apiService.js'
-// import { DecyzjaEnum } from '@/enums/Decyzja.ts'
-import { decyzje } from '@/constants/constants'
+import { decyzje, decyzje2 } from '@/constants/constants'
 
 export default {
   data: () => ({
     isLoading: true,
     wizyty: null,
+    incompleteCounter: null,
     decyzja: '',
     decyzje: [],
     selectedTypWizyty: '',
@@ -299,17 +295,14 @@ export default {
   }),
   mounted: function() {
     this.getAllWizyty()
-    // this.getCounter()
-    console.log('Siema z mounded1')
+    this.getCounter()
+
     // this.updatevisibleVisits()
     // console.log('Siema z mounted2')
     this.decyzje = decyzje
-    console.log('DECYZJA')
-    console.log(this.decyzje)
   },
   methods: {
     deleteWizyta(id) {
-      console.log('aaaaa')
       apiService.deleteWizyta(id).then(() => {
         this.getAllWizyty()
       })
@@ -331,50 +324,29 @@ export default {
       apiService.submitDecyzja(pacjentID, decyzja)
     },
     submitDataOrzeczenia(pacjentID, dataOrzeczenia) {
-      console.log('siema submitDataOrzeczenia')
-      console.log(dataOrzeczenia)
-      console.log(pacjentID)
       apiService.submitDataOrzeczenia(pacjentID, dataOrzeczenia)
     },
 
     getCounter() {
       console.log('getCounter step 1 ')
-      apiService
-        .getCounter()
-        .then(response => {
-          console.log('Siema counter')
-          console.log(response)
-        })
-        .catch(err => {
-          console.log('Errorrrr')
-          console.log(err)
-        })
+      apiService.getCounter().then(response => {
+        this.incompleteCounter = response.data.counter
+      })
     },
 
-    getVisitsWithMissingDate() {
-      console.log('getVisitsWithMissingDate step 1 ')
-      apiService
-        .getVisitsWithMissingDate()
-        .then(response => {
-          console.log('Siema getVisitsWithMissingDate')
-          console.log(response)
-        })
-        .catch(err => {
-          console.log('Errorrrr getVisitsWithMissingDate')
-          console.log(err)
-        })
+    mapDecyzjaLabelToText(decyzjaLabel) {
+      return decyzje2[decyzjaLabel]
+    },
+
+    getIncompleteVisits() {
+      apiService.getIncompleteVisits().then(response => {
+        this.saveVisits(response)
+      })
     },
 
     getWizytyByDate(startDate, endDate) {
       apiService.getWizytyByDate(startDate, endDate).then(response => {
-        console.log(response.data)
-        if (response.data.length) {
-          this.$store.commit('GET_ALL_WIZYTY_FROM_DB', response.data)
-          this.wizyty = this.$store.getters.getAllWizyty
-          this.isLoading = false
-        } else {
-          this.brakDanychMessage = 'Brak danych w bazie'
-        }
+        this.saveVisits(response)
       })
     },
 
@@ -387,16 +359,18 @@ export default {
         }
       })
     },
-
+    saveVisits(response) {
+      if (response.data.length) {
+        this.$store.commit('GET_ALL_WIZYTY_FROM_DB', response.data)
+        this.wizyty = this.$store.getters.getAllWizyty
+        this.isLoading = false
+      } else {
+        this.brakDanychMessage = 'Brak danych w bazie'
+      }
+    },
     getAllWizyty() {
       apiService.getWizyty().then(response => {
-        if (response.data.length) {
-          this.$store.commit('GET_ALL_WIZYTY_FROM_DB', response.data)
-          this.wizyty = this.$store.getters.getAllWizyty
-          this.isLoading = false
-        } else {
-          this.brakDanychMessage = 'Brak danych w bazie'
-        }
+        this.saveVisits(response)
       })
     }
   },

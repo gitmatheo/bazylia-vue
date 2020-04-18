@@ -49,3 +49,20 @@ export const decyzje = [
     label: 'DECYZJA35'
   }
 ]
+
+export const decyzje2 = {
+  DECYZJA21:
+    'DECYZJA21 - wobec braku przeciwwskazań zdrowotnych zdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
+  DECYZJA22:
+    'DECYZJA22 - wobec przeciwwskazań zdrowotnych niezdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
+  DECYZJA23:
+    'DECYZJA23 - wobec przeciwwskazań zdrowotnych utracił zdolność do wykonywania dotychczasowej pracy',
+  DECYZJA31:
+    'DECYZJA31 - niezdolny do wykonywania dotychczasowej pracy ze względu na szkodliwy wpływ wykonywanej pracy na zdrowie',
+  DECYZJA33:
+    'DECYZJA33 - niezdolny do wykonywania dotychczasowej pracy ze względu na zagrożenie zdrowia młodocianego',
+  DECYZJA34:
+    'DECYZJA34 - niezdolny do wykonywania dotychczasowej pracy ze względu na podejrzenie powstania choroby zawodowej',
+  DECYZJA35:
+    'DECYZJA35 - niezdolny do wykonywania dotychczasowej pracy ze względu na chorobę zawodową lub skutki wypadku przy pracy'
+}

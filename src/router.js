@@ -58,10 +58,16 @@ const router = new Router({
       component: () => import('./views/AddPatient.vue')
     },
     {
-      path: '/rozliczenia',
+      path: '/rozliczenia/medycyna-pracy',
       name: 'Rozliczenia',
       beforeEnter: guardMyroute,
       component: () => import('./views/Rozliczenia.vue')
+    },
+    {
+      path: '/rozliczenia/specjalistyka',
+      name: 'RozliczeniaSpecjalistyka',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/RozliczeniaSpecjalistyka.vue')
     },
     {
       path: '/specjalistyka',

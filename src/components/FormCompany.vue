@@ -184,11 +184,6 @@
               >
             </v-flex>
           </v-layout>
-
-          <!-- <h2>companyToAdd</h2>
-          <pre><code>{{companyToAdd}}</code></pre>
-          <h2>firma</h2>
-          <pre><code>{{wizyta}}</code></pre> -->
         </v-form>
       </v-flex>
     </v-layout>

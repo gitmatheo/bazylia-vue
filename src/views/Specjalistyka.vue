@@ -91,7 +91,6 @@
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
-    <pre><code>{{wizyta}}</code></pre>
   </v-container>
   <!-- </div> -->
 </template>

@@ -55,18 +55,14 @@ export default {
       .then(() => router.push({ path: '/success' }))
       .catch(() => router.push({ path: '/error' }))
   },
-  getRozliczenia() {
-    return axios.get(`${API.url}/rozliczenia/medycyna-pracy`)
+  getRozliczenia(type) {
+    return axios.get(`${API.url}/rozliczenia/${type}`)
   },
   getCounter() {
-    //TODO
-    console.log('getCounter step 2 ')
-    return axios.get(`${API.url}/wizyty/missing-date/counter`)
+    return axios.get(`${API.url}/wizyty/incomplete/counter`)
   },
-  getVisitsWithMissingDate() {
-    //TODO
-    console.log(' getVisitsWithMissingDate step 2 ')
-    return axios.get(`${API.url}/wizyty/missing-date`)
+  getIncompleteVisits() {
+    return axios.get(`${API.url}/wizyty/incomplete`)
   },
 
   submitDecyzja(pacjentID, decyzja) {

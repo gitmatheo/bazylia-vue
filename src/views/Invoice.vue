@@ -111,7 +111,6 @@
           </v-data-table>
         </v-flex>
       </v-layout>
-      <!-- <pre><code>{{faktura.uslugi}}</code></pre> -->
 
       <v-layout row justify-end py-5>
         <v-flex xs5>
@@ -132,6 +131,16 @@
           </p>
           <p>Podpis osoby upoważnionej do odbioru dokumentu</p>
         </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container class="container">
+      <v-layout row justify-center>
+        <my-button fontColor="black" to="/rozliczenia" color="white"
+          >Wstecz</my-button
+        >
+        <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
+        <!-- <my-button fontColor="white" color="#20CE99">Wyślij fakture</my-button> -->
+        <my-button fontColor="white" color="black">Specyfikacja</my-button>
       </v-layout>
     </v-container>
   </v-app>
