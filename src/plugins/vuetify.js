@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import pl from 'vuetify/es5/locale/pl' //javascript
+// import pl from 'vuetify/src/locale/pl' //typescript
 
 Vue.use(Vuetify, {
   iconfont: 'md',
@@ -14,5 +16,9 @@ Vue.use(Vuetify, {
     indigo: '#8F3985',
     customWhite: '#F0F7F4',
     backgroundLight: 'F6F9FC'
+  },
+  lang: {
+    locales: { pl },
+    current: 'pl'
   }
 })

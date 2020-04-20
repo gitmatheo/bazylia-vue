@@ -113,6 +113,7 @@
               <v-date-picker
                 v-model="doZafakturowania.dataFaktury"
                 no-title
+                locale="pl-PL"
                 @input="menu = false"
               ></v-date-picker>
             </v-menu>
@@ -146,6 +147,7 @@
                 <v-date-picker
                   v-model="doZafakturowania.dataSprzedazy"
                   no-title
+                  locale="pl-PL"
                   @input="menu2 = false"
                 ></v-date-picker>
               </v-menu>

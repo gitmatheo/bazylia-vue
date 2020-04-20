@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 import './plugins/vuetify'
 import App from './App.vue'
 import axios from 'axios'
@@ -14,27 +15,29 @@ import Loader from '@/components/Loader'
 Vue.component('MyButton', MyButton)
 Vue.component('Loader', Loader)
 
+Vue.use(VueI18n)
+
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(
-  function (config) {
+  function(config) {
     config.withCredentials = true
     store.commit('LOADER', true)
     return config
   },
-  function (error) {
+  function(error) {
     store.commit('LOADER', false)
     return Promise.reject(error)
   }
 )
 
 axios.interceptors.response.use(
-  function (response) {
+  function(response) {
     console.log('3')
     store.commit('LOADER', false)
     return response
   },
-  function (error) {
+  function(error) {
     if (error.response.status == 401) {
       if (router.history.current.path == '/login') {
         store.commit('SAVE_ERROR_DATA', error)
@@ -55,5 +58,5 @@ axios.interceptors.response.use(
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount('#app')

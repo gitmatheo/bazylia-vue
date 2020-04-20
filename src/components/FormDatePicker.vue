@@ -29,6 +29,7 @@
           <v-date-picker
             v-model="date"
             no-title
+            locale="pl-PL"
             @input="menu2 = false"
           ></v-date-picker>
         </v-menu>
@@ -64,6 +65,7 @@
             v-if="menu3"
             v-model="time"
             full-width
+            locale="pl-PL"
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
         </v-menu>

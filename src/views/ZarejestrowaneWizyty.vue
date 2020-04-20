@@ -25,6 +25,7 @@
           <v-date-picker
             v-model="startDate"
             no-title
+            locale="pl-PL"
             @input="dateMenu1 = false"
           ></v-date-picker>
         </v-menu>
@@ -52,6 +53,7 @@
           <v-date-picker
             v-model="endDate"
             no-title
+            locale="pl-PL"
             @input="dateMenu2 = false"
           ></v-date-picker>
         </v-menu>
@@ -192,6 +194,7 @@
                         <v-date-picker
                           v-model="wizyta.pacjent.dataOrzeczenia"
                           no-title
+                          locale="pl-PL"
                           @input="
                             wizyta.pacjent.dataOrzeczeniaMenu = false
                             submitDataOrzeczenia(
