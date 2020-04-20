@@ -14,25 +14,36 @@
             <span>Nazwisko:</span> <span>{{ patient.nazwisko }}</span>
           </p>
           <p>
-            <span>PESEL:</span> <span>{{ patient.pesel }}</span>
+            <span>PESEL:</span> <span>{{ patient.pesel || 'brak' }}</span>
           </p>
           <p>
-            <span>Numer karty:</span> <span>{{ patient.numerKarty }}</span>
+            <span>Numer karty:</span>
+            <span>{{ patient.numerKarty || 'brak' }}</span>
           </p>
           <p>
-            <span>Ulica:</span> <span>{{ patient.ulica }}</span>
+            <span>Ulica:</span> <span>{{ patient.ulica || 'brak' }}</span>
           </p>
           <p>
-            <span>Miasto:</span> <span>{{ patient.miasto }}</span>
+            <span>Miasto:</span> <span>{{ patient.miasto || 'brak' }}</span>
           </p>
           <p>
-            <span>Kod pocztowy:</span> <span>{{ patient.kodPocztowy }}</span>
+            <span>Kod pocztowy:</span>
+            <span>{{ patient.kodPocztowy || 'brak' }}</span>
           </p>
           <p>
-            <span>Telefon:</span> <span>{{ patient.numerTelefonu }}</span>
+            <span>Telefon:</span>
+            <span>{{ patient.numerTelefonu || 'brak' }}</span>
           </p>
           <p>
-            <span>NIP:</span> <span>{{ patient.NIP }}</span>
+            <span>NIP:</span> <span>{{ patient.NIP || 'brak' }}</span>
+          </p>
+          <p>
+            <span>Stanowisko</span>
+            <span>{{ patient.stanowisko || 'brak' }}</span>
+          </p>
+          <p>
+            <span>Nazwa pracodawcy:</span>
+            <span>{{ patient.nazwaPracodawcy || 'brak' }}</span>
           </p>
         </div>
 
@@ -71,12 +82,12 @@ export default {
 
 <style lang="scss">
 .wrapper {
-  width: 500px;
+  width: 600px;
   height: fit-content;
   background: white;
   position: fixed;
-  top: calc(50% - 250px);
-  left: calc(50% - 200px);
+  top: calc(50% - 402px);
+  left: calc(50% - 300px);
   display: flex;
   flex-direction: column;
   justify-content: center;

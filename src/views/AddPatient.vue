@@ -80,6 +80,13 @@
               required
             ></v-text-field>
           </div>
+          <div class="form__input-wrapper">
+            <v-text-field
+              v-model="pacjent.nazwaPracodawcy"
+              label="Nazwa Pracodawcy"
+              required
+            ></v-text-field>
+          </div>
         </v-layout>
       </v-form>
       <v-card-actions>
@@ -126,6 +133,7 @@ export default {
       numerTelefonu: '',
       nip: '',
       stanowisko: '',
+      nazwaPracodawcy: '',
       dataOrzeczenia: null
     },
     fromDateMenu: false,
