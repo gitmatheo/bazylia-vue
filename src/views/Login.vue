@@ -2,45 +2,43 @@
   <v-container row justify-center>
     <div class="login-wrapper">
       <h1>Zaloguj się.</h1>
+      <form @submit.prevent="handleSubmit(login, password)">
+        <div class="form__input-wrapper">
+          <v-text-field
+            v-model="login"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.requiredLogin]"
+            label="Login"
+            outlined
+            rounded
+            data-cy="username"
+            @click:append="show1 = !show1"
+          ></v-text-field>
+        </div>
 
-      <div class="form__input-wrapper">
-        <v-text-field
-          v-model="login"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.requiredLogin]"
-          name="input-10-1"
-          label="Login"
-          hint="At least 8 characters"
-          outlined
-          rounded
-          data-cy="username"
-          @click:append="show1 = !show1"
-        ></v-text-field>
-      </div>
+        <div class="form__input-wrapper">
+          <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.requiredPass, rules.min]"
+            :type="show1 ? 'text' : 'password'"
+            label="Hasło"
+            outlined
+            rounded
+            data-cy="password"
+            @click:append="show1 = !show1"
+          ></v-text-field>
+        </div>
 
-      <div class="form__input-wrapper">
-        <v-text-field
-          v-model="password"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.requiredPass, rules.min]"
-          :type="show1 ? 'text' : 'password'"
-          name="input-10-1"
-          label="Hasło"
-          hint="At least 8 characters"
-          outlined
-          rounded
-          data-cy="password"
-          @click:append="show1 = !show1"
-        ></v-text-field>
-      </div>
-
-      <my-button
-        color="#20CE99"
-        fontColor="white"
-        data-cy="submit"
-        @click.native="loginek(login, password)"
-        >Zaloguj</my-button
-      >
+        <my-button
+          color="#20CE99"
+          fontColor="white"
+          data-cy="submit"
+          type="submit"
+          @click.native="handleSubmit(login, password)"
+          >Zaloguj</my-button
+        >
+      </form>
     </div>
   </v-container>
 </template>
@@ -62,7 +60,7 @@ export default {
   }),
   methods: {
     ...mapMutations(['AUTHENTICATE_USER']),
-    loginek(login, password) {
+    handleSubmit(login, password) {
       apiService.login(login, password).then(res => {
         localStorage.setItem('ROLE', `${res.data.roles[0]}`)
         localStorage.setItem('isAuthenticated', true)
