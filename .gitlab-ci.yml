@@ -23,6 +23,7 @@ deploy_job:
   stage: deploy
   tags:
     - laptop
+    - docker
   only:
     - master
   script:
