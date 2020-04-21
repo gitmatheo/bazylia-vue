@@ -7,11 +7,11 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
+    "test:jest": "jest",
     "lint": "vue-cli-service lint",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "storybook": "start-storybook",
-    "test": "jest"
+    "storybook": "start-storybook"
   },
   "dependencies": {
     "axios": "^0.19.0",

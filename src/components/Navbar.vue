@@ -12,12 +12,14 @@
     <v-tab
       :class="{ active: path == '/rozliczenia/medycyna-pracy' }"
       to="/rozliczenia/medycyna-pracy"
+      v-if="userRole == 'ROLE_ADMIN'"
       >Rozliczenia Medycyna Pracy
     </v-tab>
 
     <v-tab
       :class="{ active: path == '/rozliczenia/specjalistyka' }"
       to="/rozliczenia/specjalistyka"
+      v-if="userRole == 'ROLE_ADMIN'"
       >Rozliczenia Specjalistyka</v-tab
     >
     <v-spacer></v-spacer>
@@ -33,7 +35,8 @@ export default {
   data: () => ({
     isActive: true,
     path: '/',
-    isAuthenticated: false
+    isAuthenticated: false,
+    userRole: null
   }),
   watch: {
     $route(to, from) {
@@ -46,7 +49,10 @@ export default {
     logout() {
       apiService.logout().then(() => {
         localStorage.clear()
-        this.$store.commit('AUTHENTICATE_USER', false)
+        this.$store.commit('AUTHENTICATE_USER', {
+          isAuthenticated: false,
+          role: null
+        })
         this.$router.push({ path: '/login' })
       })
     }
@@ -55,7 +61,8 @@ export default {
     this.isAuthenticated = localStorage.getItem('isAuthenticated')
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'AUTHENTICATE_USER') {
-        this.isAuthenticated = state.isAuthenticated
+        this.isAuthenticated = state.user.isAuthenticated
+        this.userRole = state.user.role
       }
     })
   }

@@ -22,7 +22,10 @@ export default new Vuex.Store({
       path: 'e',
       snackBarMessage: ''
     },
-    isAuthenticated: false,
+    user: {
+      isAuthenticated: false,
+      role: null
+    },
     patients: [],
     wizyta: {
       pacjent: {
@@ -84,8 +87,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    AUTHENTICATE_USER: (state, isAuthenticated) => {
-      state.isAuthenticated = isAuthenticated
+    AUTHENTICATE_USER: (state, user) => {
+      state.user = user
+      console.log('AUTH ELO')
+      console.log(state.user)
     },
     // RESET_WIZYTA: state => {
     //   state.wizyta = {
