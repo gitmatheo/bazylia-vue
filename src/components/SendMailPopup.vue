@@ -1,25 +1,24 @@
 <template>
   <div class="text-xs-center">
-    <my-button @click.native="dialog = true" color="error">
+    <my-button @click.native="dialog = true" color="info">
       <slot></slot>
     </my-button>
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="headline grey lighten-3" primary-title
-          >Czy na pewno chcesz usunąć pacjenta?
+          >Czy na pewno chcesz wysłać fakturę?
           <v-icon class="icon-close" right @click="dialog = false"
             >close</v-icon
           ></v-card-title
         >
         <v-card-text>
-          <div>Imię: {{ patient.imie }}</div>
-          <div>Nazwisko: {{ patient.nazwisko }}</div>
-          <div>PESEL: {{ patient.pesel }}</div>
+          <div>
+            Faktura zostanie wysłana na adres: {{ faktura.firma.email }}
+          </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="actions">
           <v-spacer></v-spacer>
-
           <my-button
             fontColor="black"
             color="white"
@@ -28,11 +27,11 @@
           >
           <my-button
             fontColor="white"
-            color="#F44336"
-            @click.native="deletePatient(patient)"
-            >Usuń Pacjenta
+            color="info"
+            @click.native="sendMail(faktura.fakturaId)"
+            >Wyślij
             <v-icon class="icon-close" right @click="dialog = false"
-              >delete</v-icon
+              >email</v-icon
             ></my-button
           >
         </v-card-actions>
@@ -42,30 +41,25 @@
 </template>
 
 <script>
-import { typWizytyConst } from '../constants/constants'
 import apiService from '@/services/apiService.js'
 
 export default {
-  props: ['patient', 'color'],
+  props: ['faktura', 'color'],
   data() {
     return {
-      dialog: false,
-      typWizytyConst: typWizytyConst
+      dialog: false
     }
   },
   methods: {
-    deletePatient(patient) {
+    sendMail(fakturaId) {
       this.loaderDialog = true
       apiService
-        .deletePatient(patient.pacjentId)
+        .sendMail(fakturaId)
         .then(() => {
           this.loaderDialog = false
           this.dialog = false
-        })
-        .then(() => console.log('oopsie'))
+        });
     }
   }
 }
 </script>
-
-<style lang="scss"></style>

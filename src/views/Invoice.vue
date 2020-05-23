@@ -139,7 +139,12 @@
           >Wstecz</my-button
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-        <!-- <my-button fontColor="white" color="#20CE99">Wyślij fakture</my-button> -->
+        <SendMailPopup v-if="faktura.firma.email != null && faktura.firma.email != ''" :faktura="faktura">
+          Email
+          <v-icon class="icon-close" right @click="dialog = false">
+            email
+          </v-icon>
+        </SendMailPopup>
         <my-button
           @click.native="openSpecification(faktura.fakturaId)"
           fontColor="white"
@@ -154,8 +159,12 @@
 <script>
 import apiService from '@/services/apiService.js'
 import slownie from '../utils/slownie.js'
+import SendMailPopup from '../components/SendMailPopup'
 
 export default {
+  components: {
+    SendMailPopup
+  },
   data() {
     return {
       headers: [
