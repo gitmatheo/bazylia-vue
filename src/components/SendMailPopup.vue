@@ -37,6 +37,25 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="dialogSuccess" width="500">
+      <v-card>
+        <v-card-text>
+          <div>
+            <center>Faktura została wysłana!</center>
+          </div>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="actions">
+          <v-spacer></v-spacer>
+          <my-button
+            fontColor="black"
+            color="success"
+            @click.native="dialogSuccess = false"
+            >OK</my-button
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -47,18 +66,16 @@ export default {
   props: ['faktura', 'color'],
   data() {
     return {
-      dialog: false
+      dialog: false,
+      dialogSuccess: false
     }
   },
   methods: {
     sendMail(fakturaId) {
-      this.loaderDialog = true
-      apiService
-        .sendMail(fakturaId)
-        .then(() => {
-          this.loaderDialog = false
-          this.dialog = false
-        });
+      apiService.sendMail(fakturaId).then(() => {
+        this.dialog = false
+        this.dialogSuccess = true
+      })
     }
   }
 }
