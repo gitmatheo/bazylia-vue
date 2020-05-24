@@ -139,12 +139,21 @@
           >Wstecz</my-button
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-        <SendMailPopup v-if="faktura.firma.email != null && faktura.firma.email != ''" :faktura="faktura">
-          Email
+        <SendMailPopup
+          v-if="faktura.firma.email != null && faktura.firma.email != ''"
+          :faktura="faktura"
+          >Email
           <v-icon class="icon-close" right @click="dialog = false">
             email
           </v-icon>
         </SendMailPopup>
+        <my-button
+          @click.native="downloadPdf(faktura.fakturaId)"
+          fontColor="white"
+          color="info"
+          >Zapisz PDF
+          <v-icon>description</v-icon>
+        </my-button>
         <my-button
           @click.native="openSpecification(faktura.fakturaId)"
           fontColor="white"
@@ -276,6 +285,9 @@ export default {
       console.log('Hello openSpecification')
       console.log(fakturaId)
       this.$router.push({ path: `/specyfikacja/${fakturaId}` })
+    },
+    downloadPdf(fakturaId) {
+      apiService.getPdf(fakturaId)
     }
   },
   computed: {
