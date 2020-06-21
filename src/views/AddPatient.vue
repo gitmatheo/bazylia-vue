@@ -34,57 +34,47 @@
             <v-text-field
               v-model="pacjent.numerKarty"
               label="Numer Karty"
-              required
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
-            <v-text-field
-              v-model="pacjent.ulica"
-              label="Ulica"
-              required
-            ></v-text-field>
+            <v-text-field v-model="pacjent.ulica" label="Ulica"></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.miasto"
               label="Miasto"
-              required
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.kodPocztowy"
               label="Kod-Pocztowy"
-              required
+              :rules="postCodeRules"
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.numerTelefonu"
               label="Numer Telefonu"
-              required
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.nip"
               label="NIP"
-              placeholder="xxx-xxx-xx-xx"
-              required
+              :rules="nipRules"
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.stanowisko"
               label="Stanowisko"
-              required
             ></v-text-field>
           </div>
           <div class="form__input-wrapper">
             <v-text-field
               v-model="pacjent.nazwaPracodawcy"
               label="Nazwa Pracodawcy"
-              required
             ></v-text-field>
           </div>
         </v-layout>
@@ -113,6 +103,11 @@
 import { mapMutations, mapActions } from 'vuex'
 import apiService from '@/services/apiService.js'
 import PatientAddedPopup from '@/components/PatientAddedPopup'
+import {
+  isValidNip,
+  isValidPesel,
+  isValidPostCode
+} from '@/utils/validators.js'
 
 export default {
   components: {
@@ -139,7 +134,17 @@ export default {
     fromDateMenu: false,
     nameRules: [v => !!v || 'Imię jest wymagane'],
     secondNameRules: [v => !!v || 'Nazwisko jest wymagane'],
-    peselRules: [v => !!v || 'PESEL jest wymagany']
+    peselRules: [
+      v => !!v || 'PESEL jest wymagany',
+      v => isValidPesel(v) || 'Niepoprawny PESEL'
+    ],
+    nipRules: [v => v == '' || isValidNip(v) || 'Niepoprawny NIP'],
+    postCodeRules: [
+      v =>
+        v == '' ||
+        isValidPostCode(v) ||
+        'Wprowadź kod pocztowy w formacie XX-XXX np. 95-100'
+    ]
   }),
   computed: {
     fromDateDisp() {

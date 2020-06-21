@@ -54,8 +54,7 @@ export default {
     password: '',
     rules: {
       requiredLogin: value => !!value || 'Login jest wymagany.',
-      requiredPass: value => !!value || 'Hasło jest wymagane.',
-      min: v => v.length >= 8 || 'Min 8 characters'
+      requiredPass: value => !!value || 'Hasło jest wymagane.'
     }
   }),
   methods: {

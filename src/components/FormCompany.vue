@@ -145,7 +145,7 @@
             <div class="form__input-wrapper">
               <v-text-field
                 label="Kod-Pocztowy"
-                :rules="rules.zipCode"
+                :rules="rules.postCode"
                 v-model="companyToAdd.kodPocztowy"
               ></v-text-field>
             </div>
@@ -193,6 +193,11 @@
 <script>
 import { mapMutations } from 'vuex'
 import apiService from '@/services/apiService.js'
+import {
+  isValidNip,
+  isValidPostCode,
+  isValidEmail
+} from '@/utils/validators.js'
 
 export default {
   data: () => ({
@@ -225,12 +230,18 @@ export default {
       name: [v => !!v || 'Nazwa firmy jest wymagana'],
       street: [v => !!v || 'Ulica jest wymagana'],
       city: [v => !!v || 'Miasto jest wymagane'],
-      zipCode: [v => !!v || 'Kod-pocztowy jest wymagany'],
-      nip: [v => !!v || 'NIP jest wymagany'],
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Niepoprawny e-mail'
-      }
+      postCode: [
+        v => !!v || 'Kod-pocztowy jest wymagany',
+        v =>
+          v == '' ||
+          isValidPostCode(v) ||
+          'Wprowadź kod pocztowy w formacie XX-XXX np. 95-100'
+      ],
+      nip: [
+        v => !!v || 'NIP jest wymagany',
+        v => v == '' || isValidNip(v) || 'Niepoprawny NIP'
+      ],
+      email: [value => isValidEmail(value) || 'Niepoprawny e-mail']
     }
   }),
   methods: {
