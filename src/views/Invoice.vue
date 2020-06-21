@@ -67,15 +67,15 @@
           <h2>Nabywca</h2>
           <p>
             <br />
-            {{ faktura.firma.nazwa }}
+            {{ faktura.platnik.nazwa }}
             <br />
             <span>ul.</span>
-            {{ faktura.firma.ulica }}
+            {{ faktura.platnik.ulica }}
             <br />
-            {{ faktura.firma.kodPocztowy }}, {{ faktura.firma.miasto }}
+            {{ faktura.platnik.kodPocztowy }}, {{ faktura.platnik.miasto }}
             <br />
             <span>NIP:</span>
-            {{ faktura.firma.nip }}
+            {{ faktura.platnik.nip }}
           </p>
         </v-flex>
       </v-layout>
@@ -140,7 +140,7 @@
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
         <SendMailPopup
-          v-if="faktura.firma.email != null && faktura.firma.email != ''"
+          v-if="faktura.platnik.email != null && faktura.platnik.email != ''"
           :faktura="faktura"
           >Email
           <v-icon class="icon-close" right @click="dialog = false">
