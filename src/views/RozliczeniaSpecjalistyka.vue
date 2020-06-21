@@ -171,8 +171,6 @@
         </v-container>
       </v-card>
     </v-dialog>
-
-    <pre><code> {{doZafakturowania}} </code></pre>
   </v-container>
 </template>
 

@@ -57,7 +57,6 @@
           </ul>
         </v-layout>
       </div>
-      <!-- <pre>{{ faktura }}</pre> -->
     </v-container>
     <v-container class="container">
       <v-layout row justify-center>
