@@ -40,7 +40,8 @@ export default new Vuex.Store({
         numerTelefonu: '',
         nip: '',
         stanowisko: '',
-        dataOrzeczenia: null
+        dataOrzeczenia: null,
+        firma: null
       },
       typWizyty: '',
       rodzajBadan: null,
