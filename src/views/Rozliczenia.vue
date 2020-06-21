@@ -28,38 +28,47 @@
                   ></v-checkbox>
                 </div>
               </div>
-
               <ul>
                 <li
-                  class="patient__list-element"
-                  v-for="(pacjent, i) in rozliczenie.pacjenci"
-                  :key="i"
+                  v-for="miesiac in rozliczenie.miesiace"
+                  :key="miesiac.miesiac"
                 >
-                  <div>
-                    {{ pacjent.pacjent.imie }}
-                    {{ pacjent.pacjent.nazwisko }}
-                  </div>
+                  <h3>{{ miesiac.miesiac }}</h3>
+                  <ul>
+                    <li
+                      class="patient__list-element"
+                      v-for="(pacjent, i) in miesiac.pacjenci"
+                      :key="i"
+                    >
+                      <div>
+                        {{ pacjent.pacjent.imie }}
+                        {{ pacjent.pacjent.nazwisko }}
+                      </div>
 
-                  <ul class="patient__service">
-                    <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
-                      <div class="patient__service-desc">
-                        <span
-                          >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
-                        </span>
-                        &nbsp; - &nbsp;
-                        <span> {{ wizyta.usluga.nazwa }}</span>
-                      </div>
-                      <div class="patient__checkbox">
-                        <v-checkbox
-                          v-model="selected"
-                          :value="wizyta.wizytaId"
-                          :label="'Zaznacz'"
-                          @change="updateWizytyDoZafakturowania"
-                        ></v-checkbox>
-                      </div>
+                      <ul class="patient__service">
+                        <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
+                          <div class="patient__service-desc">
+                            <span
+                              >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
+                            </span>
+                            &nbsp; - &nbsp;
+                            <span> {{ wizyta.usluga.nazwa }}</span>
+                          </div>
+                          <div class="patient__checkbox">
+                            <v-checkbox
+                              v-model="selected"
+                              :value="wizyta.wizytaId"
+                              :label="'Zaznacz'"
+                              @change="updateWizytyDoZafakturowania"
+                            ></v-checkbox>
+                          </div>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </li>
+
+                <li></li>
               </ul>
             </v-card>
           </v-expansion-panel-content>
@@ -220,6 +229,7 @@ export default {
       if (response.data.length) {
         this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
         this.rozliczenia = this.$store.getters.getAllRozliczenia
+        console.log(this.rozliczenia)
         this.isLoading = false
       } else {
         this.brakDanychMessage = 'Brak danych w bazie'
@@ -236,13 +246,16 @@ export default {
       this.doZafakturowania.wizyty = this.selected
     },
     select(rozliczenie) {
+      console.log(rozliczenie)
       this.selected = []
       this.doZafakturowania.wizyty = []
       if (this.selectAll) {
-        rozliczenie.pacjenci.map(pacjent => {
-          pacjent.wizyty.map(wizyta => {
-            this.selected.push(wizyta.wizytaId)
-            this.doZafakturowania.wizyty = this.selected
+        rozliczenie.miesiace.map(miesiac => {
+          miesiac.pacjenci.map(pacjent => {
+            pacjent.wizyty.map(wizyta => {
+              this.selected.push(wizyta.wizytaId)
+              this.doZafakturowania.wizyty = this.selected
+            })
           })
         })
       }
