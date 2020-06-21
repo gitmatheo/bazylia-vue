@@ -300,8 +300,6 @@ export default {
     this.getAllWizyty()
     this.getCounter()
 
-    // this.updatevisibleVisits()
-    // console.log('Siema z mounted2')
     this.decyzje = decyzje
   },
   methods: {
@@ -324,7 +322,6 @@ export default {
     },
 
     getCounter() {
-      console.log('getCounter step 1 ')
       apiService.getCounter().then(response => {
         this.incompleteCounter = response.data.counter
       })

@@ -40,7 +40,6 @@ export default {
   }),
   watch: {
     $route(to, from) {
-      console.log(from)
       this.path = to.path
     }
   },

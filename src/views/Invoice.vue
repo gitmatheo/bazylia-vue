@@ -282,8 +282,6 @@ export default {
     //   document.body.innerHTML = originalContents;
     // }
     openSpecification(fakturaId) {
-      console.log('Hello openSpecification')
-      console.log(fakturaId)
       this.$router.push({ path: `/specyfikacja/${fakturaId}` })
     },
     downloadPdf(fakturaId) {

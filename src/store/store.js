@@ -89,8 +89,6 @@ export default new Vuex.Store({
   mutations: {
     AUTHENTICATE_USER: (state, user) => {
       state.user = user
-      console.log('AUTH ELO')
-      console.log(state.user)
     },
     // RESET_WIZYTA: state => {
     //   state.wizyta = {

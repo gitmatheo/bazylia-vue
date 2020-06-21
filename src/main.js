@@ -33,7 +33,6 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   function(response) {
-    console.log('3')
     store.commit('LOADER', false)
     return response
   },

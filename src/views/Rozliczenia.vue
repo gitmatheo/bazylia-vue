@@ -229,7 +229,6 @@ export default {
       if (response.data.length) {
         this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
         this.rozliczenia = this.$store.getters.getAllRozliczenia
-        console.log(this.rozliczenia)
         this.isLoading = false
       } else {
         this.brakDanychMessage = 'Brak danych w bazie'
@@ -246,7 +245,6 @@ export default {
       this.doZafakturowania.wizyty = this.selected
     },
     select(rozliczenie) {
-      console.log(rozliczenie)
       this.selected = []
       this.doZafakturowania.wizyty = []
       if (this.selectAll) {
