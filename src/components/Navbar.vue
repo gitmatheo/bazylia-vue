@@ -24,7 +24,7 @@
     >
     <v-spacer></v-spacer>
     <v-tab v-if="isAuthenticated" @click="logout" class="wyloguj">
-      Wyloguj
+      Wyloguj&nbsp;
       <span class="username"><v-icon>person</v-icon>{{ username }}</span>
     </v-tab>
   </v-toolbar>
@@ -78,11 +78,10 @@ export default {
 .wyloguj {
   .v-tabs__item {
     display: flex;
-    flex-direction: column;
     justify-content: flex-end;
     .username {
       color: black;
-      font-size: 11px;
+      font-size: 13px;
       display: flex;
       align-items: center;
       .v-icon {
