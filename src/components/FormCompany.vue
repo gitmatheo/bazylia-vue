@@ -22,37 +22,41 @@
           <li>
             Nazwa:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.nazwa
+              selection == 1 ? lastCompany.nazwa : wizyta.pacjent.firma.nazwa
             }}</span>
           </li>
           <li>
             Ulica:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.ulica
+              selection == 1 ? lastCompany.ulica : wizyta.pacjent.firma.ulica
             }}</span>
           </li>
           <li>
             Miasto:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.miasto
+              selection == 1 ? lastCompany.miasto : wizyta.pacjent.firma.miasto
             }}</span>
           </li>
           <li>
             Kod-Pocztowy:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.kodPocztowy
+              selection == 1
+                ? lastCompany.kodPocztowy
+                : wizyta.pacjent.firma.kodPocztowy
             }}</span>
           </li>
           <li>
             NIP:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.nip
+              selection == 1 ? lastCompany.nip : wizyta.pacjent.firma.nip
             }}</span>
           </li>
           <li v-if="wizyta.pacjent.firma.ryczalt">
             Ryczałt:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.ryczalt
+              selection == 1
+                ? lastCompany.ryczalt
+                : wizyta.pacjent.firma.ryczalt
             }}</span>
           </li>
         </ul>
@@ -206,6 +210,7 @@ export default {
     pageSize: 10,
     visibleCompanies: [],
     companies: [],
+    lastCompany: null,
     companyToAdd: {
       firmaId: '',
       nazwa: '',
@@ -218,7 +223,6 @@ export default {
     },
     firma: {},
     selection: 1,
-    selectedCompany: null,
     nameSearch: '',
     NIPSearch: '',
     isFormValid: true,
@@ -262,7 +266,10 @@ export default {
           this.updateVisibleCompanies()
         })
       }
-      this.selectedCompany = selection
+
+      if (selection == 1) {
+        this.UPDATE_PATIENT_COMPANY(this.lastCompany)
+      }
     },
 
     updateVisibleCompanies() {
@@ -289,6 +296,7 @@ export default {
   mounted: function() {
     this.companies = this.$store.getters.getCompanies
     this.wizyta = this.$store.getters.getWizyta
+    this.lastCompany = this.wizyta.pacjent.firma
   },
   computed: {
     filteredCompanies: function() {
