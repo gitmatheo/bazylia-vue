@@ -123,7 +123,7 @@
           </v-flex>
         </v-layout>
 
-        <v-form v-if="selection == 3" v-model="isFormValid">
+        <v-form v-if="selection == 3 && !companyAdded" v-model="isFormValid">
           <h2 class="headline">Dodaj Firmę</h2>
           <v-layout class="form__container">
             <div class="form__input-wrapper">
@@ -206,6 +206,7 @@ import {
 
 export default {
   data: () => ({
+    companyAdded: false,
     currentPage: 1,
     pageSize: 10,
     visibleCompanies: [],
@@ -270,6 +271,10 @@ export default {
       if (selection == 1) {
         this.UPDATE_PATIENT_COMPANY(this.lastCompany)
       }
+
+      if (selection == 3) {
+        this.companyAdded = false
+      }
     },
 
     updateVisibleCompanies() {
@@ -289,6 +294,18 @@ export default {
           /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
         )[0]
         this.getCompany(firmaId)
+        this.companyAdded = true
+        this.selection = null
+        this.companyToAdd = {
+          firmaId: '',
+          nazwa: '',
+          ulica: '',
+          miasto: '',
+          kodPocztowy: '',
+          nip: '',
+          email: '',
+          ryczalt: 0
+        }
       })
     }
   },
