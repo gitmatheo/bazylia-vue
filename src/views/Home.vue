@@ -145,6 +145,12 @@ export default {
   },
   created() {
     this.getPatients()
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'DELETE_PATIENT') {
+        this.patients = state.patients
+        this.updatevisiblePatients()
+      }
+    })
   }
 }
 </script>

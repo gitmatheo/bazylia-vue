@@ -61,6 +61,7 @@ export default {
         .then(() => {
           this.loaderDialog = false
           this.dialog = false
+          this.$store.commit('DELETE_PATIENT', patient.pacjentId)
         })
         .then(() => console.log('oopsie'))
     }

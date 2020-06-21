@@ -119,6 +119,11 @@ export default new Vuex.Store({
     //     faktura: ''
     //   }
     // },
+    DELETE_PATIENT(state, pacjentId) {
+      state.patients = state.patients.filter(
+        pacjent => pacjent.pacjentId != pacjentId
+      )
+    },
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
       state.wizyta.pacjent = pacjent
     },
