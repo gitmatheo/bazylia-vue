@@ -24,7 +24,8 @@ export default new Vuex.Store({
     },
     user: {
       isAuthenticated: false,
-      role: null
+      role: null,
+      username: null
     },
     patients: [],
     wizyta: {
@@ -89,6 +90,9 @@ export default new Vuex.Store({
 
   mutations: {
     AUTHENTICATE_USER: (state, user) => {
+      console.log('AUTHENTICATE USER')
+      console.log(user)
+
       state.user = user
     },
     // RESET_WIZYTA: state => {

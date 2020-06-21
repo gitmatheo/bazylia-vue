@@ -23,7 +23,10 @@
       >Rozliczenia Specjalistyka</v-tab
     >
     <v-spacer></v-spacer>
-    <v-tab v-if="isAuthenticated" @click="logout">Wyloguj</v-tab>
+    <v-tab v-if="isAuthenticated" @click="logout" class="wyloguj">
+      Wyloguj
+      <span class="username"><v-icon>person</v-icon>{{ username }}</span>
+    </v-tab>
   </v-toolbar>
 </template>
 
@@ -59,10 +62,12 @@ export default {
   mounted() {
     this.isAuthenticated = localStorage.getItem('isAuthenticated')
     this.userRole = localStorage.getItem('ROLE')
+    this.username = localStorage.getItem('username')
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'AUTHENTICATE_USER') {
         this.isAuthenticated = state.user.isAuthenticated
         this.userRole = state.user.role
+        this.username = state.user.username
       }
     })
   }
@@ -70,6 +75,24 @@ export default {
 </script>
 
 <style lang="scss">
+.wyloguj {
+  .v-tabs__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    .username {
+      color: black;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      .v-icon {
+        font-size: 16px;
+        color: black;
+      }
+    }
+  }
+}
+
 template nav {
   background: white;
 }

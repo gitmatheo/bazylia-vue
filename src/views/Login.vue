@@ -63,9 +63,11 @@ export default {
       apiService.login(login, password).then(res => {
         localStorage.setItem('ROLE', `${res.data.roles[0]}`)
         localStorage.setItem('isAuthenticated', true)
+        localStorage.setItem('username', res.data.username)
         this.$router.push({ path: '/' })
         this.$store.commit('AUTHENTICATE_USER', {
           isAuthenticated: true,
+          username: res.data.username,
           role: res.data.roles[0]
         })
       })
