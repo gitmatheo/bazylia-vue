@@ -262,7 +262,7 @@
         <v-pagination
           v-model="currentPage"
           :page="currentPage + 1"
-          :length="selectedWizyty.length / pageSize + 1"
+          :length="Math.floor(visibleVisits.length / pageSize + 1)"
           @click.native="updatevisibleVisits"
         ></v-pagination>
       </div>
@@ -310,17 +310,10 @@ export default {
         this.getAllWizyty()
       })
     },
-    updatePage(pageNumber) {
-      this.currentPage = pageNumber
-      this.updatevisibleVisits()
-    },
     updatevisibleVisits() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
       this.visibleVisits = this.selectedWizyty.slice(begin, end) //
-      if (this.visibleVisits.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
-      }
     },
 
     submitDecyzja(pacjentID, decyzja) {

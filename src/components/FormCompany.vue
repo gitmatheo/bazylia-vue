@@ -109,9 +109,10 @@
             </v-expansion-panels>
             <div class="pagination">
               <v-pagination
+                v-if="filteredCompanies.length"
                 v-model="currentPage"
-                :page="currentPage + 1"
-                :length="companies.length / pageSize + 1"
+                :page="currentPage"
+                :length="Math.floor(filteredCompanies.length / pageSize + 1)"
                 @click.native="updateVisibleCompanies"
               ></v-pagination>
             </div>
@@ -264,17 +265,10 @@ export default {
       this.selectedCompany = selection
     },
 
-    updatePage(pageNumber) {
-      this.currentPage = pageNumber
-      this.updateVisibleCompanies()
-    },
     updateVisibleCompanies() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
-      this.visibleCompanies = this.filteredCompanies.slice(begin, end) //
-      if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
-      }
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
     },
 
     selectCompany(index) {
