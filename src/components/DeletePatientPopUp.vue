@@ -6,7 +6,7 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="headline grey lighten-3" primary-title
-          >Czy napewno chcesz usunąć pacjenta?
+          >Czy na pewno chcesz usunąć pacjenta?
           <v-icon class="icon-close" right @click="dialog = false"
             >close</v-icon
           ></v-card-title

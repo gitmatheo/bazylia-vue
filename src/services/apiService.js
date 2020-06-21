@@ -100,5 +100,26 @@ export default {
   },
   logout() {
     return axios.get(`${API.url}/logout`)
+  },
+  sendMail(invoiceId) {
+    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`)
+  },
+  getPdf(invoiceId) {
+    return axios
+      .get(`${API.url}/faktury/${invoiceId}/export`, {
+        responseType: 'blob'
+      })
+      .then(response => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a')
+        var filename = response.headers['content-disposition']
+          .split('filename=')[1]
+          .split('"')
+          .join('')
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', filename)
+        document.body.appendChild(fileLink)
+        fileLink.click()
+      })
   }
 }
