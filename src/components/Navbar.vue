@@ -59,6 +59,7 @@ export default {
   },
   mounted() {
     this.isAuthenticated = localStorage.getItem('isAuthenticated')
+    this.userRole = localStorage.getItem('ROLE')
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'AUTHENTICATE_USER') {
         this.isAuthenticated = state.user.isAuthenticated
