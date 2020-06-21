@@ -13,7 +13,7 @@
         >
         <v-card-text>
           <div>
-            Faktura zostanie wysłana na adres: {{ faktura.firma.email }}
+            Faktura zostanie wysłana na adres: {{ faktura.platnik.email }}
           </div>
         </v-card-text>
         <v-divider></v-divider>

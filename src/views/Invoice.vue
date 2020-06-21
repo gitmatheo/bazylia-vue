@@ -139,9 +139,7 @@
           >Wstecz</my-button
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-        <SendMailPopup
-          v-if="faktura.platnik.email != null && faktura.platnik.email != ''"
-          :faktura="faktura"
+        <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
           >Email
           <v-icon class="icon-close" right @click="dialog = false">
             email
@@ -208,7 +206,7 @@ export default {
       faktura: {
         fakturaId: '41a19660-f72d-45b1-a881-5c09fa1022e9',
         nrFaktury: '324/2020/F',
-        firma: {
+        platnik: {
           firmaId: '9aba4d00-d551-4dfe-9df0-551e8312a7d3',
           nazwa: "Mc Donald's",
           ulica: 'Armii Krajowej 123',
