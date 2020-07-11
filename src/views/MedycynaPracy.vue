@@ -97,7 +97,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="4">
-          <FormUsluga title="Medycyna pracy" />
+          <FormUsluga title="Medycyna pracy" type="medycyna-pracy" />
           <div class="btns">
             <my-button
               text

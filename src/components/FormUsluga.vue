@@ -40,7 +40,7 @@ import { mapMutations } from 'vuex'
 import apiService from '@/services/apiService.js'
 
 export default {
-  props: ['title'],
+  props: ['title', 'type'],
   data: () => ({
     radioGroup: [],
     patientForReg: {},
@@ -50,7 +50,7 @@ export default {
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg
-    apiService.getUslugi().then(res => (this.uslugi = res.data))
+    apiService.getUslugi(this.type).then(res => (this.uslugi = res.data))
   },
   computed: {
     filteredUslugi() {

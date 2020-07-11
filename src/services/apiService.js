@@ -85,8 +85,8 @@ export default {
   getSpecification(invoiceID) {
     return axios.get(`${API.url}/faktury/${invoiceID}/specyfikacja`)
   },
-  getUslugi() {
-    return axios.get(`${API.url}/uslugi`)
+  getUslugi(type) {
+    return axios.get(`${API.url}/uslugi/${type}`)
   },
   login(login, pass) {
     var encodedBase64String = btoa(`${login}:${pass}`)
