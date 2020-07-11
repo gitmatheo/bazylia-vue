@@ -106,9 +106,11 @@ li {
   padding: 22px 10px;
 }
 
-.accent--text {
-  color: #20ce99 !important;
-  caret-color: #20ce99 !important;
+.v-input {
+  .accent--text {
+    color: #20ce99 !important;
+    caret-color: #20ce99 !important;
+  }
 }
 
 // ==== custom RADIO BUTTONS START ====
