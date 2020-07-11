@@ -32,6 +32,15 @@
           </div>
           <div class="form__input-wrapper">
             <v-text-field
+              v-model="pacjent.email"
+              label="email"
+              :rules="emailRules"
+              :counter="5"
+              required
+            ></v-text-field>
+          </div>
+          <div class="form__input-wrapper">
+            <v-text-field
               v-model="pacjent.numerKarty"
               label="Numer Karty"
             ></v-text-field>
@@ -106,7 +115,8 @@ import PatientAddedPopup from '@/components/PatientAddedPopup'
 import {
   isValidNip,
   isValidPesel,
-  isValidPostCode
+  isValidPostCode,
+  isValidEmail
 } from '@/utils/validators.js'
 
 export default {
@@ -144,7 +154,8 @@ export default {
         v == '' ||
         isValidPostCode(v) ||
         'Wprowadź kod pocztowy w formacie XX-XXX np. 95-100'
-    ]
+    ],
+    emailRules: [value => isValidEmail(value) || 'Niepoprawny e-mail']
   }),
   computed: {
     fromDateDisp() {
