@@ -64,219 +64,226 @@
           >Pobierz wizyty wg. daty</my-button
         >
       </div>
-      <div class="title-wrapper">
-        <h2>Zarejestrowane Wizyty</h2>
 
-        <div class="typ-wizyty">
-          <v-chip
-            class="ma-2 chip"
-            :class="selectedTypWizyty == '' ? 'chip--active' : 'chip'"
-            @click="selectedTypWizyty = ''"
+      <div v-if="!brakDanychMessage" class="visits-wrapper">
+        <div class="title-wrapper">
+          <h2>Zarejestrowane Wizyty</h2>
+
+          <div class="typ-wizyty">
+            <v-chip
+              class="ma-2 chip"
+              :class="selectedTypWizyty == '' ? 'chip--active' : 'chip'"
+              @click="selectedTypWizyty = ''"
+            >
+              Wszystkie
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              :class="
+                selectedTypWizyty == 'MEDYCYNA_PRACY' ? 'chip--active' : 'chip'
+              "
+              @click="selectedTypWizyty = 'MEDYCYNA_PRACY'"
+            >
+              Medycyna-pracy
+            </v-chip>
+            <v-chip
+              class="ma-2"
+              :class="
+                selectedTypWizyty == 'SPECJALISTYKA' ? 'chip--active' : 'chip'
+              "
+              @click="selectedTypWizyty = 'SPECJALISTYKA'"
+            >
+              Specjalistyka
+            </v-chip>
+          </div>
+
+          <div
+            v-if="wizyty && !isLoading"
+            @click="getIncompleteVisits"
+            class="orzeczenia"
           >
-            Wszystkie
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            :class="
-              selectedTypWizyty == 'MEDYCYNA_PRACY' ? 'chip--active' : 'chip'
-            "
-            @click="selectedTypWizyty = 'MEDYCYNA_PRACY'"
-          >
-            Medycyna-pracy
-          </v-chip>
-          <v-chip
-            class="ma-2"
-            :class="
-              selectedTypWizyty == 'SPECJALISTYKA' ? 'chip--active' : 'chip'
-            "
-            @click="selectedTypWizyty = 'SPECJALISTYKA'"
-          >
-            Specjalistyka
-          </v-chip>
+            Niezakończone
+            <span class="counter-badge" :style="badgeStyles">
+              {{ incompleteCounter }}</span
+            >
+          </div>
         </div>
 
-        <div
-          v-if="wizyty && !isLoading"
-          @click="getIncompleteVisits"
-          class="orzeczenia"
-        >
-          Niezakończone
-          <span class="counter-badge" :style="badgeStyles">
-            {{ incompleteCounter }}</span
+        <Loader v-if="isLoading" />
+        <v-card-text v-if="wizyty && !isLoading">
+          <button
+            v-if="!isAscending"
+            class="sort-btn"
+            @click="sortVisitsByDate('ascending')"
           >
-        </div>
-      </div>
+            <v-icon> keyboard_arrow_up</v-icon>Sortuj od najstarszych
+          </button>
 
-      <Loader v-if="isLoading" />
-      <v-card-text v-if="wizyty && !isLoading">
-        <button
-          v-if="!isAscending"
-          class="sort-btn"
-          @click="sortVisitsByDate('ascending')"
-        >
-          <v-icon> keyboard_arrow_up</v-icon>Sortuj od najstarszych
-        </button>
-
-        <button v-if="isAscending" class="sort-btn" @click="sortVisitsByDate()">
-          <v-icon> keyboard_arrow_down</v-icon>Sortuj od najnowszych
-        </button>
-        <v-expansion-panel my-2 class="patient elevation-0">
-          <v-expansion-panel-content
-            v-for="(wizyta, i) in visibleVisits"
-            :key="i"
+          <button
+            v-if="isAscending"
+            class="sort-btn"
+            @click="sortVisitsByDate()"
           >
-            <template v-slot:header>
-              <div class="wizyta__header">
-                <div class="col1">
-                  {{ wizyta.dataWizyty | moment('DD-MM-YYYY') }}
-                  -
-                  {{ wizyta.pacjent.imie }}
-                  {{ wizyta.pacjent.nazwisko }}
-                  -
-                  {{ wizyta.usluga.nazwa }}
-                </div>
+            <v-icon> keyboard_arrow_down</v-icon>Sortuj od najnowszych
+          </button>
+          <v-expansion-panel my-2 class="patient elevation-0">
+            <v-expansion-panel-content
+              v-for="(wizyta, i) in visibleVisits"
+              :key="i"
+            >
+              <template v-slot:header>
+                <div class="wizyta__header">
+                  <div class="col1">
+                    {{ wizyta.dataWizyty | moment('DD-MM-YYYY') }}
+                    -
+                    {{ wizyta.pacjent.imie }}
+                    {{ wizyta.pacjent.nazwisko }}
+                    -
+                    {{ wizyta.usluga.nazwa }}
+                  </div>
 
-                <div class="col2">
-                  <v-icon
-                    v-if="
-                      wizyta.pacjent.decyzjaUpdated &&
-                        wizyta.pacjent.dataOrzeczeniaUpdated
-                    "
-                    size="35px"
-                    color="success"
-                    >check</v-icon
-                  >
-                  <v-icon
-                    v-if="
-                      !(
+                  <div class="col2">
+                    <v-icon
+                      v-if="
                         wizyta.pacjent.decyzjaUpdated &&
-                        wizyta.pacjent.dataOrzeczeniaUpdated
+                          wizyta.pacjent.dataOrzeczeniaUpdated
+                      "
+                      size="35px"
+                      color="success"
+                      >check</v-icon
+                    >
+                    <v-icon
+                      v-if="
+                        !(
+                          wizyta.pacjent.decyzjaUpdated &&
+                          wizyta.pacjent.dataOrzeczeniaUpdated
+                        )
+                      "
+                      size="35px"
+                      color="error"
+                      >error_outline</v-icon
+                    >
+
+                    <span>Szczegóły</span>
+                  </div>
+                </div>
+              </template>
+              <v-card>
+                <div class="wizyta__details">
+                  <div class="wizyta__details-col">
+                    <h3>Pacjent</h3>
+                    <ul>
+                      <li>Imie: {{ wizyta.pacjent.imie }}</li>
+                      <li>Nazwisko: {{ wizyta.pacjent.nazwisko }}</li>
+                      <li>Pesel: {{ wizyta.pacjent.pesel }}</li>
+                      <li>Telefon: {{ wizyta.pacjent.numerTelefonu }}</li>
+                      <li>Numer karty: {{ wizyta.pacjent.numerKarty }}</li>
+                      <li>
+                        Data orzeczenia:
+
+                        <v-menu
+                          v-model="wizyta.pacjent.dataOrzeczeniaMenu"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          lazy
+                          transition="scale-transition"
+                          offset-y
+                          full-width
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on }">
+                            <v-text-field
+                              v-model="wizyta.pacjent.dataOrzeczenia"
+                              class="date-input"
+                              prepend-icon="event"
+                              height="20px"
+                              readonly
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="wizyta.pacjent.dataOrzeczenia"
+                            no-title
+                            locale="pl-PL"
+                            @input="
+                              wizyta.pacjent.dataOrzeczeniaMenu = false
+                              submitDataOrzeczenia(
+                                wizyta.pacjent.pacjentId,
+                                wizyta.pacjent.dataOrzeczenia
+                              )
+                            "
+                          ></v-date-picker>
+                        </v-menu>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="wizyta__details-col">
+                    <h3>Usługa</h3>
+                    <ul>
+                      <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
+                      <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
+                      <li>Typ badań: {{ wizyta.rodzajBadan }}</li>
+                    </ul>
+                  </div>
+                  <div class="wizyta__details-col" v-if="wizyta.pacjent.firma">
+                    <h3>Firma</h3>
+                    <ul>
+                      <li>Nazwa: {{ wizyta.pacjent.firma.nazwa }}</li>
+                      <li>Ulica: {{ wizyta.pacjent.firma.ulica }}</li>
+                      <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
+                      <li>
+                        Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}
+                      </li>
+                      <li>NIP: {{ wizyta.nip }}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <span class="decyzja">Decyzja:</span>
+                  {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
+                  <v-select
+                    v-model="wizyta.pacjent.decyzja"
+                    :items="decyzje"
+                    menu-props="auto"
+                    label="Wybierz decyzje"
+                    prepend-icon="map"
+                    return-object
+                    @change="
+                      submitDecyzja(
+                        wizyta.pacjent.pacjentId,
+                        wizyta.pacjent.decyzja.label
                       )
                     "
-                    size="35px"
-                    color="error"
-                    >error_outline</v-icon
-                  >
-
-                  <span>Szczegóły</span>
+                  ></v-select>
                 </div>
-              </div>
-            </template>
-            <v-card>
-              <div class="wizyta__details">
-                <div class="wizyta__details-col">
-                  <h3>Pacjent</h3>
-                  <ul>
-                    <li>Imie: {{ wizyta.pacjent.imie }}</li>
-                    <li>Nazwisko: {{ wizyta.pacjent.nazwisko }}</li>
-                    <li>Pesel: {{ wizyta.pacjent.pesel }}</li>
-                    <li>Telefon: {{ wizyta.pacjent.numerTelefonu }}</li>
-                    <li>Numer karty: {{ wizyta.pacjent.numerKarty }}</li>
-                    <li>
-                      Data orzeczenia:
-
-                      <v-menu
-                        v-model="wizyta.pacjent.dataOrzeczeniaMenu"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        lazy
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        min-width="290px"
-                      >
-                        <template v-slot:activator="{ on }">
-                          <v-text-field
-                            v-model="wizyta.pacjent.dataOrzeczenia"
-                            class="date-input"
-                            prepend-icon="event"
-                            height="20px"
-                            readonly
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          v-model="wizyta.pacjent.dataOrzeczenia"
-                          no-title
-                          locale="pl-PL"
-                          @input="
-                            wizyta.pacjent.dataOrzeczeniaMenu = false
-                            submitDataOrzeczenia(
-                              wizyta.pacjent.pacjentId,
-                              wizyta.pacjent.dataOrzeczenia
-                            )
-                          "
-                        ></v-date-picker>
-                      </v-menu>
-                    </li>
-                  </ul>
-                </div>
-                <div class="wizyta__details-col">
-                  <h3>Usługa</h3>
-                  <ul>
-                    <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
-                    <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
-                    <li>Typ badań: {{ wizyta.rodzajBadan }}</li>
-                  </ul>
-                </div>
-                <div class="wizyta__details-col" v-if="wizyta.pacjent.firma">
-                  <h3>Firma</h3>
-                  <ul>
-                    <li>Nazwa: {{ wizyta.pacjent.firma.nazwa }}</li>
-                    <li>Ulica: {{ wizyta.pacjent.firma.ulica }}</li>
-                    <li>Miasto: {{ wizyta.pacjent.firma.miasto }}</li>
-                    <li>
-                      Kod-pocztowy: {{ wizyta.pacjent.firma.kodPocztowy }}
-                    </li>
-                    <li>NIP: {{ wizyta.nip }}</li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <span class="decyzja">Decyzja:</span>
-                {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
-                <v-select
-                  v-model="wizyta.pacjent.decyzja"
-                  :items="decyzje"
-                  menu-props="auto"
-                  label="Wybierz decyzje"
-                  prepend-icon="map"
-                  return-object
-                  @change="
-                    submitDecyzja(
-                      wizyta.pacjent.pacjentId,
-                      wizyta.pacjent.decyzja.label
-                    )
-                  "
-                ></v-select>
-              </div>
-              <my-button
-                v-if="!wizyta.faktura"
-                color="error"
-                fontColor="white"
-                height="35px"
-                @click.native="deleteWizyta(wizyta.wizytaId)"
-                >Usuń wizytę</my-button
-              >
-            </v-card>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-card-text>
-      <div class="pagination">
-        <v-pagination
-          v-model="currentPage"
-          :page="currentPage"
-          :length="
-            Math.floor(
-              filteredVisibleWizyty.length % pageSize == 0
-                ? filteredVisibleWizyty.length / pageSize
-                : filteredVisibleWizyty.length / pageSize + 1
-            )
-          "
-          @click.native="updatevisibleVisits"
-        ></v-pagination>
+                <my-button
+                  v-if="!wizyta.faktura"
+                  color="error"
+                  fontColor="white"
+                  height="35px"
+                  @click.native="deleteWizyta(wizyta.wizytaId)"
+                  >Usuń wizytę</my-button
+                >
+              </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-card-text>
+        <div class="pagination">
+          <v-pagination
+            v-model="currentPage"
+            :page="currentPage"
+            :length="
+              Math.floor(
+                filteredVisibleWizyty.length % pageSize == 0
+                  ? filteredVisibleWizyty.length / pageSize
+                  : filteredVisibleWizyty.length / pageSize + 1
+              )
+            "
+            @click.native="updatevisibleVisits"
+          ></v-pagination>
+        </div>
       </div>
-      <v-card-text v-if="brakDanychMessage">{{
+      <v-card-text class="no-results-msg" v-if="brakDanychMessage">{{
         brakDanychMessage
       }}</v-card-text>
     </div>
@@ -369,12 +376,15 @@ export default {
       })
     },
     saveVisits(response) {
+      console.log('Elooo')
+      console.log(response.data.length)
       if (response.data.length) {
         this.$store.commit('GET_ALL_WIZYTY_FROM_DB', response.data)
         this.wizyty = this.$store.getters.getAllWizyty
         this.isLoading = false
+        this.brakDanychMessage = null
       } else {
-        this.brakDanychMessage = 'Brak danych w bazie'
+        this.brakDanychMessage = 'Nie znaleziono wizyt dla podanego zakresu dat'
       }
     },
     getAllWizyty() {
@@ -526,5 +536,11 @@ export default {
       }
     }
   }
+}
+
+.no-results-msg {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
 }
 </style>
