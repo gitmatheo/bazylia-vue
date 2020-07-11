@@ -330,8 +330,6 @@ export default {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
 
-      console.log('Elo')
-      console.log(begin + 'aaaaaa' + end)
       this.visibleVisits = this.selectedWizyty.slice(begin, end)
     },
 

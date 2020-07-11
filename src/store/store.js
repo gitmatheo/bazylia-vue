@@ -83,6 +83,9 @@ export default new Vuex.Store({
     getFaktura: state => {
       return state.faktura
     },
+    getAllInvoices: state => {
+      return state.invoices
+    },
     getIsAuthenticated: state => {
       return state.isAuthenticated
     }
@@ -155,6 +158,9 @@ export default new Vuex.Store({
     },
     GET_ALL_ROZLICZENIA_FROM_DB: (state, rozliczenia) => {
       state.rozliczenia = rozliczenia
+    },
+    GET_ALL_INVOICES_FROM_DB: (state, invoices) => {
+      state.invoices = invoices
     },
     GET_ALL_WIZYTY_FROM_DB: (state, wizyty) => {
       state.wizyty = wizyty

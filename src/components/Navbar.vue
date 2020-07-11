@@ -22,6 +22,13 @@
       v-if="userRole == 'ROLE_ADMIN'"
       >Rozliczenia Specjalistyka</v-tab
     >
+
+    <v-tab
+      :class="{ active: path == '/fakury' }"
+      to="/faktury"
+      v-if="userRole == 'ROLE_ADMIN'"
+      >Faktury</v-tab
+    >
     <v-spacer></v-spacer>
     <v-tab v-if="isAuthenticated" @click="logout" class="wyloguj">
       Wyloguj&nbsp;
