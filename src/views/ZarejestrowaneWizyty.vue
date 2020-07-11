@@ -98,7 +98,7 @@
         <div
           v-if="wizyty && !isLoading"
           @click="getIncompleteVisits"
-          getclass="orzeczenia"
+          class="orzeczenia"
         >
           Niezakończone
           <span class="counter-badge" :style="badgeStyles">
@@ -109,11 +109,16 @@
 
       <Loader v-if="isLoading" />
       <v-card-text v-if="wizyty && !isLoading">
-        <button class="sort-btn" @click="sortVisitsByDate('ascending')">
-          Sortuj od najnowszych
+        <button
+          v-if="!isAscending"
+          class="sort-btn"
+          @click="sortVisitsByDate('ascending')"
+        >
+          <v-icon> keyboard_arrow_up</v-icon>Sortuj od najstarszych
         </button>
-        <button class="sort-btn" @click="sortVisitsByDate()">
-          Sortuj od najstarszych
+
+        <button v-if="isAscending" class="sort-btn" @click="sortVisitsByDate()">
+          <v-icon> keyboard_arrow_down</v-icon>Sortuj od najnowszych
         </button>
         <v-expansion-panel my-2 class="patient elevation-0">
           <v-expansion-panel-content
@@ -169,7 +174,6 @@
                     <li>Numer karty: {{ wizyta.pacjent.numerKarty }}</li>
                     <li>
                       Data orzeczenia:
-                      {{ wizyta.pacjent.dataOrzeczenia || `BRAK` }}
 
                       <v-menu
                         v-model="wizyta.pacjent.dataOrzeczeniaMenu"
@@ -185,8 +189,8 @@
                           <v-text-field
                             v-model="wizyta.pacjent.dataOrzeczenia"
                             class="date-input"
-                            label="Data orzeczenia"
                             prepend-icon="event"
+                            height="20px"
                             readonly
                             v-on="on"
                           ></v-text-field>
@@ -229,7 +233,7 @@
                 </div>
               </div>
               <div>
-                Decyzja:
+                <span class="decyzja">Decyzja:</span>
                 {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
                 <v-select
                   v-model="wizyta.pacjent.decyzja"
@@ -279,6 +283,7 @@ import { decyzje, decyzje2 } from '@/constants/constants'
 
 export default {
   data: () => ({
+    isAscending: true,
     isLoading: true,
     wizyty: null,
     incompleteCounter: null,
@@ -346,8 +351,10 @@ export default {
     sortVisitsByDate(type) {
       this.wizyty.sort((a, b) => {
         if (type == 'ascending') {
+          this.isAscending = true
           return new Date(a.dataWizyty) - new Date(b.dataWizyty)
         } else {
+          this.isAscending = false
           return new Date(b.dataWizyty) - new Date(a.dataWizyty)
         }
       })
@@ -414,8 +421,13 @@ export default {
 }
 
 .sort-btn {
+  display: flex;
+  align-content: center;
   padding-right: 20px;
   cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }
 
 .v-chip.chip {
@@ -433,10 +445,13 @@ export default {
   padding: 0 16px;
 }
 .orzeczenia {
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(131, 44, 44, 0.2);
   border-radius: 50px;
   padding: 10px 20px;
   font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 
   .counter-badge {
     display: inline-flex;
@@ -450,7 +465,14 @@ export default {
     background: #f44336;
     margin-left: 10px;
     color: white;
+    font-weight: bold;
   }
+  &:hover {
+    background-color: #eee;
+  }
+}
+.decyzja {
+  font-size: 16px;
 }
 .wizyta {
   &__header {
