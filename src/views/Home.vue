@@ -57,13 +57,18 @@
       :filteredPatients="filteredPatients"
       :visiblePatients="visiblePatients"
     ></ListOfPatients>
-
     <div class="pagination">
       <v-pagination
         v-if="filteredPatients.length"
         v-model="currentPage"
         :page="currentPage"
-        :length="Math.floor(filteredPatients.length / pageSize + 1)"
+        :length="
+          Math.floor(
+            filteredPatients.length % pageSize == 0
+              ? filteredPatients.length / pageSize
+              : filteredPatients.length / pageSize + 1
+          )
+        "
         @click.native="updatevisiblePatients"
       ></v-pagination>
     </div>

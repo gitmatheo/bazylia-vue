@@ -116,7 +116,13 @@
                 v-if="filteredCompanies.length"
                 v-model="currentPage"
                 :page="currentPage"
-                :length="Math.floor(filteredCompanies.length / pageSize + 1)"
+                :length="
+                  Math.floor(
+                    filteredCompanies.length % pageSize == 0
+                      ? filteredCompanies.length / pageSize
+                      : filteredCompanies.length / pageSize + 1
+                  )
+                "
                 @click.native="updateVisibleCompanies"
               ></v-pagination>
             </div>

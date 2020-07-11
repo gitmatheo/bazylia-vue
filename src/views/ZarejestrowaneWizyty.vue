@@ -265,8 +265,14 @@
       <div class="pagination">
         <v-pagination
           v-model="currentPage"
-          :page="currentPage + 1"
-          :length="Math.floor(visibleVisits.length / pageSize + 1)"
+          :page="currentPage"
+          :length="
+            Math.floor(
+              filteredVisibleWizyty.length % pageSize == 0
+                ? filteredVisibleWizyty.length / pageSize
+                : filteredVisibleWizyty.length / pageSize + 1
+            )
+          "
           @click.native="updatevisibleVisits"
         ></v-pagination>
       </div>
@@ -298,7 +304,7 @@ export default {
     dataOrzeczenia: null,
     brakDanychMessage: null,
     currentPage: 1,
-    pageSize: 12, // bug jak jest pageSize ustawiony na 10 i jest rowno 100 wynikow z BE to paginacja dostaje o jeden nr za duzo.
+    pageSize: 10,
     visibleVisits: []
   }),
   mounted: function() {
@@ -316,7 +322,10 @@ export default {
     updatevisibleVisits() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
-      this.visibleVisits = this.selectedWizyty.slice(begin, end) //
+
+      console.log('Elo')
+      console.log(begin + 'aaaaaa' + end)
+      this.visibleVisits = this.selectedWizyty.slice(begin, end)
     },
 
     submitDecyzja(pacjentID, decyzja) {
@@ -397,6 +406,11 @@ export default {
       } else {
         return this.wizyty
       }
+    },
+    filteredVisibleWizyty() {
+      return this.selectedWizyty.filter(wizyta => {
+        return wizyta.typWizyty.match(this.selectedTypWizyty)
+      })
     }
   },
   watch: {
@@ -404,6 +418,7 @@ export default {
       this.updatevisibleVisits()
     },
     selectedWizyty: function() {
+      this.currentPage = 1
       this.updatevisibleVisits()
     }
   }
@@ -473,6 +488,14 @@ export default {
 }
 .decyzja {
   font-size: 16px;
+}
+
+.date-input {
+  .v-input__slot {
+    input {
+      padding-left: 0px !important;
+    }
+  }
 }
 .wizyta {
   &__header {

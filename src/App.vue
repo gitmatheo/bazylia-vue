@@ -230,7 +230,7 @@ li {
   }
   input {
     max-height: 48px !important;
-    /* padding-left: 30px !important; */
+    padding-left: 30px !important;
   }
 }
 
