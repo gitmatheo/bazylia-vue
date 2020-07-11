@@ -336,8 +336,11 @@ export default {
     submitDecyzja(pacjentID, decyzja) {
       apiService.submitDecyzja(pacjentID, decyzja)
     },
+
     submitDataOrzeczenia(pacjentID, dataOrzeczenia) {
-      apiService.submitDataOrzeczenia(pacjentID, dataOrzeczenia)
+      apiService.submitDataOrzeczenia(pacjentID, dataOrzeczenia).then(() => {
+        this.getCounter()
+      })
     },
 
     getCounter() {
