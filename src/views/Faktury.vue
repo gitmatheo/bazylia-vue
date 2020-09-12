@@ -56,20 +56,16 @@ export default {
   mounted: function() {
     const invoicesInStore = this.$store.getters.getAllInvoices
 
-    if (invoicesInStore) {
-      this.invoices = invoicesInStore
-    } else {
       apiService.getAllInvoices().then(response => {
         if (response.data.length) {
           this.$store.commit('GET_ALL_INVOICES_FROM_DB', response.data)
           this.invoices = this.$store.getters.getAllInvoices
           this.isLoading = false
+          this.updateVisibleVisits()
         } else {
           this.brakDanychMessage = 'Brak faktur w bazie'
         }
       })
-    }
-    this.updateVisibleVisits()
   },
   methods: {
     goToInvoice(fakturaId) {
