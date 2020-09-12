@@ -17,6 +17,9 @@
             <span>PESEL:</span> <span>{{ patient.pesel || 'brak' }}</span>
           </p>
           <p>
+            <span>email:</span> <span>{{ patient.email || 'brak' }}</span>
+          </p>
+          <p>
             <span>Numer karty:</span>
             <span>{{ patient.numerKarty || 'brak' }}</span>
           </p>

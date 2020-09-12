@@ -24,7 +24,8 @@ export default new Vuex.Store({
     },
     user: {
       isAuthenticated: false,
-      role: null
+      role: null,
+      username: null
     },
     patients: [],
     wizyta: {
@@ -40,7 +41,8 @@ export default new Vuex.Store({
         numerTelefonu: '',
         nip: '',
         stanowisko: '',
-        dataOrzeczenia: null
+        dataOrzeczenia: null,
+        firma: null
       },
       typWizyty: '',
       rodzajBadan: null,
@@ -81,6 +83,9 @@ export default new Vuex.Store({
     getFaktura: state => {
       return state.faktura
     },
+    getAllInvoices: state => {
+      return state.invoices
+    },
     getIsAuthenticated: state => {
       return state.isAuthenticated
     }
@@ -88,9 +93,10 @@ export default new Vuex.Store({
 
   mutations: {
     AUTHENTICATE_USER: (state, user) => {
+      console.log('AUTHENTICATE USER')
+      console.log(user)
+
       state.user = user
-      console.log('AUTH ELO')
-      console.log(state.user)
     },
     // RESET_WIZYTA: state => {
     //   state.wizyta = {
@@ -121,6 +127,11 @@ export default new Vuex.Store({
     //     faktura: ''
     //   }
     // },
+    DELETE_PATIENT(state, pacjentId) {
+      state.patients = state.patients.filter(
+        pacjent => pacjent.pacjentId != pacjentId
+      )
+    },
     UPDATE_PATIENT_FOR_REGISTRATION: (state, pacjent) => {
       state.wizyta.pacjent = pacjent
     },
@@ -147,6 +158,9 @@ export default new Vuex.Store({
     },
     GET_ALL_ROZLICZENIA_FROM_DB: (state, rozliczenia) => {
       state.rozliczenia = rozliczenia
+    },
+    GET_ALL_INVOICES_FROM_DB: (state, invoices) => {
+      state.invoices = invoices
     },
     GET_ALL_WIZYTY_FROM_DB: (state, wizyty) => {
       state.wizyty = wizyty

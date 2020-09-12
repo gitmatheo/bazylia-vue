@@ -57,12 +57,18 @@
       :filteredPatients="filteredPatients"
       :visiblePatients="visiblePatients"
     ></ListOfPatients>
-
     <div class="pagination">
       <v-pagination
+        v-if="filteredPatients.length"
         v-model="currentPage"
-        :page="currentPage + 1"
-        :length="patients.length / pageSize + 1"
+        :page="currentPage"
+        :length="
+          Math.floor(
+            filteredPatients.length % pageSize == 0
+              ? filteredPatients.length / pageSize
+              : filteredPatients.length / pageSize + 1
+          )
+        "
         @click.native="updatevisiblePatients"
       ></v-pagination>
     </div>
@@ -131,18 +137,10 @@ export default {
       })
     },
 
-    updatePage(pageNumber) {
-      this.currentPage = pageNumber
-      this.updatevisiblePatients()
-    },
-
     updatevisiblePatients() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
       this.visiblePatients = this.filteredPatients.slice(begin, end)
-      if (this.visiblePatients.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
-      }
     },
     getFilteredPatients() {
       this.patients = this.$store.getters.getPatients.filter(patient => {
@@ -152,6 +150,12 @@ export default {
   },
   created() {
     this.getPatients()
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'DELETE_PATIENT') {
+        this.patients = state.patients
+        this.updatevisiblePatients()
+      }
+    })
   }
 }
 </script>

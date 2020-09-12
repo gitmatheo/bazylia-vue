@@ -97,7 +97,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="4">
-          <FormUsluga title="Medycyna pracy" />
+          <FormUsluga title="Medycyna pracy" type="medycyna-pracy" />
           <div class="btns">
             <my-button
               text
@@ -159,6 +159,7 @@
         </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
+    <!-- <pre><code>{{wizyta}}</code></pre> -->
   </v-container>
 </template>
 
@@ -201,7 +202,8 @@ export default {
           numerTelefonu: '',
           nip: '',
           stanowisko: '',
-          dataOrzeczenia: null
+          dataOrzeczenia: null,
+          firma: ''
         },
         typWizyty: 'MEDYCYNA_PRACY',
         rodzajBadan: '',

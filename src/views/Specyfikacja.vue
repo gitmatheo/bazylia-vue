@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <v-container id="section-to-print" class="white container" my-5>
+    <v-container
+      v-if="faktura"
+      id="section-to-print"
+      class="white container"
+      my-5
+    >
       <div class="specyfikacja__wrapper">
         <v-layout row class="specyfikacja__headers">
           <h2>Zgierz, ??DATA??</h2>
@@ -23,7 +28,7 @@
           </ul>
 
           <ul
-            v-for="item in faktura"
+            v-for="item in faktura.specyfikacja"
             :key="item.pacjentId"
             class="list__patients"
           >
@@ -52,7 +57,6 @@
           </ul>
         </v-layout>
       </div>
-      <!-- <pre>{{ faktura }}</pre> -->
     </v-container>
     <v-container class="container">
       <v-layout row justify-center>

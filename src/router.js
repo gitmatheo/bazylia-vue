@@ -52,6 +52,12 @@ const router = new Router({
       component: () => import('./views/Invoice.vue')
     },
     {
+      path: '/faktury',
+      name: 'Faktury',
+      beforeEnter: guardMyroute,
+      component: () => import('./views/Faktury.vue')
+    },
+    {
       path: '/add-patient',
       name: 'AddPatient',
       beforeEnter: guardMyroute,

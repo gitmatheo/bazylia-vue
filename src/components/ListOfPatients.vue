@@ -97,13 +97,7 @@ export default {
     RegistrationPopUp,
     DeletePatientPopUp
   },
-  props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading'],
-  data: () => ({}),
-  watch: {
-    visiblePatients() {
-      console.log('The visiblePatients have changed!')
-    }
-  }
+  props: ['patients', 'filteredPatients', 'visiblePatients', 'isLoading']
 }
 </script>
 

@@ -28,38 +28,47 @@
                   ></v-checkbox>
                 </div>
               </div>
-
               <ul>
                 <li
-                  class="patient__list-element"
-                  v-for="(pacjent, i) in rozliczenie.pacjenci"
-                  :key="i"
+                  v-for="miesiac in rozliczenie.miesiace"
+                  :key="miesiac.miesiac"
                 >
-                  <div>
-                    {{ pacjent.pacjent.imie }}
-                    {{ pacjent.pacjent.nazwisko }}
-                  </div>
+                  <h3>{{ miesiac.miesiac }}</h3>
+                  <ul>
+                    <li
+                      class="patient__list-element"
+                      v-for="(pacjent, i) in miesiac.pacjenci"
+                      :key="i"
+                    >
+                      <div>
+                        {{ pacjent.pacjent.imie }}
+                        {{ pacjent.pacjent.nazwisko }}
+                      </div>
 
-                  <ul class="patient__service">
-                    <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
-                      <div class="patient__service-desc">
-                        <span
-                          >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
-                        </span>
-                        &nbsp; - &nbsp;
-                        <span> {{ wizyta.usluga.nazwa }}</span>
-                      </div>
-                      <div class="patient__checkbox">
-                        <v-checkbox
-                          v-model="selected"
-                          :value="wizyta.wizytaId"
-                          :label="'Zaznacz'"
-                          @change="updateWizytyDoZafakturowania"
-                        ></v-checkbox>
-                      </div>
+                      <ul class="patient__service">
+                        <li v-for="(wizyta, i) in pacjent.wizyty" :key="i">
+                          <div class="patient__service-desc">
+                            <span
+                              >{{ wizyta.dataWizyty | moment('MM-DD-YYYY') }}
+                            </span>
+                            &nbsp; - &nbsp;
+                            <span> {{ wizyta.usluga.nazwa }}</span>
+                          </div>
+                          <div class="patient__checkbox">
+                            <v-checkbox
+                              v-model="selected"
+                              :value="wizyta.wizytaId"
+                              :label="'Zaznacz'"
+                              @change="updateWizytyDoZafakturowania"
+                            ></v-checkbox>
+                          </div>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </li>
+
+                <li></li>
               </ul>
             </v-card>
           </v-expansion-panel-content>
@@ -185,7 +194,6 @@
         </v-container>
       </v-card>
     </v-dialog>
-    <pre><code> {{doZafakturowania}} </code></pre>
   </v-container>
 </template>
 
@@ -239,10 +247,12 @@ export default {
       this.selected = []
       this.doZafakturowania.wizyty = []
       if (this.selectAll) {
-        rozliczenie.pacjenci.map(pacjent => {
-          pacjent.wizyty.map(wizyta => {
-            this.selected.push(wizyta.wizytaId)
-            this.doZafakturowania.wizyty = this.selected
+        rozliczenie.miesiace.map(miesiac => {
+          miesiac.pacjenci.map(pacjent => {
+            pacjent.wizyty.map(wizyta => {
+              this.selected.push(wizyta.wizytaId)
+              this.doZafakturowania.wizyty = this.selected
+            })
           })
         })
       }
@@ -287,73 +297,6 @@ export default {
       flex-direction: initial;
       margin: 8px;
     }
-  }
-}
-
-.patient {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-  &__card {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__header {
-    display: flex;
-    padding: 0px;
-    justify-content: space-between;
-
-    &--bold {
-      font-weight: bold;
-    }
-  }
-
-  &__desc {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__desc-col {
-    padding-top: 2rem;
-    padding-left: 0px;
-
-    li {
-      display: flex;
-      padding-top: 8px;
-    }
-  }
-
-  &__btns {
-    display: flex;
-    padding: 10px 0px;
-  }
-
-  &__list-element {
-    margin: 20px 0 30px;
-  }
-
-  &__service {
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 40px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-      align-items: flex-end;
-      .patient__checkbox {
-        height: 40px;
-      }
-    }
-  }
-  &__service-desc {
-    /* width: 97%; */
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__details-element {
-    text-align: right;
-    padding-right: 3px;
   }
 }
 

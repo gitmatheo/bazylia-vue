@@ -22,37 +22,41 @@
           <li>
             Nazwa:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.nazwa
+              selection == 1 ? lastCompany.nazwa : wizyta.pacjent.firma.nazwa
             }}</span>
           </li>
           <li>
             Ulica:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.ulica
+              selection == 1 ? lastCompany.ulica : wizyta.pacjent.firma.ulica
             }}</span>
           </li>
           <li>
             Miasto:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.miasto
+              selection == 1 ? lastCompany.miasto : wizyta.pacjent.firma.miasto
             }}</span>
           </li>
           <li>
             Kod-Pocztowy:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.kodPocztowy
+              selection == 1
+                ? lastCompany.kodPocztowy
+                : wizyta.pacjent.firma.kodPocztowy
             }}</span>
           </li>
           <li>
             NIP:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.nip
+              selection == 1 ? lastCompany.nip : wizyta.pacjent.firma.nip
             }}</span>
           </li>
           <li v-if="wizyta.pacjent.firma.ryczalt">
             Ryczałt:
             <span class="font-weight-medium font-italic">{{
-              wizyta.pacjent.firma.ryczalt
+              selection == 1
+                ? lastCompany.ryczalt
+                : wizyta.pacjent.firma.ryczalt
             }}</span>
           </li>
         </ul>
@@ -109,16 +113,23 @@
             </v-expansion-panels>
             <div class="pagination">
               <v-pagination
+                v-if="filteredCompanies.length"
                 v-model="currentPage"
-                :page="currentPage + 1"
-                :length="companies.length / pageSize + 1"
+                :page="currentPage"
+                :length="
+                  Math.floor(
+                    filteredCompanies.length % pageSize == 0
+                      ? filteredCompanies.length / pageSize
+                      : filteredCompanies.length / pageSize + 1
+                  )
+                "
                 @click.native="updateVisibleCompanies"
               ></v-pagination>
             </div>
           </v-flex>
         </v-layout>
 
-        <v-form v-if="selection == 3" v-model="isFormValid">
+        <v-form v-if="selection == 3 && !companyAdded" v-model="isFormValid">
           <h2 class="headline">Dodaj Firmę</h2>
           <v-layout class="form__container">
             <div class="form__input-wrapper">
@@ -145,7 +156,7 @@
             <div class="form__input-wrapper">
               <v-text-field
                 label="Kod-Pocztowy"
-                :rules="rules.zipCode"
+                :rules="rules.postCode"
                 v-model="companyToAdd.kodPocztowy"
               ></v-text-field>
             </div>
@@ -193,13 +204,20 @@
 <script>
 import { mapMutations } from 'vuex'
 import apiService from '@/services/apiService.js'
+import {
+  isValidNip,
+  isValidPostCode,
+  isValidEmail
+} from '@/utils/validators.js'
 
 export default {
   data: () => ({
+    companyAdded: false,
     currentPage: 1,
     pageSize: 10,
     visibleCompanies: [],
     companies: [],
+    lastCompany: null,
     companyToAdd: {
       firmaId: '',
       nazwa: '',
@@ -212,7 +230,6 @@ export default {
     },
     firma: {},
     selection: 1,
-    selectedCompany: null,
     nameSearch: '',
     NIPSearch: '',
     isFormValid: true,
@@ -225,12 +242,18 @@ export default {
       name: [v => !!v || 'Nazwa firmy jest wymagana'],
       street: [v => !!v || 'Ulica jest wymagana'],
       city: [v => !!v || 'Miasto jest wymagane'],
-      zipCode: [v => !!v || 'Kod-pocztowy jest wymagany'],
-      nip: [v => !!v || 'NIP jest wymagany'],
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'Niepoprawny e-mail'
-      }
+      postCode: [
+        v => !!v || 'Kod-pocztowy jest wymagany',
+        v =>
+          v == '' ||
+          isValidPostCode(v) ||
+          'Wprowadź kod pocztowy w formacie XX-XXX np. 95-100'
+      ],
+      nip: [
+        v => !!v || 'NIP jest wymagany',
+        v => v == '' || isValidNip(v) || 'Niepoprawny NIP'
+      ],
+      email: [value => isValidEmail(value) || 'Niepoprawny e-mail']
     }
   }),
   methods: {
@@ -250,20 +273,20 @@ export default {
           this.updateVisibleCompanies()
         })
       }
-      this.selectedCompany = selection
+
+      if (selection == 1) {
+        this.UPDATE_PATIENT_COMPANY(this.lastCompany)
+      }
+
+      if (selection == 3) {
+        this.companyAdded = false
+      }
     },
 
-    updatePage(pageNumber) {
-      this.currentPage = pageNumber
-      this.updateVisibleCompanies()
-    },
     updateVisibleCompanies() {
       let begin = this.currentPage * this.pageSize - this.pageSize
       let end = begin + this.pageSize
-      this.visibleCompanies = this.filteredCompanies.slice(begin, end) //
-      if (this.visibleCompanies.length == 0 && this.currentPage > 0) {
-        this.updatePage(this.currentPage - 1)
-      }
+      this.visibleCompanies = this.filteredCompanies.slice(begin, end)
     },
 
     selectCompany(index) {
@@ -277,6 +300,18 @@ export default {
           /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
         )[0]
         this.getCompany(firmaId)
+        this.companyAdded = true
+        this.selection = null
+        this.companyToAdd = {
+          firmaId: '',
+          nazwa: '',
+          ulica: '',
+          miasto: '',
+          kodPocztowy: '',
+          nip: '',
+          email: '',
+          ryczalt: 0
+        }
       })
     }
   },
@@ -284,6 +319,7 @@ export default {
   mounted: function() {
     this.companies = this.$store.getters.getCompanies
     this.wizyta = this.$store.getters.getWizyta
+    this.lastCompany = this.wizyta.pacjent.firma
   },
   computed: {
     filteredCompanies: function() {

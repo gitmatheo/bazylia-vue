@@ -42,7 +42,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="2">
-          <FormUsluga title="Specjalistyka" />
+          <FormUsluga type="specjalistyka" title="Specjalistyka" />
 
           <div class="btns">
             <my-button

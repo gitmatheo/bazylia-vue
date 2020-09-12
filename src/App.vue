@@ -106,9 +106,11 @@ li {
   padding: 22px 10px;
 }
 
-.accent--text {
-  color: #20ce99 !important;
-  caret-color: #20ce99 !important;
+.v-input {
+  .accent--text {
+    color: #20ce99 !important;
+    caret-color: #20ce99 !important;
+  }
 }
 
 // ==== custom RADIO BUTTONS START ====
@@ -131,6 +133,73 @@ li {
 }
 
 // ==== custom RADIO BUTTONS END ====
+
+.patient {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  &__card {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header {
+    display: flex;
+    padding: 0px;
+    justify-content: space-between;
+
+    &--bold {
+      font-weight: bold;
+    }
+  }
+
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__desc-col {
+    padding-top: 2rem;
+    padding-left: 0px;
+
+    li {
+      display: flex;
+      padding-top: 8px;
+    }
+  }
+
+  &__btns {
+    display: flex;
+    padding: 10px 0px;
+  }
+
+  &__list-element {
+    margin: 20px 0 30px;
+  }
+
+  &__service {
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      align-items: flex-end;
+      .patient__checkbox {
+        height: 40px;
+      }
+    }
+  }
+  &__service-desc {
+    /* width: 97%; */
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__details-element {
+    text-align: right;
+    padding-right: 3px;
+  }
+}
 
 // ==== custom v-text-field START ====
 

@@ -100,7 +100,6 @@ export default {
   },
   created() {
     this.wizyta = this.$store.getters.getWizyta
-    console.log(this.wizyta)
     this.date = new Date(this.wizyta.dataWizyty)
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === 'UPDATE_DATE_AND_TIME') {

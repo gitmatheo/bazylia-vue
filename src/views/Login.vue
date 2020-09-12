@@ -6,7 +6,6 @@
         <div class="form__input-wrapper">
           <v-text-field
             v-model="login"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.requiredLogin]"
             label="Login"
             outlined
@@ -19,7 +18,6 @@
         <div class="form__input-wrapper">
           <v-text-field
             v-model="password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.requiredPass, rules.min]"
             :type="show1 ? 'text' : 'password'"
             label="Hasło"
@@ -29,15 +27,16 @@
             @click:append="show1 = !show1"
           ></v-text-field>
         </div>
-
-        <my-button
-          color="#20CE99"
-          fontColor="white"
-          data-cy="submit"
-          type="submit"
-          @click.native="handleSubmit(login, password)"
-          >Zaloguj</my-button
-        >
+        <div class="form__input-wrapper">
+          <my-button
+            color="#20CE99"
+            fontColor="white"
+            data-cy="submit"
+            type="submit"
+            @click.native="handleSubmit(login, password)"
+            >Zaloguj</my-button
+          >
+        </div>
       </form>
     </div>
   </v-container>
@@ -54,8 +53,7 @@ export default {
     password: '',
     rules: {
       requiredLogin: value => !!value || 'Login jest wymagany.',
-      requiredPass: value => !!value || 'Hasło jest wymagane.',
-      min: v => v.length >= 8 || 'Min 8 characters'
+      requiredPass: value => !!value || 'Hasło jest wymagane.'
     }
   }),
   methods: {
@@ -64,9 +62,11 @@ export default {
       apiService.login(login, password).then(res => {
         localStorage.setItem('ROLE', `${res.data.roles[0]}`)
         localStorage.setItem('isAuthenticated', true)
+        localStorage.setItem('username', res.data.username)
         this.$router.push({ path: '/' })
         this.$store.commit('AUTHENTICATE_USER', {
           isAuthenticated: true,
+          username: res.data.username,
           role: res.data.roles[0]
         })
       })

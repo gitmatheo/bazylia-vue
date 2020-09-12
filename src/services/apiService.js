@@ -82,11 +82,14 @@ export default {
   getInvoice(invoiceID) {
     return axios.get(`${API.url}/faktury/${invoiceID}`)
   },
+  getAllInvoices() {
+    return axios.get(`${API.url}/faktury`)
+  },
   getSpecification(invoiceID) {
     return axios.get(`${API.url}/faktury/${invoiceID}/specyfikacja`)
   },
-  getUslugi() {
-    return axios.get(`${API.url}/uslugi`)
+  getUslugi(type) {
+    return axios.get(`${API.url}/uslugi/${type}`)
   },
   login(login, pass) {
     var encodedBase64String = btoa(`${login}:${pass}`)
@@ -100,5 +103,26 @@ export default {
   },
   logout() {
     return axios.get(`${API.url}/logout`)
+  },
+  sendMail(invoiceId) {
+    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`)
+  },
+  getPdf(invoiceId) {
+    return axios
+      .get(`${API.url}/faktury/${invoiceId}/export`, {
+        responseType: 'blob'
+      })
+      .then(response => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a')
+        var filename = response.headers['content-disposition']
+          .split('filename=')[1]
+          .split('"')
+          .join('')
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', filename)
+        document.body.appendChild(fileLink)
+        fileLink.click()
+      })
   }
 }

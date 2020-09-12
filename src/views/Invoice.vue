@@ -67,15 +67,15 @@
           <h2>Nabywca</h2>
           <p>
             <br />
-            {{ faktura.firma.nazwa }}
+            {{ faktura.platnik.nazwa }}
             <br />
             <span>ul.</span>
-            {{ faktura.firma.ulica }}
+            {{ faktura.platnik.ulica }}
             <br />
-            {{ faktura.firma.kodPocztowy }}, {{ faktura.firma.miasto }}
+            {{ faktura.platnik.kodPocztowy }}, {{ faktura.platnik.miasto }}
             <br />
             <span>NIP:</span>
-            {{ faktura.firma.nip }}
+            {{ faktura.platnik.nip }}
           </p>
         </v-flex>
       </v-layout>
@@ -135,11 +135,23 @@
     </v-container>
     <v-container class="container">
       <v-layout row justify-center>
-        <my-button fontColor="black" to="/rozliczenia" color="white"
+        <my-button fontColor="black" @click.native="goBack()" color="white"
           >Wstecz</my-button
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-        <!-- <my-button fontColor="white" color="#20CE99">Wyślij fakture</my-button> -->
+        <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
+          >Email
+          <v-icon class="icon-close" right @click="dialog = false">
+            email
+          </v-icon>
+        </SendMailPopup>
+        <my-button
+          @click.native="downloadPdf(faktura.fakturaId)"
+          fontColor="white"
+          color="info"
+          >Zapisz PDF
+          <v-icon>description</v-icon>
+        </my-button>
         <my-button
           @click.native="openSpecification(faktura.fakturaId)"
           fontColor="white"
@@ -154,8 +166,12 @@
 <script>
 import apiService from '@/services/apiService.js'
 import slownie from '../utils/slownie.js'
+import SendMailPopup from '../components/SendMailPopup'
 
 export default {
+  components: {
+    SendMailPopup
+  },
   data() {
     return {
       headers: [
@@ -190,7 +206,7 @@ export default {
       faktura: {
         fakturaId: '41a19660-f72d-45b1-a881-5c09fa1022e9',
         nrFaktury: '324/2020/F',
-        firma: {
+        platnik: {
           firmaId: '9aba4d00-d551-4dfe-9df0-551e8312a7d3',
           nazwa: "Mc Donald's",
           ulica: 'Armii Krajowej 123',
@@ -264,9 +280,13 @@ export default {
     //   document.body.innerHTML = originalContents;
     // }
     openSpecification(fakturaId) {
-      console.log('Hello openSpecification')
-      console.log(fakturaId)
       this.$router.push({ path: `/specyfikacja/${fakturaId}` })
+    },
+    downloadPdf(fakturaId) {
+      apiService.getPdf(fakturaId)
+    },
+    goBack() {
+      this.$router.back()
     }
   },
   computed: {

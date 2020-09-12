@@ -61,7 +61,11 @@ export default {
     ...mapMutations(['UPDATE_TYP_WIZYTY', 'UPDATE_PATIENT_FOR_REGISTRATION']),
     onClickButton(typWizyty, patient) {
       this.UPDATE_TYP_WIZYTY(typWizyty)
-      this.UPDATE_PATIENT_FOR_REGISTRATION(patient)
+      if (patient.firma) {
+        this.UPDATE_PATIENT_FOR_REGISTRATION(patient)
+      } else {
+        this.UPDATE_PATIENT_FOR_REGISTRATION({ ...patient, firma: null })
+      }
     }
   }
 }
