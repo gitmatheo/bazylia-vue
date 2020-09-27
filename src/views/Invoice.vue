@@ -28,7 +28,10 @@
                 </v-layout>
                 </v-container>
     <v-container id="section-to-print" class="white container" my-5>
-      <pdf :src=getPdfUrl(faktura.fakturaId)></pdf>
+      <pdf :src='{
+        url: getPdfUrl(faktura.fakturaId),
+        withCredentials: true
+      }'></pdf>
     </v-container>
 
   </v-app>
@@ -58,13 +61,6 @@ export default {
     })
   },
   methods: {
-    // printInvoice(divName) {
-    //   const printContents = document.getElementById(divName).innerHTML;
-    //   const originalContents = document.body.innerHTML;
-    //   document.body.innerHTML = printContents;
-    //   window.print();
-    //   document.body.innerHTML = originalContents;
-    // }
     openSpecification(fakturaId) {
       this.$router.push({ path: `/specyfikacja/${fakturaId}` })
     },
