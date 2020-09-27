@@ -12,23 +12,33 @@
           ></v-card-title
         >
         <v-card-text>
-          <div>
-            Faktura zostanie wysłana na adres: {{ faktura.platnik.email }}
-          </div>
-          <v-checkbox
-                v-model="checkbox"
-                label="Zaszyfrować plik?"
-                ></v-checkbox>
-           <v-form
-           v-if="checkbox"
-           @submit.prevent="sendMail(faktura.fakturaId, rootPass)">
+          <v-form v-model="valid" lazy-validation>
+            <v-layout row justify-space-between>
+              <div class="form__input-wrapper flex">
                 <v-text-field
-                type='password'
-                v-model='rootPass'
-                placeholder='Podaj swój klucz szyfrujący'
-                solo
-               ></v-text-field>
-           </v-form>
+                  v-model="email"
+                  :rules="[rules.required, rules.email]"
+                  label="E-mail"
+                ></v-text-field>
+              </div>
+            </v-layout>
+          </v-form>
+
+          <div>Faktura zostanie wysłana na adres: {{ email }}</div>
+          <v-checkbox
+            v-model="checkbox"
+            label="Zaszyfrować plik?"
+            @click="rootPass = null"
+          ></v-checkbox>
+          <v-form v-if="checkbox" @submit.prevent="sendMail(faktura.fakturaId)">
+            <div class="form__input-wrapper flex">
+              <v-text-field
+                type="password"
+                v-model="rootPass"
+                placeholder="Podaj swój klucz szyfrujący"
+              ></v-text-field>
+            </div>
+          </v-form>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="actions">
@@ -40,9 +50,10 @@
             >Anuluj</my-button
           >
           <my-button
+            :disabled="!valid"
             fontColor="white"
             color="info"
-            @click.native="sendMail(faktura.fakturaId, rootPass)"
+            @click.native="sendMail(faktura.fakturaId)"
             >Wyślij
             <v-icon class="icon-close" right @click="dialog = false"
               >email</v-icon
@@ -62,7 +73,7 @@
         <v-card-actions class="actions">
           <v-spacer></v-spacer>
           <my-button
-            fontColor="black"
+            fontColor="white"
             color="success"
             @click.native="dialogSuccess = false"
             >OK</my-button
@@ -77,19 +88,32 @@
 import apiService from '@/services/apiService.js'
 
 export default {
-  props: ['faktura', 'color', 'rootPass', 'checkbox'],
+  props: ['faktura'],
   data() {
     return {
       dialog: false,
-      dialogSuccess: false
+      dialogSuccess: false,
+      email: this.faktura.platnik.email,
+      valid: false,
+      checkbox: false,
+      rootPass: null,
+      rules: {
+        required: value => !!value || 'Wpisz email.',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Niepoprawny email'
+        }
+      }
     }
   },
   methods: {
-    sendMail(fakturaId, rootPass) {
-      apiService.sendMail(fakturaId, rootPass).then(() => {
-        this.dialog = false
-        this.dialogSuccess = true
-      })
+    sendMail(fakturaId) {
+      apiService
+        .sendMail(fakturaId, { rootPass: this.rootPass, email: this.email })
+        .then(() => {
+          this.dialog = false
+          this.dialogSuccess = true
+        })
     }
   }
 }

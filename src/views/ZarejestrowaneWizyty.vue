@@ -13,14 +13,15 @@
           min-width="290px"
         >
           <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="startDate"
-              class="date-input"
-              label="Data początkowa"
-              prepend-icon="event"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <div class="form__input-wrapper flex pr-4">
+              <v-text-field
+                v-model="startDate"
+                class="date-input"
+                label="Data początkowa"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </div>
           </template>
           <v-date-picker
             v-model="startDate"
@@ -41,14 +42,15 @@
           min-width="290px"
         >
           <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="endDate"
-              class="date-input"
-              label="Data końcowa"
-              prepend-icon="event"
-              readonly
-              v-on="on"
-            ></v-text-field>
+            <div class="form__input-wrapper flex pr-4">
+              <v-text-field
+                v-model="endDate"
+                class="date-input"
+                label="Data końcowa"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </div>
           </template>
           <v-date-picker
             v-model="endDate"
@@ -60,6 +62,7 @@
         <my-button
           color="primary"
           fontColor="white"
+          class="margin-top-2"
           @click.native="getWizytyByDate(startDate, endDate)"
           >Pobierz wizyty wg. daty</my-button
         >
@@ -145,8 +148,9 @@
                   <div class="col2">
                     <v-icon
                       v-if="
-                        wizyta.pacjent.decyzjaUpdated &&
-                          wizyta.pacjent.dataOrzeczeniaUpdated
+                        (wizyta.pacjent.decyzjaUpdated &&
+                          wizyta.pacjent.dataOrzeczeniaUpdated) ||
+                          wizyta.typWizyty == 'SPECJALISTYKA'
                       "
                       size="35px"
                       color="success"
@@ -155,8 +159,9 @@
                     <v-icon
                       v-if="
                         !(
-                          wizyta.pacjent.decyzjaUpdated &&
-                          wizyta.pacjent.dataOrzeczeniaUpdated
+                          (wizyta.pacjent.decyzjaUpdated &&
+                            wizyta.pacjent.dataOrzeczeniaUpdated) ||
+                          wizyta.typWizyty == 'SPECJALISTYKA'
                         )
                       "
                       size="35px"
@@ -454,6 +459,10 @@ export default {
   &:focus {
     outline: none;
   }
+}
+
+.margin-top-2 {
+  margin-top: 14px;
 }
 
 .v-chip.chip {

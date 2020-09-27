@@ -1,39 +1,46 @@
 <template>
   <v-app>
-        <v-container class="container">
-              <v-layout row justify-center>
-                <my-button fontColor="black" @click.native="goBack()" color="white"
-                  >Wstecz</my-button
-                >
-                <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-                <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
-                  >Email
-                  <v-icon class="icon-close" right @click="dialog = false">
-                    email
-                  </v-icon>
-                </SendMailPopup>
-                <my-button
-                  @click.native="downloadPdf(faktura.fakturaId)"
-                  fontColor="white"
-                  color="info"
-                  >Zapisz PDF
-                  <v-icon>description</v-icon>
-                </my-button>
-                <my-button
-                  @click.native="openSpecification(faktura.fakturaId)"
-                  fontColor="white"
-                  color="black"
-                  >Specyfikacja</my-button
-                >
-                </v-layout>
-                </v-container>
-    <v-container id="section-to-print" class="white container" my-5>
-      <pdf :src='{
-        url: getPdfUrl(faktura.fakturaId),
-        withCredentials: true
-      }'></pdf>
+    <v-container class="container">
+      <v-layout row justify-center>
+        <my-button fontColor="black" @click.native="goBack()" color="white"
+          >Wstecz</my-button
+        >
+        <my-button
+          fontColor="white"
+          color="#20CE99"
+          @click.native="printJS('section-to-print2', 'html')"
+          >Drukuj</my-button
+        >
+        <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
+          >Email
+          <v-icon class="icon-close" right @click="dialog = false">
+            email
+          </v-icon>
+        </SendMailPopup>
+        <my-button
+          @click.native="downloadPdf(faktura.fakturaId)"
+          fontColor="white"
+          color="info"
+          >Zapisz PDF
+          <v-icon>description</v-icon>
+        </my-button>
+        <my-button
+          @click.native="openSpecification(faktura.fakturaId)"
+          fontColor="white"
+          color="black"
+          >Specyfikacja</my-button
+        >
+      </v-layout>
     </v-container>
-
+    <v-container id="section-to-print" class="white container" my-5>
+      <pdf
+        id="section-to-print2"
+        :src="{
+          url: getPdfUrl(faktura.fakturaId),
+          withCredentials: true
+        }"
+      ></pdf>
+    </v-container>
   </v-app>
 </template>
 
@@ -42,6 +49,7 @@ import apiService from '@/services/apiService.js'
 import API from '@/constants/api'
 import SendMailPopup from '../components/SendMailPopup'
 import pdf from 'vue-pdf'
+import printJS from 'print-js'
 
 export default {
   components: {
@@ -50,10 +58,13 @@ export default {
   },
   data() {
     return {
-      faktura: {}
+      faktura: {},
+      printJS: printJS
     }
   },
   mounted: function() {
+    console.log('Semasaasda')
+    console.log(printJS)
     const fakturaId = this.$route.params.id
     apiService.getInvoice(fakturaId).then(response => {
       this.$store.commit('GET_FAKTURA', response.data)
@@ -66,6 +77,10 @@ export default {
     },
     downloadPdf(fakturaId) {
       apiService.getPdf(fakturaId)
+    },
+    printPDF(link) {
+      console.log('aaaaa')
+      console.log(link)
     },
     getPdfUrl(fakturaId) {
       return `${API.url}/faktury/${fakturaId}/show`
