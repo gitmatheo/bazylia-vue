@@ -15,6 +15,20 @@
           <div>
             Faktura zostanie wysłana na adres: {{ faktura.platnik.email }}
           </div>
+          <v-checkbox
+                v-model="checkbox"
+                label="Zaszyfrować plik?"
+                ></v-checkbox>
+           <v-form
+           v-if="checkbox"
+           @submit.prevent="sendMail(faktura.fakturaId, rootPass)">
+                <v-text-field
+                type='password'
+                v-model='rootPass'
+                placeholder='Podaj swój klucz szyfrujący'
+                solo
+               ></v-text-field>
+           </v-form>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="actions">
@@ -28,7 +42,7 @@
           <my-button
             fontColor="white"
             color="info"
-            @click.native="sendMail(faktura.fakturaId)"
+            @click.native="sendMail(faktura.fakturaId, rootPass)"
             >Wyślij
             <v-icon class="icon-close" right @click="dialog = false"
               >email</v-icon
@@ -63,7 +77,7 @@
 import apiService from '@/services/apiService.js'
 
 export default {
-  props: ['faktura', 'color'],
+  props: ['faktura', 'color', 'rootPass', 'checkbox'],
   data() {
     return {
       dialog: false,
@@ -71,8 +85,8 @@ export default {
     }
   },
   methods: {
-    sendMail(fakturaId) {
-      apiService.sendMail(fakturaId).then(() => {
+    sendMail(fakturaId, rootPass) {
+      apiService.sendMail(fakturaId, rootPass).then(() => {
         this.dialog = false
         this.dialogSuccess = true
       })

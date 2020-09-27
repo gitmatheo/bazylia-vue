@@ -183,6 +183,10 @@ export default new Vuex.Store({
         state.error.snackBarMessage =
           'Nieprawidłowe dane - sprawdź swój login i hasło'
       }
+      if (error.response.status == 403) {
+        state.error.snackBarMessage =
+           error.response.data.detailedInfo
+      }
       if (error.response) {
         switch (error.response.data.status) {
           case 400:

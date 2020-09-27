@@ -118,8 +118,10 @@ export default {
   logout() {
     return axios.get(`${API.url}/logout`)
   },
-  sendMail(invoiceId) {
-    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`)
+  sendMail(invoiceId, rootPass) {
+    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`, {
+        rootPass: rootPass
+    })
   },
   getPdf(invoiceId) {
     return axios
