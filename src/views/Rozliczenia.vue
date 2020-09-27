@@ -259,11 +259,8 @@ export default {
     },
     submitForInvoice(doZafakturowania) {
       apiService.submitForInvoice(doZafakturowania).then(response => {
-        const fakturaId = response.headers.location.match(
-          /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-        )[0]
-        if (fakturaId) {
-          this.$router.push({ path: `/invoice/${fakturaId}` })
+        if (response.headers.location) {
+          this.$router.push({ path: `${response.headers.location}` })
         } else {
           console.error('Cos nie tak z fakturami... przepraszamy.')
         }

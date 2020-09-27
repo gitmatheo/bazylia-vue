@@ -63,6 +63,7 @@ export default {
         localStorage.setItem('ROLE', `${res.data.roles[0]}`)
         localStorage.setItem('isAuthenticated', true)
         localStorage.setItem('username', res.data.username)
+        localStorage.setItem('auth_token', res.data.token)
         this.$router.push({ path: '/' })
         this.$store.commit('AUTHENTICATE_USER', {
           isAuthenticated: true,

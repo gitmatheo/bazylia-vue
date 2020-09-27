@@ -60,7 +60,7 @@
     </v-container>
     <v-container class="container">
       <v-layout row justify-center>
-        <my-button fontColor="black" :to="`/invoice/${fakturaId}`" color="white"
+        <my-button fontColor="black" :to="`/faktury/${fakturaId}`" color="white"
           >Wstecz</my-button
         >
         <my-button fontColor="white" color="#20CE99">Drukuj</my-button>

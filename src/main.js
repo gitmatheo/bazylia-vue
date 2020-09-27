@@ -21,6 +21,9 @@ Vue.config.productionTip = false
 
 axios.interceptors.request.use(
   function(config) {
+    const token = `Bearer ${localStorage.getItem('auth_token')}`
+    config.headers['Authorization'] = token
+
     config.withCredentials = true
     store.commit('LOADER', true)
     return config

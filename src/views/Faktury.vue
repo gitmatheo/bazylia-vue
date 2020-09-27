@@ -54,26 +54,22 @@ export default {
     pageSize: 15
   }),
   mounted: function() {
-    const invoicesInStore = this.$store.getters.getAllInvoices
+    // const invoicesInStore = this.$store.getters.getAllInvoices
 
-    if (invoicesInStore) {
-      this.invoices = invoicesInStore
-    } else {
-      apiService.getAllInvoices().then(response => {
-        if (response.data.length) {
-          this.$store.commit('GET_ALL_INVOICES_FROM_DB', response.data)
-          this.invoices = this.$store.getters.getAllInvoices
-          this.isLoading = false
-        } else {
-          this.brakDanychMessage = 'Brak faktur w bazie'
-        }
-      })
-    }
-    this.updateVisibleVisits()
+    apiService.getAllInvoices().then(response => {
+      if (response.data.length) {
+        this.$store.commit('GET_ALL_INVOICES_FROM_DB', response.data)
+        this.invoices = this.$store.getters.getAllInvoices
+        this.isLoading = false
+        this.updateVisibleVisits()
+      } else {
+        this.brakDanychMessage = 'Brak faktur w bazie'
+      }
+    })
   },
   methods: {
     goToInvoice(fakturaId) {
-      this.$router.push({ path: `/invoice/${fakturaId}` })
+      this.$router.push({ path: `/faktury/${fakturaId}` })
     },
     updateVisibleVisits() {
       let begin = this.currentPage * this.pageSize - this.pageSize

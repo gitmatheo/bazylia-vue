@@ -3,7 +3,7 @@ const API = {
 }
 
 // const API = {
-//   url: 'http://10.3.68.238:8080'
-// };
+//   url: 'http://localhost:3000'
+// }
 
 export default API
