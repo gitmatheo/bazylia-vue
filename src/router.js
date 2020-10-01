@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-// import Raports from "./views/Raports.vue";
-// import Completed from "./views/Completed.vue";
-// import Invoice from "./views/Invoice.vue";
 
 Vue.use(Router)
 Vue.use(require('vue-moment'))
@@ -46,7 +43,7 @@ const router = new Router({
       component: () => import('./views/Error.vue')
     },
     {
-      path: '/invoice/:id',
+      path: '/faktury/:id',
       name: 'Invoice',
       beforeEnter: guardMyroute,
       component: () => import('./views/Invoice.vue')
@@ -101,16 +98,5 @@ const router = new Router({
     }
   ]
 })
-
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(route => route.meta.requiresAuth)) {
-//     if (Auth.currentUser) {
-//       next();
-//     } else {
-//       next({ path: '/login' });
-//     }
-//   }
-//   next();
-// });
 
 export default router

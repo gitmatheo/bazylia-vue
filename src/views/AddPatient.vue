@@ -127,7 +127,6 @@ export default {
     isFormValid: false,
     dialog2: false,
     pacjent: {
-      pacjentId: '', //uuid
       imie: '',
       nazwisko: '',
       pesel: '',
@@ -172,9 +171,10 @@ export default {
     ...mapActions(['addPatient']),
     submitPatient(patient) {
       apiService.submitPatient(patient).then(res => {
-        const pacjentId = res.headers.location.match(
-          /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-        )[0]
+        const pacjentId = res.data.pacjentId
+        // const pacjentId = res.headers.location.match(
+        //   /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+        // )[0]
         patient.pacjentId = pacjentId
         this.$store.commit('UPDATE_PATIENT_FOR_REGISTRATION', patient)
         this.dialog2 = true

@@ -81,36 +81,36 @@
                 ></v-text-field>
               </div>
             </div>
-            <v-expansion-panels flat>
-              <v-expansion-panel flat v-if="visibleCompanies" my-2>
-                <v-expansion-panel-content
-                  v-for="(firma, i) in visibleCompanies"
-                  :key="i"
-                >
-                  <template v-slot:header>
-                    <div class="company__header">
-                      <div>{{ firma.nazwa }}</div>
-                      <div>{{ firma.ulica }}</div>
-                      <div>NIP: {{ firma.nip }}</div>
-                    </div>
-                    Szczegóły
-                  </template>
-                  <v-card>
-                    <ul ref="patient" class="company__desc">
-                      <li>Nazwa: {{ firma.nazwa }}</li>
-                      <li>Ulica: {{ firma.ulica }}</li>
-                      <li>Miasto: {{ firma.miasto }}</li>
-                      <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
-                      <li>NIP: {{ firma.nip }}</li>
-                      <li>Ryczałt: {{ firma.ryczalt }}</li>
-                    </ul>
-                    <my-button color="success" @click.native="selectCompany(i)"
-                      >Wybierz firmę</my-button
-                    >
-                  </v-card>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
+
+            <v-expansion-panel flat v-if="visibleCompanies" my-2>
+              <v-expansion-panel-content
+                v-for="(firma, i) in visibleCompanies"
+                :key="i"
+              >
+                <template v-slot:header>
+                  <div class="company__header">
+                    <div>{{ firma.nazwa }}</div>
+                    <div>{{ firma.ulica }}</div>
+                    <div>NIP: {{ firma.nip }}</div>
+                  </div>
+                  Szczegóły
+                </template>
+                <v-card>
+                  <ul ref="patient" class="company__desc">
+                    <li>Nazwa: {{ firma.nazwa }}</li>
+                    <li>Ulica: {{ firma.ulica }}</li>
+                    <li>Miasto: {{ firma.miasto }}</li>
+                    <li>Kod-pocztowy: {{ firma.kodPocztowy }}</li>
+                    <li>NIP: {{ firma.nip }}</li>
+                    <li>Ryczałt: {{ firma.ryczalt }}</li>
+                  </ul>
+                  <my-button color="success" @click.native="selectCompany(i)"
+                    >Wybierz firmę</my-button
+                  >
+                </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+
             <div class="pagination">
               <v-pagination
                 v-if="filteredCompanies.length"
@@ -219,7 +219,6 @@ export default {
     companies: [],
     lastCompany: null,
     companyToAdd: {
-      firmaId: '',
       nazwa: '',
       ulica: '',
       miasto: '',
@@ -303,7 +302,6 @@ export default {
         this.companyAdded = true
         this.selection = null
         this.companyToAdd = {
-          firmaId: '',
           nazwa: '',
           ulica: '',
           miasto: '',

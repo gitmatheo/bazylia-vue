@@ -33,6 +33,7 @@ export default {
   deletePatient(patientID) {
     return axios.delete(`${API.url}/pacjenci/${patientID}`)
   },
+
   getWizyty() {
     return axios.get(`${API.url}/wizyty`)
   },
@@ -55,14 +56,18 @@ export default {
       .then(() => router.push({ path: '/success' }))
       .catch(() => router.push({ path: '/error' }))
   },
-  getRozliczenia(type) {
-    return axios.get(`${API.url}/rozliczenia/${type}`)
+
+  getIncompleteVisits() {
+    return axios.get(`${API.url}/wizyty/incomplete`)
   },
+
   getCounter() {
     return axios.get(`${API.url}/wizyty/incomplete/counter`)
   },
-  getIncompleteVisits() {
-    return axios.get(`${API.url}/wizyty/incomplete`)
+
+  ///////////rozliczenia endpoint
+  getRozliczenia(type) {
+    return axios.get(`${API.url}/rozliczenia/${type}`)
   },
 
   submitDecyzja(pacjentID, decyzja) {
@@ -76,6 +81,7 @@ export default {
     })
   },
 
+  ///////////faktury endpoint
   submitForInvoice(doZafakturowania) {
     return axios.post(`${API.url}/faktury`, doZafakturowania)
   },
@@ -88,9 +94,12 @@ export default {
   getSpecification(invoiceID) {
     return axios.get(`${API.url}/faktury/${invoiceID}/specyfikacja`)
   },
+
   getUslugi(type) {
     return axios.get(`${API.url}/uslugi/${type}`)
   },
+
+  //// auth endpoints
   login(login, pass) {
     var encodedBase64String = btoa(`${login}:${pass}`)
     const options = {
@@ -101,11 +110,16 @@ export default {
     }
     return axios.get(`${API.url}/login`, options)
   },
+
+  // login(login, password) {
+  //   return axios.post(`${API.url}/login`, { login, password })
+  // },
+
   logout() {
     return axios.get(`${API.url}/logout`)
   },
-  sendMail(invoiceId) {
-    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`)
+  sendMail(invoiceId, payload) {
+    return axios.post(`${API.url}/faktury/${invoiceId}/send-email`, payload)
   },
   getPdf(invoiceId) {
     return axios

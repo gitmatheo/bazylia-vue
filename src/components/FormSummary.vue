@@ -56,7 +56,7 @@
       wrap
       justify-center
     >
-      <v-flex xs12>
+      <v-flex xs12 ml-5>
         <h3>Pacjent</h3>
         <ul class="patient-list">
           <li>Imię: {{ wizyta.pacjent.imie }}</li>
@@ -64,14 +64,14 @@
           <li>PESEL: {{ wizyta.pacjent.pesel }}</li>
         </ul>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12 ml-5>
         <h3>Usługa</h3>
         <ul>
           <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
           <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
         </ul>
       </v-flex>
-      <v-flex xs12>
+      <v-flex xs12 ml-5>
         <h3>Godzina i data wizyty</h3>
         <ul>
           <li>Data: {{ date | moment('MM-DD-YYYY') }}</li>

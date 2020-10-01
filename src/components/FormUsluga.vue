@@ -50,7 +50,9 @@ export default {
   }),
   mounted: function() {
     this.patientForReg = this.$store.getters.getPatientForReg
-    apiService.getUslugi(this.type).then(res => (this.uslugi = res.data))
+    apiService.getUslugi(this.type).then(res => {
+      this.uslugi = res.data
+    })
   },
   computed: {
     filteredUslugi() {

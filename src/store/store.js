@@ -12,6 +12,7 @@ const vuexLocalStorage = new VuexPersist({
 export default new Vuex.Store({
   plugins: [vuexLocalStorage.plugin],
   state: {
+    invoices: [],
     loader: false,
     snackbar: false,
     error: {
@@ -93,9 +94,6 @@ export default new Vuex.Store({
 
   mutations: {
     AUTHENTICATE_USER: (state, user) => {
-      console.log('AUTHENTICATE USER')
-      console.log(user)
-
       state.user = user
     },
     // RESET_WIZYTA: state => {
@@ -184,6 +182,10 @@ export default new Vuex.Store({
       if (error.response.status == 401) {
         state.error.snackBarMessage =
           'Nieprawidłowe dane - sprawdź swój login i hasło'
+      }
+      if (error.response.status == 403) {
+        state.error.snackBarMessage =
+           error.response.data.detailedInfo
       }
       if (error.response) {
         switch (error.response.data.status) {
