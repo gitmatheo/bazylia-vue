@@ -82,7 +82,7 @@ export default {
         this.$router.push({ path: `/specyfikacja/${fakturaId}` })
       }
       if(this.componentType == "specyfikacja"){
-          this.$router.push({ path: `../invoice/${fakturaId}` })
+          this.$router.push({ path: `../faktury/${fakturaId}` })
       }
     },
     downloadPdf(fakturaId) {
