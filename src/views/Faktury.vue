@@ -54,8 +54,6 @@ export default {
     pageSize: 15
   }),
   mounted: function() {
-    // const invoicesInStore = this.$store.getters.getAllInvoices
-
     apiService.getAllInvoices().then(response => {
       if (response.data.length) {
         this.$store.commit('GET_ALL_INVOICES_FROM_DB', response.data)

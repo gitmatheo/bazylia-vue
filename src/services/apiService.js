@@ -34,6 +34,7 @@ export default {
     return axios.delete(`${API.url}/pacjenci/${patientID}`)
   },
 
+  ///////////wizyty endpoint
   getWizyty() {
     return axios.get(`${API.url}/wizyty`)
   },
@@ -99,21 +100,21 @@ export default {
     return axios.get(`${API.url}/uslugi/${type}`)
   },
 
-  //// auth endpoints
-  login(login, pass) {
-    var encodedBase64String = btoa(`${login}:${pass}`)
-    const options = {
-      headers: {
-        Authorization: `Basic ${encodedBase64String}`
-      },
-      withCredentials: true
-    }
-    return axios.get(`${API.url}/login`, options)
-  },
-
-  // login(login, password) {
-  //   return axios.post(`${API.url}/login`, { login, password })
+  ////// auth endpoints
+  // login(login, pass) {
+  //   var encodedBase64String = btoa(`${login}:${pass}`)
+  //   const options = {
+  //     headers: {
+  //       Authorization: `Basic ${encodedBase64String}`
+  //     },
+  //     withCredentials: true
+  //   }
+  //   return axios.get(`${API.url}/login`, options)
   // },
+
+  login(login, password) {
+    return axios.post(`${API.url}/login`, { login, password })
+  },
 
   logout() {
     return axios.get(`${API.url}/logout`)
@@ -122,7 +123,10 @@ export default {
     return axios.post(`${API.url}/faktury/${invoiceId}/send-email`, payload)
   },
   getSpecyfikacjaPdf(invoiceId) {
-    this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/specyfikacja/export`)
+    this.getPdf(
+      invoiceId,
+      `${API.url}/faktury/${invoiceId}/specyfikacja/export`
+    )
   },
   getFakturaPdf(invoiceId) {
     this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/export`)

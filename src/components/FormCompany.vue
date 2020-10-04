@@ -267,8 +267,11 @@ export default {
     select(selection) {
       if (selection == 2) {
         apiService.getCompanies().then(response => {
+          console.log('siemaa companies')
+          console.log(response.data)
           this.$store.commit('GET_ALL_COMPANIES_FROM_DB', response.data)
           this.companies = this.$store.getters.getCompanies
+          console.log(this.companies)
           this.updateVisibleCompanies()
         })
       }
@@ -294,6 +297,7 @@ export default {
     },
 
     addNewCompany(company) {
+      console.log(company)
       apiService.addCompany(company).then(response => {
         const firmaId = response.headers.location.match(
           /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
