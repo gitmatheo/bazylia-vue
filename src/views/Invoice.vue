@@ -1,10 +1,5 @@
 <template>
-  <v-app>
-    <FakturaComponent 
-    componentType="faktura"
-    >
-    </FakturaComponent>
-  </v-app>
+  <FakturaComponent componentType="faktura"> </FakturaComponent>
 </template>
 
 <script>

@@ -1,41 +1,40 @@
 <template>
-  <v-app>
-        <v-container class="container">
-              <v-layout row justify-center>
-                <my-button fontColor="black" @click.native="goBack()" color="white"
-                  >Wstecz</my-button
-                >
-                <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
-                <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
-                  >Email
-                  <v-icon class="icon-close" right @click="dialog = false">
-                    email
-                  </v-icon>
-                </SendMailPopup>
-                <my-button
-                  @click.native="downloadPdf(faktura.fakturaId)"
-                  fontColor="white"
-                  color="info"
-                  >Zapisz PDF
-                  <v-icon>description</v-icon>
-                </my-button>
-                <my-button
-                  @click.native=switchView(faktura.fakturaId)
-                  fontColor="white"
-                  color="black"
-                  >{{getButtonName()}}
-                  </my-button
-                >
-                </v-layout>
-                </v-container>
-    <v-container id="section-to-print" class="white container" my-5>
-      <pdf :src='{
-        url: getPdfUrl(faktura.fakturaId),
-        withCredentials: true
-      }'></pdf>
-    </v-container>
+  <v-container class="container">
+    <v-layout row justify-center>
+      <my-button fontColor="black" @click.native="goBack()" color="white"
+        >Wstecz</my-button
+      >
+      <my-button fontColor="white" color="#20CE99">Drukuj</my-button>
+      <SendMailPopup v-if="faktura.platnik.email" :faktura="faktura"
+        >Email
+        <v-icon class="icon-close" right @click="dialog = false">
+          email
+        </v-icon>
+      </SendMailPopup>
+      <my-button
+        @click.native="downloadPdf(faktura.fakturaId)"
+        fontColor="white"
+        color="info"
+        >Zapisz PDF
+        <v-icon>description</v-icon>
+      </my-button>
+      <my-button
+        @click.native="switchView(faktura.fakturaId)"
+        fontColor="white"
+        color="black"
+        >{{ getButtonName() }}
+      </my-button>
+    </v-layout>
 
-  </v-app>
+    <v-container id="section-to-print" class="white container" my-5>
+      <pdf
+        :src="{
+          url: getPdfUrl(faktura.fakturaId),
+          withCredentials: true
+        }"
+      ></pdf>
+    </v-container>
+  </v-container>
 </template>
 
 <script>
@@ -43,7 +42,6 @@ import apiService from '@/services/apiService.js'
 import API from '@/constants/api'
 import SendMailPopup from '../components/SendMailPopup'
 import pdf from 'vue-pdf'
-
 
 export default {
   components: {
@@ -70,39 +68,39 @@ export default {
   },
   methods: {
     getButtonName() {
-      if(this.componentType == "faktura"){
+      if (this.componentType == 'faktura') {
         return `specyfikacja`
       }
-      if(this.componentType == "specyfikacja"){
+      if (this.componentType == 'specyfikacja') {
         return `faktura`
       }
-    },  
+    },
     switchView(fakturaId) {
-      if(this.componentType == "faktura"){
+      if (this.componentType == 'faktura') {
         this.$router.push({ path: `/specyfikacja/${fakturaId}` })
       }
-      if(this.componentType == "specyfikacja"){
-          this.$router.push({ path: `../faktury/${fakturaId}` })
+      if (this.componentType == 'specyfikacja') {
+        this.$router.push({ path: `../faktury/${fakturaId}` })
       }
     },
     downloadPdf(fakturaId) {
-      if(this.componentType == "faktura"){
+      if (this.componentType == 'faktura') {
         apiService.getFakturaPdf(fakturaId)
       }
-      if(this.componentType == "specyfikacja"){
+      if (this.componentType == 'specyfikacja') {
         apiService.getSpecyfikacjaPdf(fakturaId)
       }
     },
     getPdfUrl(fakturaId) {
-      if(this.componentType == "faktura"){
+      if (this.componentType == 'faktura') {
         return `${API.url}/faktury/${fakturaId}/show`
       }
-      if(this.componentType == "specyfikacja"){
+      if (this.componentType == 'specyfikacja') {
         return `${API.url}/faktury/${fakturaId}/specyfikacja/show`
       }
     },
     goBack() {
-      this.$router.push({path: `/faktury/`})
+      this.$router.push({ path: `/faktury/` })
     }
   }
 }

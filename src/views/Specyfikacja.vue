@@ -1,10 +1,5 @@
 <template>
-  <v-app>
-    <FakturaComponent 
-    componentType="specyfikacja"
-    >
-    </FakturaComponent>
-  </v-app>
+  <FakturaComponent componentType="specyfikacja"> </FakturaComponent>
 </template>
 
 <script>
