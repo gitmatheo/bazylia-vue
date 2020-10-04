@@ -183,7 +183,7 @@
                       <li>Pesel: {{ wizyta.pacjent.pesel }}</li>
                       <li>Telefon: {{ wizyta.pacjent.numerTelefonu }}</li>
                       <li>Numer karty: {{ wizyta.pacjent.numerKarty }}</li>
-                      <li>
+                      <li v-if="wizyta.typWizyty == 'MEDYCYNA_PRACY'">
                         Data orzeczenia:
 
                         <v-menu
@@ -227,7 +227,9 @@
                     <ul>
                       <li>Nazwa usługi: {{ wizyta.usluga.nazwa }}</li>
                       <li>Cena: {{ wizyta.usluga.cenaZwykla }}</li>
-                      <li>Typ badań: {{ wizyta.rodzajBadan }}</li>
+                      <li v-if="wizyta.typWizyty == 'MEDYCYNA_PRACY'">
+                        Typ badań: {{ wizyta.rodzajBadan }}
+                      </li>
                     </ul>
                   </div>
                   <div class="wizyta__details-col" v-if="wizyta.pacjent.firma">
@@ -243,7 +245,7 @@
                     </ul>
                   </div>
                 </div>
-                <div>
+                <div v-if="wizyta.typWizyty == 'MEDYCYNA_PRACY'">
                   <span class="decyzja">Decyzja:</span>
                   {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
                   <v-select
