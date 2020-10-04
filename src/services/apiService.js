@@ -121,9 +121,15 @@ export default {
   sendMail(invoiceId, payload) {
     return axios.post(`${API.url}/faktury/${invoiceId}/send-email`, payload)
   },
-  getPdf(invoiceId) {
+  getSpecyfikacjaPdf(invoiceId) {
+    this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/specyfikacja/export`)
+  },
+  getFakturaPdf(invoiceId) {
+    this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/export`)
+  },
+  getPdf(invoiceId, url) {
     return axios
-      .get(`${API.url}/faktury/${invoiceId}/export`, {
+      .get(url, {
         responseType: 'blob'
       })
       .then(response => {
