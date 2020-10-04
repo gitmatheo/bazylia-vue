@@ -45,7 +45,7 @@
               color="#20CE99"
               data-cy="next-button-step1"
               @click.native="currentStepNumber = 2"
-              :disabled="wizyta.rodzajBadan.length == 0"
+              :disabled="!wizyta.rodzajBadan"
               >Dalej</my-button
             >
           </div>
@@ -112,7 +112,7 @@
               color="#20CE99"
               data-cy="next-button-step4"
               @click.native="currentStepNumber = 5"
-              :disabled="wizyta.usluga.nazwa.length == 0"
+              :disabled="!wizyta.usluga.nazwa"
               >Dalej</my-button
             >
           </div>

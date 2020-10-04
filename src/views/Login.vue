@@ -33,7 +33,6 @@
             fontColor="white"
             data-cy="submit"
             type="submit"
-            @click.native="handleSubmit(login, password)"
             >Zaloguj</my-button
           >
         </div>

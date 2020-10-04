@@ -1,9 +1,9 @@
 describe('Login test', () => {
-  before(function () {
-    cy.visit('http://localhost:8080')
+  before(function() {
+    cy.visit('http://localhost:8081')
   })
 
-  beforeEach(function () {
+  beforeEach(function() {
     cy.get('[data-cy=username]').clear()
     cy.get('[data-cy=password]').clear()
   })
@@ -47,7 +47,9 @@ describe('Login test', () => {
       'be.visible'
     )
 
-    cy.wait('@login').its('status').should('eq', 401)
+    cy.wait('@login')
+      .its('status')
+      .should('eq', 401)
   })
 
   it('Verify that user roles are recognized correctly – admin', () => {
@@ -59,25 +61,10 @@ describe('Login test', () => {
     cy.get('[data-cy=submit]').click()
 
     // cy.wait('@login').its('status').should('eq', 200)
-    cy.wait('@login').then((response) => {
+    cy.wait('@login').then(response => {
       expect(response.status).to.eql(200)
       expect(response.response.body).to.have.property('roles')
       expect(response.response.body.roles).to.eql(['ROLE_ADMIN'])
     })
   })
-
-  // it('Verify that user roles are recognized correctly – regular user', () => {
-  //   cy.server()
-  //   cy.route('GET', '/login').as('login')
-
-  //   cy.get('[data-cy=username]').type('grazyna')
-  //   cy.get('[data-cy=password]').type('grazyna123')
-  //   cy.get('[data-cy=submit]').click()
-
-  //   cy.wait('@login').then((response) => {
-  //     expect(response.status).to.eql(200)
-  //     expect(response.response.body).to.have.property('roles')
-  //     expect(response.response.body.roles).to.eql(['ROLE_RECEPCJA'])
-  //   })
-  // })
 })

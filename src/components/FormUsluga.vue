@@ -25,8 +25,8 @@
 
     <v-radio-group data-cy="lista-uslug" v-model="radioGroup">
       <v-radio
-        v-for="(usluga, i) in filteredUslugi"
-        :key="i"
+        v-for="usluga in filteredUslugi"
+        :key="usluga.nazwa"
         :label="`${usluga.nazwa} Cena:${usluga.cenaZwykla}`"
         :value="usluga"
         @click.native="wybierzUsluge(usluga)"

@@ -510,13 +510,6 @@ export default {
   font-size: 16px;
 }
 
-.date-input {
-  .v-input__slot {
-    input {
-      padding-left: 0px !important;
-    }
-  }
-}
 .wizyta {
   &__header {
     font-size: 18px;

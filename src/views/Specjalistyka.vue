@@ -43,7 +43,6 @@
 
         <v-stepper-content step="2">
           <FormUsluga type="specjalistyka" title="Specjalistyka" />
-
           <div class="btns">
             <my-button
               text
@@ -58,6 +57,7 @@
               color="#20CE99"
               data-cy="next-button-step1"
               @click.native="e1 = 3"
+              :disabled="!wizyta.usluga.nazwa"
               >Dalej</my-button
             >
           </div>

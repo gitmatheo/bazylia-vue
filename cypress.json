@@ -1,6 +1,6 @@
 {
   "pluginsFile": "cypress/e2e/plugins/index.js",
-  "baseUrl": "http://localhost:8080",
+  "baseUrl": "http://localhost:8081",
   "watchForFileChanges": true,
   "viewportWidth": 1080,
   "viewportHeight": 720,

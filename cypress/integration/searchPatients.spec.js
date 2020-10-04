@@ -1,31 +1,35 @@
 describe('Search patients test', () => {
-  before(function () {
+  before(function() {
     cy.clearLocalStorageCache()
-    cy.visit('http://localhost:8080')
+    cy.visit('http://localhost:8081')
     cy.login('admin', 'admin123')
   })
 
   beforeEach(() => {
     cy.restoreLocalStorageCache()
+    Cypress.Cookies.defaults({
+      whitelist: () => {
+        return true
+      }
+    })
   })
 
   afterEach(() => {
     cy.saveLocalStorageCache()
   })
 
-  it('Show patients list after clicking on the "show patients" button', () => {
+  it('Show list of patients after login', () => {
     cy.server()
-    cy.fixture('patients.json').as('patients')
+    // cy.fixture('patients.json').as('patients')
     cy.route({
       url: '/pacjenci*',
       method: 'GET',
-      status: 200,
-      response: '@patients',
+      status: 200
     }).as('pacjenci')
 
-    cy.get('[data-cy=get-patients-button]').click()
+    // cy.get('[data-cy=get-patients-button]').click()
 
-    cy.wait('@pacjenci').then((response) => {
+    cy.wait('@pacjenci').then(response => {
       expect(response.status).to.eql(200)
     })
 
@@ -36,7 +40,7 @@ describe('Search patients test', () => {
   })
 
   it('Verify that pagination displays correct number', () => {
-    const paginationPagesLength = 3
+    const paginationPagesLength = 2
     const paginationArrowsLength = 2
     const paginationChildrenLength =
       paginationPagesLength + paginationArrowsLength
@@ -51,7 +55,7 @@ describe('Search patients test', () => {
     cy.contains('Lista pacjentów')
       .siblings('ul')
       .children('[data-cy=patient]')
-      .should('have.length', 4)
+      .should('have.length', 3)
 
     cy.get('[data-cy=surname]').clear()
 
@@ -62,7 +66,10 @@ describe('Search patients test', () => {
   })
 
   it('Medycyna Pracy - Flow', () => {
-    cy.get('[data-cy=patient]').first().next().click()
+    cy.get('[data-cy=patient]')
+      .first()
+      .next()
+      .click()
     cy.get('.v-expansion-panel__container--active').within(() => {
       cy.contains('Rejestruj wizyte').click()
     })
@@ -74,18 +81,9 @@ describe('Search patients test', () => {
     //TYP BADAN
     cy.url().should('contain', '/medycyna-pracy')
 
-    cy.server()
-    cy.route('/uslugi').as('uslugi')
-    cy.wait('@uslugi').then((response) => {
-      expect(response.status).to.eql(200)
-    })
-
     cy.contains('Wybierz typ badań')
 
-    cy.get('[data-cy=next-button-step1]').should('be.disabled')
-
     cy.get('.v-input--radio-group__input').within(() => {
-      //add assertion if radio button is checked
       cy.contains('Wstępne').click()
       cy.contains('Okresowe').click()
       cy.contains('Sanitarno-epidemiologiczne').click()
@@ -101,15 +99,12 @@ describe('Search patients test', () => {
     cy.contains('Wybierz firmę')
 
     cy.get('.v-input--radio-group__input').within(() => {
-      //add assertion if radio button is checked
       cy.contains('Użyj Firmy / ostatnio wybrana').click()
       cy.contains('Użyj firmy z bazy danych').click()
       cy.contains('Dodaj firmę').click()
       cy.contains('Użyj Firmy / ostatnio wybrana').click()
     })
 
-    //FIRMA - uzyj firmy z bazy danych todo
-    //FIRMA - dodaj firme todo
     cy.get('[data-cy=next-button-step2]').should('not.be.disabled')
     cy.get('[data-cy=next-button-step2]').click()
 
@@ -119,10 +114,6 @@ describe('Search patients test', () => {
 
     //dzisiejsza data
 
-    // datepicker TODO
-    // cy.get('[data-cy="date-picker"]').click()
-
-    // timepicker
     cy.get('[data-cy="time-picker"]').click()
     cy.get('.v-time-picker-clock__container').within(() => {
       cy.contains('3').click()
@@ -133,8 +124,8 @@ describe('Search patients test', () => {
 
     cy.get('[data-cy="time-picker"]')
       .invoke('val')
-      .then((text) => {
-        expect('15:15').to.equal(text)
+      .then(text => {
+        expect('03:15').to.equal(text)
       })
 
     cy.get('[data-cy=next-button-step3]').should('not.be.disabled')
@@ -146,8 +137,13 @@ describe('Search patients test', () => {
 
     cy.get('[data-cy=next-button-step4]').should('be.disabled')
     cy.get('[data-cy=lista-uslug]').within(() => {
-      cy.get('.v-radio').first().click()
-      cy.get('.v-radio').first().next().click()
+      cy.get('.v-radio')
+        .first()
+        .click()
+      cy.get('.v-radio')
+        .first()
+        .next()
+        .click()
     })
 
     cy.get('[data-cy=next-button-step4]').should('not.be.disabled')
@@ -160,11 +156,11 @@ describe('Search patients test', () => {
     cy.route({
       url: '/wizyty*',
       method: 'POST',
-      status: 200,
+      status: 200
     }).as('wizyty')
 
     cy.get('[data-cy=next-button-step5]').click()
-    cy.wait('@wizyty').then((response) => {
+    cy.wait('@wizyty').then(response => {
       expect(response.status).to.eql(201)
     })
 
