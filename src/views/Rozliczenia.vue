@@ -12,11 +12,18 @@
             <template v-slot:header>
               <ul class="patient__header">
                 <li>{{ rozliczenie.firma.nazwa }}</li>
-                <li class="patient__details-element">Szczegóły</li>
+                <li
+                  class="patient__details-element"
+                  :class="
+                    rozliczenie.incomplete ? 'do-rozliczenia' : 'rozliczono'
+                  "
+                >
+                  {{ rozliczenie.incomplete ? 'Do rozliczenia' : 'Rozliczono' }}
+                </li>
               </ul>
             </template>
             <v-card>
-              <div v-if="rozliczenie.showButtons" class="btns-wrapper">
+              <div v-if="rozliczenie.incomplete" class="btns-wrapper">
                 <my-button @click.native="dialog = true" color="success">
                   Wystaw fakturę
                 </my-button>
@@ -238,19 +245,19 @@ export default {
         this.$store.commit('GET_ALL_ROZLICZENIA_FROM_DB', response.data)
         this.rozliczenia = this.$store.getters.getAllRozliczenia
         this.rozliczenia = this.rozliczenia.map(rozliczenie => {
-          let showButtons = false
+          let incomplete = false
           rozliczenie.miesiace.map(miesiac => {
             miesiac.pacjenci.map(pacjent => {
               pacjent.wizyty.map(wizyta => {
                 if (!wizyta.faktura) {
-                  showButtons = true
+                  incomplete = true
                 }
               })
             })
           })
           return {
             ...rozliczenie,
-            showButtons
+            incomplete
           }
         })
 
@@ -337,5 +344,13 @@ export default {
     display: flex;
     flex-direction: row-reverse;
   }
+}
+
+.do-rozliczenia {
+  color: #f44336;
+}
+
+.rozliczono {
+  color: #20ce99;
 }
 </style>
