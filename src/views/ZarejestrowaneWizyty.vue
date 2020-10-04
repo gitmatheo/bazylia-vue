@@ -317,7 +317,8 @@ export default {
     brakDanychMessage: null,
     currentPage: 1,
     pageSize: 10,
-    visibleVisits: []
+    visibleVisits: [],
+    lastRequest: null
   }),
   mounted: function() {
     this.getAllWizyty()
@@ -339,12 +340,26 @@ export default {
     },
 
     submitDecyzja(pacjentID, decyzja) {
-      apiService.submitDecyzja(pacjentID, decyzja)
+      apiService.submitDecyzja(pacjentID, decyzja).then(() => {
+        this.getCounter()
+
+        if (this.lastRequest === 'GET_ALL_WIZYTY') {
+          this.getAllWizyty()
+        } else {
+          this.getIncompleteVisits()
+        }
+      })
     },
 
     submitDataOrzeczenia(pacjentID, dataOrzeczenia) {
       apiService.submitDataOrzeczenia(pacjentID, dataOrzeczenia).then(() => {
         this.getCounter()
+
+        if (this.lastRequest === 'GET_ALL_WIZYTY') {
+          this.getAllWizyty()
+        } else {
+          this.getIncompleteVisits()
+        }
       })
     },
 
@@ -361,6 +376,7 @@ export default {
     getIncompleteVisits() {
       apiService.getIncompleteVisits().then(response => {
         this.saveVisits(response)
+        this.lastRequest = 'GET_INCOMPLETE'
       })
     },
 
@@ -396,6 +412,7 @@ export default {
     getAllWizyty() {
       apiService.getWizyty().then(response => {
         this.saveVisits(response)
+        this.lastRequest = 'GET_ALL_WIZYTY'
       })
     }
   },
