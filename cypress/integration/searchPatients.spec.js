@@ -125,7 +125,7 @@ describe('Search patients test', () => {
     cy.get('[data-cy="time-picker"]')
       .invoke('val')
       .then(text => {
-        expect('03:15').to.equal(text)
+        expect('15:15').to.equal(text)
       })
 
     cy.get('[data-cy=next-button-step3]').should('not.be.disabled')

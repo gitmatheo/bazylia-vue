@@ -105,7 +105,7 @@
             @click="getIncompleteVisits"
             class="orzeczenia"
           >
-            Niezakończone
+            Pacjenci do uzupełnienia
             <span class="counter-badge" :style="badgeStyles">
               {{ incompleteCounter }}</span
             >
@@ -419,18 +419,18 @@ export default {
     }
   },
   computed: {
-    brakOrzeczenia() {
-      let brakOrzeczeniaCounter = 0
-      this.wizyty.map(wizyta => {
-        if (wizyta.pacjent.dataOrzeczenia) {
-          brakOrzeczeniaCounter++
-        }
-      })
-      return brakOrzeczeniaCounter
-    },
+    // brakOrzeczenia() {
+    //   let brakOrzeczeniaCounter = 0
+    //   this.wizyty.map(wizyta => {
+    //     if (wizyta.pacjent.dataOrzeczenia) {
+    //       brakOrzeczeniaCounter++
+    //     }
+    //   })
+    //   return brakOrzeczeniaCounter
+    // },
     badgeStyles() {
       return {
-        background: this.brakOrzeczenia > 0 ? 'red' : 'green'
+        background: this.incompleteCounter > 0 ? 'red' : 'green'
       }
     },
     selectedWizyty() {
