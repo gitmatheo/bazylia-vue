@@ -5,7 +5,7 @@
       <div class="invoices">
         <ul>
           <li class="invoices__element--header">
-            <div>Number faktury</div>
+            <div>Numer faktury</div>
             <div>Nazwa firmy</div>
             <div>Data faktury</div>
             <div>Data usługi</div>
