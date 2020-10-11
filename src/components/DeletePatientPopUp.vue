@@ -56,14 +56,11 @@ export default {
   methods: {
     deletePatient(patient) {
       this.loaderDialog = true
-      apiService
-        .deletePatient(patient.pacjentId)
-        .then(() => {
-          this.loaderDialog = false
-          this.dialog = false
-          this.$store.commit('DELETE_PATIENT', patient.pacjentId)
-        })
-        .then(() => console.log('oopsie'))
+      apiService.deletePatient(patient.pacjentId).then(() => {
+        this.loaderDialog = false
+        this.dialog = false
+        this.$store.commit('DELETE_PATIENT', patient.pacjentId)
+      })
     }
   }
 }

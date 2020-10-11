@@ -14,8 +14,6 @@
     class="btn"
     ><slot></slot
   ></v-btn>
-
-  <!-- :height="height || '48px'" -->
 </template>
 
 <script>
@@ -45,10 +43,8 @@ export default {
   align-items: center;
   background-color: #20ce99;
   color: white;
-  /* height: 48px; */
   min-width: 150px;
   padding: 0 20px;
-  /* width: fit-content; */
 
   i {
     color: white !important;

@@ -126,20 +126,7 @@ export default {
   data: () => ({
     isFormValid: false,
     dialog2: false,
-    pacjent: {
-      imie: '',
-      nazwisko: '',
-      pesel: '',
-      numerKarty: '',
-      ulica: '',
-      miasto: '',
-      kodPocztowy: '',
-      numerTelefonu: '',
-      nip: '',
-      stanowisko: '',
-      nazwaPracodawcy: '',
-      dataOrzeczenia: null
-    },
+    pacjent: {},
     fromDateMenu: false,
     nameRules: [v => !!v || 'Imię jest wymagane'],
     secondNameRules: [v => !!v || 'Nazwisko jest wymagane'],
@@ -159,8 +146,6 @@ export default {
   computed: {
     fromDateDisp() {
       return this.fromDateVal
-      // format date, apply validations, etc. Example below.
-      // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     },
     nipFormatted() {
       return this.pacjent.nip.replace(/-/g, '')

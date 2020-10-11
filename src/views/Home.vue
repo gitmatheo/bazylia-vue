@@ -1,7 +1,5 @@
 <template>
   <v-container>
-    <!-- <SearchPatient :getPatients="getPatients" :name="name" :secondName="secondName" :pesel="pesel"></SearchPatient> -->
-
     <v-layout row justify-center>
       <v-flex xs12 class="search-form white">
         <h2>
@@ -37,17 +35,6 @@
                 label="PESEL"
               />
             </div>
-            <!-- <v-spacer></v-spacer> -->
-            <!-- <div class="form__input-wrapper flex xs12 md4 pl-2">
-              <my-button
-                color="success"
-                fontColor="white"
-                data-cy="get-patients-button"
-                @click.native="getPatients"
-              >
-                Pokaż wszystkich pacjentów
-              </my-button>
-            </div> -->
           </v-layout>
         </v-form>
       </v-flex>
