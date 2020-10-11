@@ -7,7 +7,7 @@
     </v-btn>
   </v-snackbar>
 </template>
-<script lang="ts">
+<script>
 import { mapMutations } from 'vuex'
 
 export default {

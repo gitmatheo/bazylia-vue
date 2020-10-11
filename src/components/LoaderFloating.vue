@@ -14,7 +14,7 @@
   </v-dialog>
 </template>
 
-<script lang="ts">
+<script>
 export default {
   data: () => ({
     loader: false

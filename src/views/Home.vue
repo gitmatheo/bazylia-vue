@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import ListOfPatients from '../components/ListOfPatients'
+import ListOfPatients from '@/components/ListOfPatients'
 import { mapMutations } from 'vuex'
 import apiService from '@/services/apiService.js'
 

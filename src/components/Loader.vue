@@ -3,8 +3,8 @@
     <pulse-loader class="loader__element"></pulse-loader>
   </div>
 </template>
-<script lang="ts">
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+<script>
+import PulseLoader from 'vue-spinner/src/PulseLoader'
 export default {
   components: {
     PulseLoader

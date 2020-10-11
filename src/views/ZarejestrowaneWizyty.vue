@@ -297,7 +297,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script>
 import apiService from '@/services/apiService.js'
 import { decyzje, decyzje2 } from '@/constants/constants'
 

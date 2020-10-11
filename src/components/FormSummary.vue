@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { typWizytyConst } from '../constants/constants'
+import { typWizytyConst } from '@/constants/constants'
 
 export default {
   props: ['typeOfSummary', 'title'],

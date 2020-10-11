@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import RegistrationPopUp from '../components/RegistrationPopUp'
-import DeletePatientPopUp from '../components/DeletePatientPopUp'
+import RegistrationPopUp from '@/components/RegistrationPopUp'
+import DeletePatientPopUp from '@/components/DeletePatientPopUp'
 export default {
   components: {
     RegistrationPopUp,

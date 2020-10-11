@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import RegistrationPopUp from '../components/RegistrationPopUp'
+import RegistrationPopUp from '@/components/RegistrationPopUp'
 export default {
   components: {
     RegistrationPopUp

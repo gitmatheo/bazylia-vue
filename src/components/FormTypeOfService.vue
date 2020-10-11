@@ -45,7 +45,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { rodzajBadanConst } from '../constants/constants'
+import { rodzajBadanConst } from '@/constants/constants'
 
 export default {
   data() {
