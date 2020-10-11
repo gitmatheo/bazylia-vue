@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { typWizytyConst } from '../constants/constants'
+import { typWizytyConst } from '@/constants/constants'
 import apiService from '@/services/apiService.js'
 
 export default {

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { typWizytyConst } from '../constants/constants'
+import { typWizytyConst } from '@/constants/constants'
 import { mapMutations } from 'vuex'
 
 export default {

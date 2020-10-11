@@ -40,7 +40,7 @@
 <script>
 import apiService from '@/services/apiService.js'
 import API from '@/constants/api'
-import SendMailPopup from '../components/SendMailPopup'
+import SendMailPopup from '@/components/SendMailPopup'
 import pdf from 'vue-pdf'
 
 export default {

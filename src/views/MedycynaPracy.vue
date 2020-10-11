@@ -156,13 +156,13 @@
 </template>
 
 <script>
-import FormTypeOfService from '../components/FormTypeOfService'
-import FormCompany from '../components/FormCompany'
-import FormDatePicker from '../components/FormDatePicker'
-import FormSummary from '../components/FormSummary'
-import FormUsluga from '../components/FormUsluga'
-import { typWizytyConst } from '../constants/constants'
-import apiService from '@/services/apiService.js'
+import FormTypeOfService from '@/components/FormTypeOfService'
+import FormCompany from '@/components/FormCompany'
+import FormDatePicker from '@/components/FormDatePicker'
+import FormSummary from '@/components/FormSummary'
+import FormUsluga from '@/components/FormUsluga'
+import { typWizytyConst } from '@/constants/constants'
+import apiService from '@/services/apiService'
 
 export default {
   components: {

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import DialogBox from '../components/DialogBox'
+import DialogBox from '@/components/DialogBox'
 export default {
   components: {
     DialogBox

@@ -93,11 +93,11 @@
   <!-- </div> -->
 </template>
 
-<script lang="typescript">
-import FormDatePicker from '../components/FormDatePicker'
-import FormUsluga from '../components/FormUsluga'
-import FormSummary from '../components/FormSummary'
-import { typWizytyConst } from '../constants/constants'
+<script>
+import FormDatePicker from '@/components/FormDatePicker'
+import FormSummary from '@/components/FormSummary'
+import FormUsluga from '@/components/FormUsluga'
+import { typWizytyConst } from '@/constants/constants'
 import apiService from '@/services/apiService.js'
 
 export default {
@@ -131,8 +131,7 @@ export default {
       }
     },
     zarejestrujWizyte(wizyta) {
-      apiService
-        .registerVisit(wizyta)
+      apiService.registerVisit(wizyta)
     }
   },
 

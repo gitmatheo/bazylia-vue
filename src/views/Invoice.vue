@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import FakturaComponent from '../components/FakturaComponent'
+import FakturaComponent from '@/components/FakturaComponent'
 
 export default {
   components: {
