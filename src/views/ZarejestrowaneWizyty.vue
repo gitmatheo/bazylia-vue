@@ -400,8 +400,6 @@ export default {
       })
     },
     saveVisits(response) {
-      console.log('Elooo')
-      console.log(response.data.length)
       if (response.data.length) {
         this.$store.commit('GET_ALL_WIZYTY_FROM_DB', response.data)
         this.wizyty = this.$store.getters.getAllWizyty
@@ -419,15 +417,6 @@ export default {
     }
   },
   computed: {
-    // brakOrzeczenia() {
-    //   let brakOrzeczeniaCounter = 0
-    //   this.wizyty.map(wizyta => {
-    //     if (wizyta.pacjent.dataOrzeczenia) {
-    //       brakOrzeczeniaCounter++
-    //     }
-    //   })
-    //   return brakOrzeczeniaCounter
-    // },
     badgeStyles() {
       return {
         background: this.incompleteCounter > 0 ? 'red' : 'green'
@@ -464,10 +453,6 @@ export default {
 .szukajka {
   display: flex;
   padding: 0px 0px 50px;
-  /* .date-input {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 50px;
-  } */
 }
 
 .sort-btn {

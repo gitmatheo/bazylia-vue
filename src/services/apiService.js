@@ -122,7 +122,10 @@ export default {
     return axios.post(`${API.url}/faktury/${invoiceId}/send-email`, payload)
   },
   getSpecyfikacjaPdf(invoiceId) {
-    this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/specyfikacja/export`)
+    this.getPdf(
+      invoiceId,
+      `${API.url}/faktury/${invoiceId}/specyfikacja/export`
+    )
   },
   getFakturaPdf(invoiceId) {
     this.getPdf(invoiceId, `${API.url}/faktury/${invoiceId}/export`)

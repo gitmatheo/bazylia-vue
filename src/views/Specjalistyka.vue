@@ -1,7 +1,5 @@
 <template>
-  <!-- <div class="container"> -->
   <v-container>
-    <!-- alt-labels -->
     <v-stepper v-model="e1">
       <v-stepper-header>
         <v-stepper-step :complete="e1 > 1" step="1" :editable="editable"

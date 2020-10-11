@@ -69,19 +69,7 @@
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
         </v-menu>
-
-        <!-- <v-time-picker v-model="timePicker"></v-time-picker> -->
       </v-flex>
-      <!-- <div>
-        <p>
-          Wybrano datę:
-          <span>{{ date }}</span>
-        </p>
-        <p>
-          &nbsp; i godzinę:
-          <span>{{ time }}</span>
-        </p>
-      </div> -->
     </v-layout>
   </v-container>
 </template>
@@ -107,7 +95,6 @@ export default {
     this.wizyta = this.$store.getters.getWizyta
     let minutes =
       now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes()
-    // let minutes2 = now.getMinutes().padStart(2, 0);
     this.time = now.getHours() + ':' + minutes
   },
   updated: function() {

@@ -25,15 +25,7 @@ export default {
     return {
       currentStepNumber: 1,
       length: 4,
-      patientForReg: {
-        // id: null,
-        // company: "",
-        // name: "",
-        // secondName: "",
-        // pesel: "",
-        // serviceName: "",
-        // invoice: ""
-      }
+      patientForReg: {}
     };
   },
   computed: {

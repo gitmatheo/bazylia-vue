@@ -126,20 +126,7 @@ export default {
   data: () => ({
     isFormValid: false,
     dialog2: false,
-    pacjent: {
-      imie: '',
-      nazwisko: '',
-      pesel: '',
-      numerKarty: '',
-      ulica: '',
-      miasto: '',
-      kodPocztowy: '',
-      numerTelefonu: '',
-      nip: '',
-      stanowisko: '',
-      nazwaPracodawcy: '',
-      dataOrzeczenia: null
-    },
+    pacjent: {},
     fromDateMenu: false,
     nameRules: [v => !!v || 'Imię jest wymagane'],
     secondNameRules: [v => !!v || 'Nazwisko jest wymagane'],
@@ -159,8 +146,6 @@ export default {
   computed: {
     fromDateDisp() {
       return this.fromDateVal
-      // format date, apply validations, etc. Example below.
-      // return this.fromDateVal ? this.formatDate(this.fromDateVal) : "";
     },
     nipFormatted() {
       return this.pacjent.nip.replace(/-/g, '')
@@ -172,9 +157,6 @@ export default {
     submitPatient(patient) {
       apiService.submitPatient(patient).then(res => {
         const pacjentId = res.data.pacjentId
-        // const pacjentId = res.headers.location.match(
-        //   /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
-        // )[0]
         patient.pacjentId = pacjentId
         this.$store.commit('UPDATE_PATIENT_FOR_REGISTRATION', patient)
         this.dialog2 = true
