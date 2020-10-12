@@ -1,12 +1,5 @@
 <template>
   <v-app>
-    <!-- <v-layout row mt-5>
-      <v-flex xs12 justify-center>
-        <div class="text-xs-center">
-          <v-btn color="success" @click="printInvoice('section-to-print')">Drukuj Fakturę</v-btn>
-        </div>
-      </v-flex>
-    </v-layout>-->
     <v-container id="section-to-print" class="white container" my-5>
       <v-layout row>
         <v-flex xs7>
@@ -165,8 +158,8 @@
 
 <script>
 import apiService from '@/services/apiService.js'
-import slownie from '../utils/slownie.js'
-import SendMailPopup from '../components/SendMailPopup'
+import slownie from '@/utils/slownie.js'
+import SendMailPopup from '@/components/SendMailPopup'
 
 export default {
   components: {
@@ -230,13 +223,6 @@ export default {
     })
   },
   methods: {
-    // printInvoice(divName) {
-    //   const printContents = document.getElementById(divName).innerHTML;
-    //   const originalContents = document.body.innerHTML;
-    //   document.body.innerHTML = printContents;
-    //   window.print();
-    //   document.body.innerHTML = originalContents;
-    // }
     openSpecification(fakturaId) {
       this.$router.push({ path: `/specyfikacja/${fakturaId}` })
     },
