@@ -257,7 +257,7 @@
                     @change="
                       submitDecyzja(
                         wizyta.pacjent.pacjentId,
-                        wizyta.pacjent.decyzja.label
+                        wizyta.pacjent.decyzja.value
                       )
                     "
                   ></v-select>
