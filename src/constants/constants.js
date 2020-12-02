@@ -16,53 +16,36 @@ export const decyzje = [
   {
     text:
       'DECYZJA21 - wobec braku przeciwwskazań zdrowotnych zdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
-    label: 'DECYZJA21'
+    value: 'DECYZJA21'
   },
   {
     text:
       'DECYZJA22 - wobec przeciwwskazań zdrowotnych niezdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
-    label: 'DECYZJA22'
+    value: 'DECYZJA22'
   },
   {
     text:
       'DECYZJA23 - wobec przeciwwskazań zdrowotnych utracił zdolność do wykonywania dotychczasowej pracy',
-    label: 'DECYZJA23'
+    value: 'DECYZJA23'
   },
   {
     text:
       'DECYZJA31 - niezdolny do wykonywania dotychczasowej pracy ze względu na szkodliwy wpływ wykonywanej pracy na zdrowie',
-    label: 'DECYZJA31'
+    value: 'DECYZJA31'
   },
   {
     text:
       'DECYZJA33 - niezdolny do wykonywania dotychczasowej pracy ze względu na zagrożenie zdrowia młodocianego',
-    label: 'DECYZJA33'
+    value: 'DECYZJA33'
   },
   {
     text:
       'DECYZJA34 - niezdolny do wykonywania dotychczasowej pracy ze względu na podejrzenie powstania choroby zawodowej',
-    label: 'DECYZJA34'
+    value: 'DECYZJA34'
   },
   {
     text:
       'DECYZJA35 - niezdolny do wykonywania dotychczasowej pracy ze względu na chorobę zawodową lub skutki wypadku przy pracy',
-    label: 'DECYZJA35'
+    value: 'DECYZJA35'
   }
 ]
-
-export const decyzje2 = {
-  DECYZJA21:
-    'DECYZJA21 - wobec braku przeciwwskazań zdrowotnych zdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
-  DECYZJA22:
-    'DECYZJA22 - wobec przeciwwskazań zdrowotnych niezdolny do wykonywania pracy na wskazanym (dotychczasowym) stanowisku pracy',
-  DECYZJA23:
-    'DECYZJA23 - wobec przeciwwskazań zdrowotnych utracił zdolność do wykonywania dotychczasowej pracy',
-  DECYZJA31:
-    'DECYZJA31 - niezdolny do wykonywania dotychczasowej pracy ze względu na szkodliwy wpływ wykonywanej pracy na zdrowie',
-  DECYZJA33:
-    'DECYZJA33 - niezdolny do wykonywania dotychczasowej pracy ze względu na zagrożenie zdrowia młodocianego',
-  DECYZJA34:
-    'DECYZJA34 - niezdolny do wykonywania dotychczasowej pracy ze względu na podejrzenie powstania choroby zawodowej',
-  DECYZJA35:
-    'DECYZJA35 - niezdolny do wykonywania dotychczasowej pracy ze względu na chorobę zawodową lub skutki wypadku przy pracy'
-}

@@ -247,7 +247,6 @@
                 </div>
                 <div v-if="wizyta.typWizyty == 'MEDYCYNA_PRACY'">
                   <span class="decyzja">Decyzja:</span>
-                  {{ mapDecyzjaLabelToText(wizyta.pacjent.decyzja) }}
                   <v-select
                     v-model="wizyta.pacjent.decyzja"
                     :items="decyzje"
@@ -299,7 +298,7 @@
 
 <script>
 import apiService from '@/services/apiService.js'
-import { decyzje, decyzje2 } from '@/constants/constants'
+import { decyzje } from '@/constants/constants'
 
 export default {
   data: () => ({
@@ -369,10 +368,6 @@ export default {
       apiService.getCounter().then(response => {
         this.incompleteCounter = response.data.counter
       })
-    },
-
-    mapDecyzjaLabelToText(decyzjaLabel) {
-      return decyzje2[decyzjaLabel]
     },
 
     getIncompleteVisits() {
