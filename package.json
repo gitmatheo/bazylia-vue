@@ -14,7 +14,7 @@
     "storybook": "start-storybook"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "core-js": "^2.6.5",
     "cypress-cucumber-preprocessor": "^2.2.0",
     "fibers": "^5.0.0",
